@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - NavMeshFloor
+  - FloorTiles
+  - WallTiles
+  - CollideableTiles
+  - BulletEnemy
+  - Enemy
+  - BulletPlayer
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Enemy
+  - PlayerBullet
+  - EnemyBullet
+  - Explosive
+  - Wall
+  - Floor
+  - Obstacle
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1457096051
+    locked: 0
+  - name: Foreground
+    uniqueID: 302136019
+    locked: 0

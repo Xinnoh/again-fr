@@ -94,7 +94,10 @@ namespace Edgar.Unity.Examples.Gungeon
 
         public void OnRoomLeave(GameObject player)
         {
-            GungeonGameManager.Instance.OnRoomLeave(roomInstance);
+            if(GungeonGameManager.Instance != null && roomInstance != null && player != null)
+            {
+                GungeonGameManager.Instance.OnRoomLeave(roomInstance);
+            }
         }
 
         #endregion

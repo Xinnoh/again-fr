@@ -18,12 +18,14 @@ MonoBehaviour:
   ID: 0
   cost: 6
   damage: 5
-  hitboxSpeed: 0
+  hitboxSpeed: 2
   duration: 1
   slot: 2
   exhaust: 0
   hitbox: {fileID: 6776449329136425971, guid: 8d0eafbb3f0bc7742adac0ea7a3efbf3, type: 3}
-  recoverTime: 1.2
+  recoverTime: 0.8
+  speedMultiplier: 0
   spawnDelay: 1
   distanceOffset: 1
-  speedMultiplier: 0
+  momentum: 0
+  momentumDelay: 0

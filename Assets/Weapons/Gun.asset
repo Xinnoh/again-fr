@@ -19,11 +19,13 @@ MonoBehaviour:
   cost: 4
   damage: 2
   hitboxSpeed: 10
-  duration: 0.5
+  duration: 1
   slot: 3
   exhaust: 1
   hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
   recoverTime: 1
+  speedMultiplier: 1
   spawnDelay: 0
   distanceOffset: 0
-  speedMultiplier: 1
+  momentum: 0
+  momentumDelay: 0

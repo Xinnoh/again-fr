@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 0}
   damage: 2
+  duration: 0
   boxOffset: {x: 0, y: -0.31}
   boxSize: {x: 1, y: 1.73}
   boxColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

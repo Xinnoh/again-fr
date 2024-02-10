@@ -25,6 +25,7 @@ public class WeaponManager : MonoBehaviour
     public float reloadRate = 1f;
     public float reloadCooldown = 2f;
 
+    private PlayerMovement playerMovement;
     private Target aimscript;
 
     private float timeSinceFire = 0f;
@@ -40,6 +41,7 @@ public class WeaponManager : MonoBehaviour
         currentEnergy = 0;
         UpdateUI(); // Initialize UI
         aimscript = GetComponent<Target>();
+        playerMovement = GetComponent<PlayerMovement>();
         ResetWeaponExhaustion();
     }
 
@@ -67,7 +69,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    // Attack
+    // Confirmed Fire
     private void FireProcess(Weapon weaponToFire, Weapon[] curWeapons)
     {
         canShoot = false;
@@ -95,10 +97,19 @@ public class WeaponManager : MonoBehaviour
             hitboxBehaviour.SetDuration(weaponToFire.duration);
         }
 
+        // Apply movement reduction if needed
+        if (playerMovement != null)
+        {
+            playerMovement.SetSpeedMultiplier(weaponToFire.speedMultiplier, weaponToFire.recoverTime);
+        }
+
+
         timeSinceFire = 0;
         weaponToFire.exhaust = true;
         RotateWeapons(curWeapons); // Assuming RotateWeapons is a method that modifies the order or state of weapons
     }
+
+
 
 
     private void UpdateCanShoot()

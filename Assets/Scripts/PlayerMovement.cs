@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float dashRecoveryTime = 2f; // Time to recover a dash
     public ParticleSystem dashParticles;
 
+    private float speedMultiplier = 1f;
+    private PlayerAnimate playerAnimate;
+
     private Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector2 dashDirection;
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerAnimate = GetComponent<PlayerAnimate>();
         currentDashes = maxDashes; // Initialize with the maximum number of dashes
     }
 
@@ -80,10 +84,32 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!isPreDashing) // Allow movement if not in pre-dash
         {
-            rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + moveDirection * moveSpeed * speedMultiplier * Time.fixedDeltaTime);
         }
 
     }
+
+    public void SetSpeedMultiplier(float multiplier, float duration)
+    {
+        speedMultiplier = multiplier;
+        playerAnimate.SetAttacking(true);
+        StartCoroutine(ResetSpeedMultiplierAfterDelay(duration));
+    }
+
+    IEnumerator ResetSpeedMultiplierAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        speedMultiplier = 1f;
+        playerAnimate.SetAttacking(false);
+    }
+
+
+
+    public void ResetSpeedMultiplier()
+    {
+        speedMultiplier = 1f;
+    }
+
 
     IEnumerator PreDash()
     {

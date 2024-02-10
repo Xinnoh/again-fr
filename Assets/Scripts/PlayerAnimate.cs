@@ -42,6 +42,10 @@ public class PlayerAnimate : MonoBehaviour
         {
             animator.SetBool("Enemy", false);
         }
+    }
 
+    public void SetAttacking(bool attackState)
+    {
+        animator.SetBool("Attacking", attackState);
     }
 }

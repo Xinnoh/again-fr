@@ -154,8 +154,8 @@ GameObject:
   - component: {fileID: 3949646845907018809}
   - component: {fileID: 9148156652602214409}
   - component: {fileID: 3417626574395809695}
-  - component: {fileID: 2057627235193527061}
   - component: {fileID: 1660176278771346255}
+  - component: {fileID: 2057627235193527061}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -422,19 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc95efb307eae84392275b6e187569c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2057627235193527061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1190477624590814612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba9a13890847584d9574b0e0f965a2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customName: 
 --- !u!114 &1660176278771346255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,8 +434,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ee41807fcaccb4ea8f0385e55ef16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 361465572312606043}
-  Hiteffect: {fileID: 0}
+  hitbox: {fileID: 7434896396675856412}
+  Hiteffect: {fileID: 8910139917597305678}
+--- !u!114 &2057627235193527061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190477624590814612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a13890847584d9574b0e0f965a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customName: Combat
 --- !u!1 &2310421709894804177
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 513744619170747990}
   - component: {fileID: 7483438828717416368}
-  - component: {fileID: 361465572312606043}
+  - component: {fileID: 7434896396675856412}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -776,8 +776,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &361465572312606043
-CircleCollider2D:
+--- !u!61 &7434896396675856412
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -809,8 +809,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6574934450677399108
 GameObject:
   m_ObjectHideFlags: 0

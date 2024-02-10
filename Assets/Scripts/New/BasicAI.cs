@@ -187,6 +187,6 @@ public class BasicAI : MonoBehaviour
 
         // Patrol area representation
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(patrolAreaCenter, patrolRadius);
+        // Gizmos.DrawWireSphere(patrolAreaCenter, patrolRadius);
     }
 }

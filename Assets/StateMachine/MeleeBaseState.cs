@@ -47,7 +47,7 @@ public class MeleeBaseState : State
 
         if (Input.GetMouseButtonDown(0))
         {
-            AttackPressedTimer = 2;
+            AttackPressedTimer = .3f;
         }
 
         if (animator.GetFloat("AttackWindow.Open") > 0f && AttackPressedTimer > 0)

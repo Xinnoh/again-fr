@@ -17,16 +17,24 @@ public class PlayerAnimate : MonoBehaviour
 
     void Update()
     {
+        UpdateMovement();
+        UpdateAimDirection();
+    }
+
+    private void UpdateMovement()
+    {
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
         lastMovementDirection = playerMovement.GetLastMovementDirection();
 
         animator.SetFloat("Horizontal", lastMovementDirection.x);
         animator.SetFloat("Vertical", lastMovementDirection.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
+    }
 
-        // If there is an enemy, animate aiming at the enemy
+    private void UpdateAimDirection()
+    {
         if (aimScript.GetAimAngle() != -1)
         {
             animator.SetBool("Enemy", true);
@@ -40,6 +48,7 @@ public class PlayerAnimate : MonoBehaviour
             animator.SetBool("Enemy", false);
         }
     }
+
 
     public void SetAttacking(bool attackState)
     {

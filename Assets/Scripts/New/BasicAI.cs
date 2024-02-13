@@ -32,6 +32,9 @@ public class BasicAI : MonoBehaviour
     public Vector2 spawnPos;
     public Vector2 currentPos;
 
+    // haven't bothered to clean up this code yet since I might not use it
+
+
     void Start()
     {
 

@@ -21,11 +21,12 @@ public class Weapon : ScriptableObject
     [Tooltip("Tells us what weapon it is")]
     public int ID; // You might choose to hide this if it's set programmatically
 
-
-
-    [Header("Inventory Settings")]
     [Tooltip("The inventory slot this weapon occupies.")]
     public InventorySlot inventorySlot;
+
+    [Tooltip("Where should this weapon spawn?")]
+    public int rarity;
+
 
     [Header("Combat Stats")]
     [Tooltip("Cost to fire the weapon.")]
@@ -36,6 +37,11 @@ public class Weapon : ScriptableObject
 
     [Tooltip("Whether the weapon has been used in this combo.")]
     public bool exhaust;
+
+    [Tooltip("How long this stuns an enemy.")]
+    public float hitStun;
+
+
 
 
     [Header("Ranged Weapons")]

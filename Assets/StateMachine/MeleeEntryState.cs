@@ -6,12 +6,16 @@ public class MeleeEntryState : State
     // Called when the player hits attack, this picks which attack to use
     private WeaponManager weaponManager;
     private Weapon curWeapon;
+    protected Animator animator;
 
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        animator = player.GetComponent<Animator>();
+
+        #region // Bug checks
         if (player == null)
         {
             Debug.LogError("Player object not found with tag 'Player'.");
@@ -51,7 +55,15 @@ public class MeleeEntryState : State
             return;
         }
 
-        // If no errors, proceed with state transition
+        if (animator == null)
+        {
+            Debug.LogError($"Animator is missing from MeleeEntry.");
+            return;
+        }
+
+        #endregion
+
+
         State nextState = (State)Activator.CreateInstance(stateType);
         _stateMachine.SetNextState(nextState);
     }

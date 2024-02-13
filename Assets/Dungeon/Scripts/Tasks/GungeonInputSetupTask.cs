@@ -12,12 +12,14 @@ namespace Edgar.Unity.Examples.Gungeon
 
         public bool UseRandomLevelGraph;
 
-        [Range(1, 2)]
+        [Range(1, 3)]
         public int Stage = 1;
 
         public LevelGraph[] Stage1LevelGraphs;
 
         public LevelGraph[] Stage2LevelGraphs;
+
+        public LevelGraph[] Stage3LevelGraphs;
 
         public GungeonRoomTemplatesConfig RoomTemplates;
 

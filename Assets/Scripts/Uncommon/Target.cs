@@ -4,6 +4,7 @@ public class Target : MonoBehaviour
 {
     private PlayerMovement playerMovement;
 
+    // a bunch of public methods to call for the player
 
     private void Start()
     {

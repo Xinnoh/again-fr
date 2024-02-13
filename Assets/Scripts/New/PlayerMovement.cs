@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variables
     public float moveSpeed = 5f;
     public float dashSpeed = 20f;
     public float maxDashTime = 0.8f;
@@ -30,43 +32,66 @@ public class PlayerMovement : MonoBehaviour
     private float lastDashTime; // Last time the player dashed
     private int currentDashes; // Current number of available dashes
 
+    #endregion
+
+    public TMP_Text dashText; // Reference to the TMP text element
+
+
+    /*
+     * This controls movement
+     * The player can press space to dash, this is on a charge and has a cooldown
+     * A predash happens when the player presses dash. It stops the playermovement for a brief second before executing the dash.
+     */
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerAnimate = GetComponent<PlayerAnimate>();
-        currentDashes = maxDashes; // Initialize with the maximum number of dashes
+        currentDashes = maxDashes;
     }
 
     void Update()
+    {
+        UpdateMoveDirection();
+        UpdateDash();
+        UpdateDashUI();
+    }
+
+    void FixedUpdate()
+    {
+        UpdateMovement();
+    }
+
+    private void UpdateMoveDirection()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
 
-
         if (moveDirection.sqrMagnitude > 0)
         {
             lastMovementDirection = moveDirection;
         }
+    }
 
-        // Dash recovery mechanism
-        if (!isDashing && Time.time - lastDashTime > dashRecoveryTime && currentDashes < maxDashes)
-        {
-            currentDashes++;
-            lastDashTime = Time.time; // Reset the timer upon recovering a dash
-        }
+    private void UpdateDash()
+    {
+        RechargeDashes();
 
+        // If isn't charging a dash, or isn't moving
         if (!isPreDashing || moveDirection != Vector2.zero)
         {
-            if (moveDirection == Vector2.zero && isDashing)
+            if (isDashing && moveDirection == Vector2.zero)
             {
-                StopDash(); // Stop the dash if currently dashing and no input is detected
-                return; // Exit early to prevent starting a new dash without input
+                StopDash();
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && !isDashing && !isPreDashing && currentDashes > 0)
             {
                 StartCoroutine(PreDash());
+                return;
             }
 
             if (isDashing && (Input.GetKeyUp(KeyCode.Space) || currentDashTime >= maxDashTime))
@@ -76,7 +101,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void RechargeDashes()
+    {
+        float timeSinceLastDash = Time.time - lastDashTime;
+        if (timeSinceLastDash <= dashRecoveryTime || isDashing || currentDashes >= maxDashes)
+        {
+            return;
+        }
+
+        currentDashes++;
+        lastDashTime = Time.time;
+    }
+
+    private void UpdateMovement()
     {
         if (isDashing)
         {
@@ -90,12 +127,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopDash();
             }
+
+            return;
         }
-        else if (!isPreDashing) // Allow movement if not in pre-dash
+
+        if (!isPreDashing)
         {
             rb.MovePosition(rb.position + moveDirection * moveSpeed * speedMultiplier * Time.fixedDeltaTime);
         }
-
     }
 
     public void SetSpeedMultiplier(float multiplier, float duration)
@@ -112,21 +151,13 @@ public class PlayerMovement : MonoBehaviour
         playerAnimate.SetAttacking(false);
     }
 
-
-
-    public void ResetSpeedMultiplier()
-    {
-        speedMultiplier = 1f;
-    }
-
-
     IEnumerator PreDash()
     {
         isPreDashing = true;
-        rb.velocity = Vector2.zero; // Ensure velocity is zero and remains so during the delay
-        yield return new WaitForSeconds(preDashDelay); // Wait for the specified delay
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(preDashDelay);
 
-        if (moveDirection != Vector2.zero) // Start dash only if there's movement input after delay
+        if (moveDirection != Vector2.zero)
         {
             StartDash();
         }
@@ -135,17 +166,17 @@ public class PlayerMovement : MonoBehaviour
             // If there's no input after delay, ensure the player doesn't dash
             rb.velocity = Vector2.zero;
         }
-        isPreDashing = false; // End pre-dash phase
+        isPreDashing = false;
     }
 
     private void StartDash()
     {
         isDashing = true;
         currentDashTime = 0f;
-        dashDirectionHoldTime = 0f;
-        dashDirection = moveDirection; // Use current move direction for dash
-        currentDashes--; // Decrement the dash counter
-        lastDashTime = Time.time; // Update the last dash time
+        dashDirectionHoldTime = 0f; // ???
+        dashDirection = moveDirection; 
+        currentDashes--; // how many times we can dash
+        lastDashTime = Time.time; 
         dashParticles.Emit(30);
     }
 
@@ -164,8 +195,26 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Vector2 GetLastMovementDirection()
-    {
+    {// The last direction we travelled before stopping
         return lastMovementDirection;
     }
 
+    public void ResetSpeedMultiplier()
+    {
+        speedMultiplier = 1f;
+    }
+
+    public void SetSpeedModifier(float speed)
+    {
+        speedMultiplier = speed;
+    }
+
+
+    private void UpdateDashUI()
+    {
+        if (dashText != null)
+        {
+            dashText.text = $"Dashes: {currentDashes} / {maxDashes}";
+        }
+    }
 }

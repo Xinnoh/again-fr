@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gungeon Input Setup
   m_EditorClassIdentifier: 
   LevelGraph: {fileID: 11400000, guid: a5d3ee665c220be41b956095206498fb, type: 2}
-  UseRandomLevelGraph: 1
+  UseRandomLevelGraph: 0
   Stage: 1
   Stage1LevelGraphs:
   - {fileID: 11400000, guid: 22bbd706dc04a964186d0701547c9821, type: 2}
@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ef968e3d473ffa46b60d650fe903a5e, type: 2}
   - {fileID: 11400000, guid: 1a284592d0302134bb72a0b9e9a471ef, type: 2}
   - {fileID: 11400000, guid: a263eda61776eaa40a1b82ff7f96265b, type: 2}
+  Stage3LevelGraphs: []
   RoomTemplates:
     BasicRoomTemplates:
     - {fileID: 3390800798792341029, guid: e013e59a75851d74cb290f1e6c73e7ea, type: 3}

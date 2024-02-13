@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1417975127852518334}
   - component: {fileID: 59354020661551816}
   - component: {fileID: 2899598458561150934}
+  - component: {fileID: 6721476363670527130}
   m_Layer: 6
   m_Name: BasicEnemy
   m_TagString: Enemy
@@ -189,7 +190,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -327,6 +328,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _teamIndex: 2
+--- !u!114 &6721476363670527130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272947890764447594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba9a13890847584d9574b0e0f965a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customName: Ci
 --- !u!1 &3998927303277008744
 GameObject:
   m_ObjectHideFlags: 0

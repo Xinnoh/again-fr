@@ -21,52 +21,31 @@ public class Inventory : MonoBehaviour
         KeyboardInput();
     }
 
-
     private void AddRandomWeapon(InventorySlot slotType)
     {
-        Weapon[] sourceArray = null;
-
-        switch (slotType)
+        Weapon randomWeapon = WeaponList.GetRandomWeapon(slotType);
+        if (randomWeapon != null)
         {
-            case InventorySlot.Light:
-                sourceArray = weaponListPrefab.lightList;
-                break;
-            case InventorySlot.Heavy:
-                sourceArray = weaponListPrefab.heavyList;
-                break;
-            case InventorySlot.Ranged:
-                sourceArray = weaponListPrefab.rangedList;
-                break;
-        }
-
-        if (sourceArray != null && sourceArray.Length > 0)
-        {
-            int randomIndex = Random.Range(0, sourceArray.Length);
-            // Instantiate a new Weapon ScriptableObject instance
-            Weapon randomWeaponInstance = Instantiate(sourceArray[randomIndex]);
-
-            // Add the newly instantiated weapon to the targetArray
             switch (slotType)
             {
                 case InventorySlot.Light:
-                    weapons1 = AddWeaponToArray(weapons1, randomWeaponInstance);
-                    heldWeaponLight = randomWeaponInstance; 
+                    weapons1 = AddWeaponToArray(weapons1, randomWeapon);
+                    heldWeaponLight = randomWeapon;
                     break;
                 case InventorySlot.Heavy:
-                    weapons2 = AddWeaponToArray(weapons2, randomWeaponInstance);
-                    heldWeaponHeavy = randomWeaponInstance; 
+                    weapons2 = AddWeaponToArray(weapons2, randomWeapon);
+                    heldWeaponLight = randomWeapon;
                     break;
                 case InventorySlot.Ranged:
-                    weapons3 = AddWeaponToArray(weapons3, randomWeaponInstance);
-                    heldWeaponRanged = randomWeaponInstance;
+                    weapons3 = AddWeaponToArray(weapons3, randomWeapon);
+                    heldWeaponLight = randomWeapon;
                     break;
             }
-
-            Debug.Log($"Instantiated {randomWeaponInstance.name} to accessible {slotType} weapons.");
+            Debug.Log($"Added {randomWeapon.name} to inventory.");
         }
         else
         {
-            Debug.LogWarning($"The weapon list for {slotType} is empty.");
+            Debug.LogWarning("Failed to add random weapon: No weapon found.");
         }
     }
 
@@ -83,7 +62,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    // After firing, get a new weapon
+    // Cycles player inventory to next weapon
     public void RotateWeapons(Weapon[] weapons)
     {
         if (weapons.Length > 1)

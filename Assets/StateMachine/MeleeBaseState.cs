@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Used as the base script for all weapons.
 
 public class MeleeBaseState : State
 {
@@ -13,7 +14,8 @@ public class MeleeBaseState : State
     // The attack index in the sequence of attacks
     protected int attackIndex;
 
-
+    // What the next attack should be
+    protected string nextAttack;
 
     // The cached hit collider component of this attack
     protected Collider2D hitCollider;
@@ -30,8 +32,8 @@ public class MeleeBaseState : State
         base.OnEnter(_stateMachine);
         animator = GetComponent<Animator>();
         collidersDamaged = new List<Collider2D>();
-        hitCollider = GetComponent<ComboCharacter>().hitbox;
-        HitEffectPrefab = GetComponent<ComboCharacter>().Hiteffect;
+        hitCollider = GetComponent<WeaponManager>().hitbox;
+        HitEffectPrefab = GetComponent<WeaponManager>().Hiteffect;
     }
 
     public override void OnUpdate()
@@ -67,6 +69,7 @@ public class MeleeBaseState : State
         ContactFilter2D filter = new ContactFilter2D();
         filter.useTriggers = true;
         int colliderCount = Physics2D.OverlapCollider(hitCollider, filter, collidersToDamage);
+
         for (int i = 0; i < colliderCount; i++)
         {
 
@@ -78,6 +81,15 @@ public class MeleeBaseState : State
                 if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
                 {
                     GameObject.Instantiate(HitEffectPrefab, collidersToDamage[i].transform);
+
+                    // Deal damage to enemy
+
+                    Health health = collidersToDamage[i].gameObject.GetComponent<Health>();
+                    if (health != null)
+                    {
+                        health.TakeDamage(1);
+                    }
+
                     Debug.Log("Enemy Has Taken:" + attackIndex + "Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }

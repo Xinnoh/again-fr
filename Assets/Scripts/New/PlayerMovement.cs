@@ -14,8 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public float dashRecoveryTime = 2f; // Time to recover a dash
     public ParticleSystem dashParticles;
 
+    private Vector2 lastMovementDirection = Vector2.zero;
+
     private float speedMultiplier = 1f;
     private PlayerAnimate playerAnimate;
+
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -39,6 +42,12 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
+
+
+        if (moveDirection.sqrMagnitude > 0)
+        {
+            lastMovementDirection = moveDirection;
+        }
 
         // Dash recovery mechanism
         if (!isDashing && Time.time - lastDashTime > dashRecoveryTime && currentDashes < maxDashes)
@@ -153,4 +162,10 @@ public class PlayerMovement : MonoBehaviour
         adjustmentFactor = Mathf.Min(adjustmentFactor, maxDashSpeed);
         return Vector2.Lerp(dashDirection, moveDirection, adjustmentFactor).normalized;
     }
+
+    public Vector2 GetLastMovementDirection()
+    {
+        return lastMovementDirection;
+    }
+
 }

@@ -21,7 +21,14 @@ public class GroundFinisherState : MeleeBaseState
 
         if (fixedtime >= duration)
         {
-            stateMachine.SetNextStateToMain();
+            if (shouldCombo)
+            {
+                stateMachine.SetNextState(new MeleeEntryState());
+            }
+            else
+            {
+                stateMachine.SetNextStateToMain();
+            }
         }
     }
 }

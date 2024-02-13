@@ -15,17 +15,18 @@ MonoBehaviour:
   name: HEAVY TWO
   description: Slow weapon
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
+  weaponState: GroundComboState
   ID: 0
+  inventorySlot: 1
   cost: 7
   damage: 5
   hitboxSpeed: 2
   duration: 0.1
-  slot: 2
   exhaust: 0
   hitbox: {fileID: 6776449329136425971, guid: 8d0eafbb3f0bc7742adac0ea7a3efbf3, type: 3}
+  spawnDelay: 1
   recoverTime: 1
   speedMultiplier: 0
-  spawnDelay: 1
-  distanceOffset: 1
   momentum: 0
   momentumDelay: 0
+  distanceOffset: 1

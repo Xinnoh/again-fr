@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// unused, will probably delete
+
 public class ComboCharacter : MonoBehaviour
 {
 
@@ -10,18 +13,21 @@ public class ComboCharacter : MonoBehaviour
     [SerializeField] public Collider2D hitbox;
     [SerializeField] public GameObject Hiteffect;
 
-    // Start is called before the first frame update
     void Start()
     {
         meleeStateMachine = GetComponent<StateMachine>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // 
+
+
+
+        // If mousedown and in idle state, attack
         if (Input.GetMouseButton(0) && meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState))
         {
-            meleeStateMachine.SetNextState(new GroundEntryState());
+            meleeStateMachine.SetNextState(new MeleeEntryState());
         }
     }
 }

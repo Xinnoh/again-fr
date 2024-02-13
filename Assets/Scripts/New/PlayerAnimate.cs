@@ -1,42 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimate : MonoBehaviour
 {
     private PlayerMovement playerMovement;
     public Animator animator;
-    Vector2 movement;
+    private Vector2 movement;
+    private Vector2 lastMovementDirection; // Added to keep track of the last movement direction
     private Target aimScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
-        aimScript= GetComponent<Target>();
+        aimScript = GetComponent<Target>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-            
+        lastMovementDirection = playerMovement.GetLastMovementDirection();
 
-        if(aimScript.GetAimAngle() != -1)
+        animator.SetFloat("Horizontal", lastMovementDirection.x);
+        animator.SetFloat("Vertical", lastMovementDirection.y);
+        animator.SetFloat("Speed", movement.sqrMagnitude);
+
+        // If there is an enemy, animate aiming at the enemy
+        if (aimScript.GetAimAngle() != -1)
         {
             animator.SetBool("Enemy", true);
 
             Vector3 aimVector = aimScript.GetAimVector();
-
             animator.SetFloat("AimX", aimVector.x);
             animator.SetFloat("AimY", aimVector.y);
-
         }
         else
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -14,9 +15,6 @@ public class WeaponManager : MonoBehaviour
     public TMP_Text weapon1Display, weapon2Display, weapon3Display;
     public TMP_Text canShootDisplay;
 
-    public Weapon[] weapons1, weapons2, weapons3;
-
-    private int index1, index2, index3;
 
     public float currentEnergy;
     public int maxEnergy = 51;
@@ -27,22 +25,32 @@ public class WeaponManager : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private Target aimscript;
+    private Inventory inventory;
 
-    private float timeSinceFire = 0f;
+    private float timeSinceFire = 0f;   // How long since shot, calculate reload time
     private bool canShoot = true;
 
-    private float timeSinceLastShot = 0f;
-    private float lastWeaponRecoverTime = 0f;
+    public Weapon currentWeapon;
 
+
+    private StateMachine meleeStateMachine;
+
+    [SerializeField] public Collider2D hitbox;
+    [SerializeField] public GameObject Hiteffect;
 
     public bool uiEnable;
+
+
     private void Start()
     {
         currentEnergy = 0;
-        UpdateUI(); // Initialize UI
         aimscript = GetComponent<Target>();
         playerMovement = GetComponent<PlayerMovement>();
-        ResetWeaponExhaustion();
+        inventory = GetComponent<Inventory>();
+        inventory.ResetWeaponExhaustion();
+
+        meleeStateMachine = GetComponent<StateMachine>();
+        UpdateUI(); 
     }
 
     private void Update()
@@ -58,14 +66,23 @@ public class WeaponManager : MonoBehaviour
         Weapon[] curWeapons = null;
         switch (val)
         {
-            case 1: curWeapons = weapons1; break;
-            case 2: curWeapons = weapons2; break;
-            case 3: curWeapons = weapons3; break;
+            case 1: curWeapons = inventory.weapons1; break;
+            case 2: curWeapons = inventory.weapons2; break;
+            case 3: curWeapons = inventory.weapons3; break;
         }
 
-        if (canShoot && curWeapons != null && currentEnergy < maxEnergy && !curWeapons[0].exhaust)
+        if (curWeapons == null){ return; }
+
+        currentWeapon = curWeapons[0];
+
+        bool hasEnoughEnergy = currentEnergy < maxEnergy;
+        bool weaponIsNotExhausted = !currentWeapon.exhaust;
+        bool isCurrentlyIdle = meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState);
+
+
+        if (hasEnoughEnergy && weaponIsNotExhausted && isCurrentlyIdle)
         {
-            FireProcess(curWeapons[0], curWeapons); 
+            FireProcess(currentWeapon, curWeapons);
         }
     }
 
@@ -73,52 +90,50 @@ public class WeaponManager : MonoBehaviour
     private void FireProcess(Weapon weaponToFire, Weapon[] curWeapons)
     {
         canShoot = false;
-        lastWeaponRecoverTime = weaponToFire.recoverTime;
-        timeSinceLastShot = 0f;
 
         currentEnergy += weaponToFire.cost;
-        GameObject hitbox = Instantiate(weaponToFire.hitbox, transform.position, Quaternion.identity);
-        BulletBehavior hitboxBehaviour = hitbox.GetComponent<BulletBehavior>();
 
-        // Aim at the nearest enemy
-        float angle = aimscript.GetAimAngle();
-        if (angle != -1) // Valid angle
+        if (weaponToFire.isProjectile)
         {
-            hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Directly apply rotation
-        }
-        else
-        {
-            Debug.Log("Miss");
-        }
+            GameObject hitbox = Instantiate(weaponToFire.hitbox, transform.position, Quaternion.identity);
+            BulletBehavior hitboxBehaviour = hitbox.GetComponent<BulletBehavior>();
 
-        if (hitboxBehaviour != null)
-        {
-            hitboxBehaviour.SetDirection(angle, weaponToFire.hitboxSpeed);
-            hitboxBehaviour.SetDuration(weaponToFire.duration);
-        }
+            // Aim at the nearest enemy
+            float angle = aimscript.GetAimAngle();
+            if (angle != -1) // Valid angle
+            {
+                hitbox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); // Directly apply rotation
+            }
+            else
+            {
+                Debug.Log("No enemy?");
+            }
 
-        // Apply movement reduction if needed
-        if (playerMovement != null)
-        {
-            playerMovement.SetSpeedMultiplier(weaponToFire.speedMultiplier, weaponToFire.recoverTime);
-        }
 
+            // Move to MeleeBaseState
+
+            if (hitboxBehaviour != null)
+            {
+                hitboxBehaviour.SetDirection(angle, weaponToFire.hitboxSpeed);
+                hitboxBehaviour.SetDuration(weaponToFire.duration);
+            }
+        }
+        
+
+
+        meleeStateMachine.SetNextState(new MeleeEntryState());
 
         timeSinceFire = 0;
         weaponToFire.exhaust = true;
-        RotateWeapons(curWeapons); // Assuming RotateWeapons is a method that modifies the order or state of weapons
+        inventory.RotateWeapons(curWeapons); // moves to next weapon
     }
-
-
-
 
     private void UpdateCanShoot()
     {
-        // Update the time since the last shot
-        timeSinceLastShot += Time.deltaTime;
 
-        // Check if enough time has passed since the last shot based on the last weapon's recoverTime
-        if (timeSinceLastShot >= lastWeaponRecoverTime && currentEnergy < maxEnergy)
+        bool isCurrentlyIdle = meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState);
+
+        if (isCurrentlyIdle && currentEnergy < maxEnergy)
         {
             canShoot = true;
         }
@@ -128,20 +143,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-
-    // After firing, get a new weapon
-    private void RotateWeapons(Weapon[] weapons)
-    {
-        if (weapons.Length > 1)
-        {
-            Weapon temp = weapons[0];
-            for (int i = 1; i < weapons.Length; i++)
-            {
-                weapons[i - 1] = weapons[i];
-            }
-            weapons[weapons.Length - 1] = temp;
-        }
-    }
 
     private void UpdateEnergy()
     {
@@ -170,37 +171,11 @@ public class WeaponManager : MonoBehaviour
             // Reset time since last fire to prevent immediate energy reduction on next fire
             timeSinceFire = 0;
             // Reset the exhaustion of all weapons to allow them to be used again
-            ResetWeaponExhaustion();
+            inventory.ResetWeaponExhaustion();
         }
 
     }
 
-    public void ResetWeaponExhaustion()
-    {
-        foreach (Weapon weapon in weapons1)
-        {
-            if (weapon != null)
-            {
-                weapon.exhaust = false;
-            }
-        }
-
-        foreach (Weapon weapon in weapons2)
-        {
-            if (weapon != null)
-            {
-                weapon.exhaust = false;
-            }
-        }
-
-        foreach (Weapon weapon in weapons3)
-        {
-            if (weapon != null)
-            {
-                weapon.exhaust = false;
-            }
-        }
-    }
 
     private void UpdateUI()
     {
@@ -209,9 +184,9 @@ public class WeaponManager : MonoBehaviour
             energyDisplay.text = $"Energy: {Mathf.Round(currentEnergy)} / {maxEnergy}";
             canShootDisplay.text = $"Can Shoot: {canShoot}";
 
-            weapon1Display.text = weapons1.Length > 0 ? $"{weapons1[0].name}" : "Weapon 1: N/A";
-            weapon2Display.text = weapons2.Length > 0 ? $"{weapons2[0].name}" : "Weapon 2: N/A";
-            weapon3Display.text = weapons3.Length > 0 ? $"{weapons3[0].name}" : "Weapon 3: N/A";
+            weapon1Display.text = inventory.weapons1.Length > 0 ? $"{inventory.weapons1[0].name}" : "Weapon 1: N/A";
+            weapon2Display.text = inventory.weapons2.Length > 0 ? $"{inventory.weapons2[0].name}" : "Weapon 2: N/A";
+            weapon3Display.text = inventory.weapons3.Length > 0 ? $"{inventory.weapons3[0].name}" : "Weapon 3: N/A";
         }
     }
 }

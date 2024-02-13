@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GroundComboState : MeleeBaseState
 {
+
+    // Currently the default attack animation
+
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
@@ -23,7 +26,7 @@ public class GroundComboState : MeleeBaseState
         {
             if (shouldCombo)
             {
-                stateMachine.SetNextState(new GroundFinisherState());
+                stateMachine.SetNextState(new MeleeEntryState());
             }
             else
             {

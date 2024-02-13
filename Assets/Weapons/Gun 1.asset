@@ -15,17 +15,22 @@ MonoBehaviour:
   name: GUN TWO
   description: Fast gun
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
+  weaponState: GroundComboState
   ID: 0
+  inventorySlot: 2
   cost: 5
   damage: 2
+  exhaust: 0
+  isProjectile: 1
+  hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
   hitboxSpeed: 20
   duration: 1
-  slot: 3
-  exhaust: 0
-  hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
+  spawnDelay: 0
+  bulletCount: 1
+  bulletSpread: 0
+  fireInterval: 0
   recoverTime: 1
   speedMultiplier: 1
-  spawnDelay: 0
-  distanceOffset: 0
   momentum: 0
   momentumDelay: 0
+  distanceOffset: 0

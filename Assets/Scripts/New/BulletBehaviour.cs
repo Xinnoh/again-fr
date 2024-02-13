@@ -7,7 +7,7 @@ public class BulletBehavior : MonoBehaviour
     [SerializeField] private int damage = 2; // Damage the bullet deals
     public float duration;
 
-    void Update()
+    void FixedUpdate()
     {
         Vector3 movement = transform.up * speed * Time.deltaTime;
         transform.Translate(movement, Space.World);

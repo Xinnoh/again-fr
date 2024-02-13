@@ -1,14 +1,29 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Target : MonoBehaviour
 {
+    private PlayerMovement playerMovement;
 
+
+    private void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+    }
 
     public float GetAimAngle()
     {
         Vector3 aimDirection = AimAtNearestEnemy();
-        if (aimDirection.Equals(Vector3.zero)) return -1; // Return an invalid angle if no enemies
+        
+        if (aimDirection.Equals(Vector3.zero) && playerMovement != null)
+        {
+            Vector2 lastDirection = playerMovement.GetLastMovementDirection();
+            if (lastDirection != Vector2.zero)
+            {
+                aimDirection = new Vector3(lastDirection.x, lastDirection.y, 0);
+            }
+        }
+
+        if (aimDirection.Equals(Vector3.zero)) return -1;
 
         return Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
     }
@@ -17,13 +32,22 @@ public class Target : MonoBehaviour
     {
         Vector3 aimVector = AimAtNearestEnemy();
 
+        if (aimVector.Equals(Vector3.zero) && playerMovement != null)
+        {
+            Vector2 lastDirection = playerMovement.GetLastMovementDirection();
+            if (lastDirection != Vector2.zero)
+            {
+                aimVector = new Vector3(lastDirection.x, lastDirection.y, 0);
+            }
+        }
+
         return aimVector;
     }
 
     private Vector3 AimAtNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length == 0) return Vector3.zero; 
+        if (enemies.Length == 0) return Vector3.zero;
 
         GameObject nearestEnemy = null;
         float minDistance = Mathf.Infinity;

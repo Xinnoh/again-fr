@@ -143,17 +143,6 @@ public class BasicAI : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     // Helper method to draw a circle using Gizmos
     void DrawGizmoCircle(Vector3 center, float radius)
     {

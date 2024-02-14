@@ -281,8 +281,8 @@ MonoBehaviour:
   - {fileID: -1746366029293841245}
   - {fileID: -6258610225247466831}
   EditorData:
-    PanOffset: {x: 353.38168, y: 46.489716}
-    Zoom: 0.729
+    PanOffset: {x: 136.61693, y: 70.65821}
+    Zoom: 1.0460888
   RoomType: Edgar.Unity.Examples.Gungeon.GungeonRoom
   ConnectionType: Edgar.Unity.Examples.Gungeon.GungeonConnection
   IsDirected: 0
@@ -300,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -8856000313770391865}
   To: {fileID: -8293229973497933835}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114093364776598594
 MonoBehaviour:
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -3940751124430504293}
   To: {fileID: -2828563854666709224}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114181672392914426
 MonoBehaviour:
@@ -330,6 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -8293229973497933835}
   To: {fileID: -5204486513266627556}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114347988275011152
 MonoBehaviour:
@@ -345,6 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -7796051145291850706}
   To: {fileID: -1179904087747049071}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114404363181980498
 MonoBehaviour:
@@ -360,6 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -8394994243292296919}
   To: {fileID: 1798790391408615530}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114411162591505478
 MonoBehaviour:
@@ -375,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -5204486513266627556}
   To: {fileID: -1873041341482090820}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114414757259800066
 MonoBehaviour:
@@ -390,6 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -7157526823005418417}
   To: {fileID: -5574280585355022352}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114528819036624830
 MonoBehaviour:
@@ -405,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -3940751124430504293}
   To: {fileID: -7157526823005418417}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114541663325549626
 MonoBehaviour:
@@ -420,6 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 1798790391408615530}
   To: {fileID: -1459365395057404884}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114635684661398776
 MonoBehaviour:
@@ -435,6 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -7796051145291850706}
   To: {fileID: 234105067396193032}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114643305832298088
 MonoBehaviour:
@@ -450,6 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -911599065080691691}
   To: {fileID: -9154095965698441999}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114648903818006672
 MonoBehaviour:
@@ -465,6 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -1746366029293841245}
   To: {fileID: -6258610225247466831}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114672236595635644
 MonoBehaviour:
@@ -480,6 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -1873041341482090820}
   To: {fileID: -1746366029293841245}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114733170904110168
 MonoBehaviour:
@@ -495,6 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -1459365395057404884}
   To: {fileID: -911599065080691691}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114797694723075284
 MonoBehaviour:
@@ -510,6 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 1798790391408615530}
   To: {fileID: 4823997362293126743}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114852375106756734
 MonoBehaviour:
@@ -525,6 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 4823997362293126743}
   To: {fileID: -8293229973497933835}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114875750505078898
 MonoBehaviour:
@@ -540,6 +556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -1179904087747049071}
   To: {fileID: -8394994243292296919}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114928195634470412
 MonoBehaviour:
@@ -555,6 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: -2828563854666709224}
   To: {fileID: -8293229973497933835}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &114929641150788396
 MonoBehaviour:
@@ -570,6 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 234105067396193032}
   To: {fileID: -3940751124430504293}
+  RoomTemplates: []
   IsLocked: 0
 --- !u!114 &234105067396193032
 MonoBehaviour:

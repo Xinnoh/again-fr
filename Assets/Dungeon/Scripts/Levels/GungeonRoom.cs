@@ -8,6 +8,7 @@ namespace Edgar.Unity.Examples.Gungeon
     public class GungeonRoom : RoomBase
     {
         public GungeonRoomType Type;
+        public int EnemyCount;
 
         public override List<GameObject> GetRoomTemplates()
         {

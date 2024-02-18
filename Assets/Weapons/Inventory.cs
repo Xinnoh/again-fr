@@ -48,7 +48,6 @@ public class Inventory : MonoBehaviour
             Debug.LogWarning("Failed to add random weapon: No weapon found.");
         }
     }
-
     private Weapon[] AddWeaponToArray(Weapon[] weaponArray, Weapon weaponToAdd)
     {
         int length = weaponArray != null ? weaponArray.Length : 0;
@@ -57,9 +56,11 @@ public class Inventory : MonoBehaviour
         {
             weaponArray.CopyTo(newArray, 0);
         }
-        newArray[length] = weaponToAdd;
+        // Instantiate a new copy of the weaponToAdd ScriptableObject and add it to the array
+        newArray[length] = ScriptableObject.Instantiate(weaponToAdd);
         return newArray;
     }
+
 
 
     // Cycles player inventory to next weapon

@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5504881074206374052}
   - component: {fileID: 533990487298144389}
   - component: {fileID: 5203348345103092629}
-  - component: {fileID: 34837496602544773}
+  - component: {fileID: 450837969134419469}
   - component: {fileID: 3949646845907018809}
   - component: {fileID: 9148156652602214409}
   - component: {fileID: 3417626574395809695}
@@ -268,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1367a2c205f0fb4e961209e66f4c68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  dashSpeed: 16
+  moveSpeed: 6
+  dashSpeed: 11
   maxDashTime: 1.2
   dashAdjustmentAcceleration: 1.2
   dashStopSpeedThreshold: 10
@@ -319,8 +319,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &34837496602544773
-BoxCollider2D:
+--- !u!58 &450837969134419469
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -351,19 +351,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.12}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -1.0751328}
   serializedVersion: 2
-  m_Size: {x: 0.85, y: 0.85}
-  m_EdgeRadius: 0
+  m_Radius: 0.46793592
 --- !u!114 &3949646845907018809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +391,7 @@ MonoBehaviour:
   maxEnergy: 50
   startingEnergy: 50
   reloadRate: 18
-  reloadCooldown: 1.7
+  reloadCooldown: 2.3
   currentWeapon: {fileID: 0}
   hitbox: {fileID: 4619407262686771253}
   Hiteffect: {fileID: 8910139917597305678}
@@ -1419,7 +1409,7 @@ MonoBehaviour:
   m_Follow: {fileID: 6121653595528397243}
   m_Lens:
     FieldOfView: 65
-    OrthographicSize: 5
+    OrthographicSize: 6.5
     NearClipPlane: 0.3
     FarClipPlane: 59.6
     Dutch: 0

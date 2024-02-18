@@ -18,9 +18,11 @@ MonoBehaviour:
   weaponState: GroundComboState
   ID: 0
   inventorySlot: 2
+  rarity: 0
   cost: 4
   damage: 2
   exhaust: 0
+  hitStun: 0
   isProjectile: 1
   hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
   hitboxSpeed: 10
@@ -29,7 +31,7 @@ MonoBehaviour:
   bulletCount: 1
   bulletSpread: 0
   fireInterval: 0
-  recoverTime: 1
+  recoverTime: 0.2
   speedMultiplier: 1
   momentum: 0
   momentumDelay: 0

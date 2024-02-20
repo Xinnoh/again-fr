@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8170977334742593895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf43673b89acb484b907a8b9ace39472, type: 3}
+  m_Name: PipesVNoloop
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: -286051160, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: -286051160, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 0
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: ffffffff00000000fffffffffffffffffffffffffffffffffeffffffffffffff
+    m_NeighborPositions:
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: -1824624875, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_Output: 0
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    m_Neighbors: ffffffffffffffffffffffffffffffffffffffffffffffff00000000ffffffff
+    m_NeighborPositions:
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    m_RuleTransform: 0
+  UniqueID: 7
+  otherTiles:
+  - {fileID: -6432184752819834534}
+  - {fileID: -4983820464123360398}
+  - {fileID: -6570170925811427036}
+  - {fileID: 7228046351233757537}
+  - {fileID: -111407103122186172}
+  - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
+  variations: []
+  customProperties: []
+  m_ExtendedTilingRules: []
+  m_ExtraTilingRules:
+  - m_ExtendedOutputSprite: 0
+    m_Patternsize: {x: 1, y: 1}
+  - m_ExtendedOutputSprite: 0
+    m_Patternsize: {x: 1, y: 1}
 --- !u!114 &-6570170925811427036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +225,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations: []
   customProperties: []
   m_ExtendedTilingRules: []
@@ -2689,6 +2765,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations:
   - {fileID: 7228046351233757537}
   customProperties: []
@@ -2977,6 +3054,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations: []
   customProperties: []
   m_ExtendedTilingRules: []
@@ -3112,6 +3190,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations:
   - {fileID: -6432184752819834534}
   customProperties: []
@@ -3141,10 +3220,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     _gridShape: 0
-    _zoomAmount: 1.2450463
+    _zoomAmount: 1.5874879
     _gridCellSize: {x: 32, y: 32}
     _tileRenderOffset: {x: 0, y: 0}
-    _gridOffset: {x: -1553.6855, y: -1427.2068}
+    _gridOffset: {x: -88.932526, y: -888.2632}
     _lockWindows: 1
     _hideSprites: 0
     _showRuler: 1
@@ -3172,6 +3251,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   _hexTileObjects: []
   _grid:
   - Position: {x: 19, y: -3}
@@ -36716,6 +36796,87 @@ MonoBehaviour:
     - {x: -1, y: -1, z: 0}
     - {x: 0, y: -1, z: 0}
     - {x: 1, y: -1, z: 0}
+  - Position: {x: 19, y: 27}
+    Sprite: {fileID: -286051160, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+    TileID: 7
+    UseDefaultSettings: 1
+    IsModified: 0
+    Locked: 0
+    _overrideUniversalSpriteSettings: 0
+    GameObject: {fileID: 0}
+    Sprites: []
+    ColliderType: 1
+    OutputSprite: 0
+    Transform: 0
+    IncludeSpriteInOutput: 0
+    NoiseScale: 0.5
+    RandomTransform: 0
+    MinAnimationSpeed: 1
+    MaxAnimationSpeed: 1
+    PatternSize: {x: 1, y: 1}
+    NeighborPositions:
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+  - Position: {x: 19, y: 28}
+    Sprite: {fileID: -1824624875, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+    TileID: 7
+    UseDefaultSettings: 1
+    IsModified: 0
+    Locked: 0
+    _overrideUniversalSpriteSettings: 0
+    GameObject: {fileID: 0}
+    Sprites: []
+    ColliderType: 1
+    OutputSprite: 0
+    Transform: 0
+    IncludeSpriteInOutput: 0
+    NoiseScale: 0.5
+    RandomTransform: 0
+    MinAnimationSpeed: 1
+    MaxAnimationSpeed: 1
+    PatternSize: {x: 1, y: 1}
+    NeighborPositions:
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+  - Position: {x: 19, y: 26}
+    Sprite: {fileID: 0}
+    TileID: -2
+    UseDefaultSettings: 1
+    IsModified: 0
+    Locked: 0
+    _overrideUniversalSpriteSettings: 0
+    GameObject: {fileID: 0}
+    Sprites: []
+    ColliderType: 1
+    OutputSprite: 0
+    Transform: 0
+    IncludeSpriteInOutput: 0
+    NoiseScale: 0.5
+    RandomTransform: 0
+    MinAnimationSpeed: 1
+    MaxAnimationSpeed: 1
+    PatternSize: {x: 1, y: 1}
+    NeighborPositions:
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
   _tiles:
   - UniqueID: 1
     Name: Wall
@@ -36791,6 +36952,20 @@ MonoBehaviour:
     Name: PipesVert
     Texture: {fileID: 0}
     Color: {r: 0.26884955, g: 0.13515723, b: 0.38974947, a: 1}
+    TextureShape: 0
+    MirrorTexX: 0
+    MirrorTexY: 0
+    DefaultSprite: {fileID: 0}
+    ColliderType: 1
+    DefaultGameObject: {fileID: 0}
+    uniqueTile: 1
+    variationOf: -1
+    variations: 
+    customProperties: []
+  - UniqueID: 7
+    Name: PipesVNoloop
+    Texture: {fileID: 0}
+    Color: {r: 0.5780596, g: 0.41598436, b: 0.7169812, a: 1}
     TextureShape: 0
     MirrorTexX: 0
     MirrorTexY: 0
@@ -37106,6 +37281,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations:
   - {fileID: -6432184752819834534}
   customProperties: []
@@ -37242,6 +37418,7 @@ MonoBehaviour:
   - {fileID: 7228046351233757537}
   - {fileID: -111407103122186172}
   - {fileID: 8008798336804240255}
+  - {fileID: -8170977334742593895}
   variations: []
   customProperties: []
   m_ExtendedTilingRules: []

@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float speedMultiplier = 1f;
     private PlayerAnimate playerAnimate;
+    private PlayerManager playerManager;
 
 
     private Rigidbody2D rb;
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnimate = GetComponent<PlayerAnimate>();
         currentDashes = maxDashes;
+        playerManager = GetComponent<PlayerManager>();
     }
 
     void Update()
@@ -65,13 +67,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMoveDirection()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector2(moveX, moveY).normalized;
-
-        if (moveDirection.sqrMagnitude > 0)
+        if (playerManager.PlayerActive)
         {
-            lastMovementDirection = moveDirection;
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
+            moveDirection = new Vector2(moveX, moveY).normalized;
+
+            if (moveDirection.sqrMagnitude > 0)
+            {
+                lastMovementDirection = moveDirection;
+            }
+        }
+
+        else
+        {
+            moveDirection = new Vector2(0, 0).normalized;
         }
     }
 

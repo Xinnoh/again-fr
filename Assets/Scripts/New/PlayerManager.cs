@@ -6,50 +6,58 @@ public class PlayerManager : MonoBehaviour
 {
     public Shoot shoot;
     public WeaponManager weaponManager;
-    public float reloadTime = 0.5f; // Time in seconds between shots
-    private float reloadTimer = 0f; // Timer to track time since last shot
+    private int wavesCleared;
+    private int dungeonDepth;
 
+    public bool PlayerActive = true;
+
+
+
+    public GameObject treasurePrefab;
     void Start()
     {
         shoot = GetComponent<Shoot>();
         weaponManager = GetComponent<WeaponManager>();
+        wavesCleared = 0;
+
     }
 
     void Update()
     {
 
+        if(PlayerActive)
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                weaponManager.FireWeapon(1);
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                weaponManager.FireWeapon(2);
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                weaponManager.FireWeapon(3);
+            }
+        }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            weaponManager.FireWeapon(1);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            weaponManager.FireWeapon(2);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            weaponManager.FireWeapon(3);
-        }
-
-
-        // Update the reload timer
-        if (reloadTimer > 0)
-        {
-            reloadTimer -= Time.deltaTime;
-        }
     }
 
-    private void TryShoot()
+
+    public int WavesCleared
     {
-        // Check if the reload timer allows for shooting
-        if (reloadTimer <= 0)
-        {
-            shoot.ShootBullet(); // Call the shooting function
-            reloadTimer = reloadTime; // Reset the reload timer
-        }
-        else
-        {
-        }
+        get { return wavesCleared; }
+        set { wavesCleared = value; }
     }
+
+    public void IncrementWavesCleared()
+    {
+        wavesCleared++;
+    }
+
+    public void SpawnTreasure(Vector2 treasurePos)
+    {
+        Instantiate(treasurePrefab, treasurePos, Quaternion.identity);
+    }
+
 }

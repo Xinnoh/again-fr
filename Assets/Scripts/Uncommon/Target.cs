@@ -45,7 +45,27 @@ public class Target : MonoBehaviour
         return aimVector;
     }
 
+
     private Vector3 AimAtNearestEnemy()
+    {
+        Vector3 nearestEnemyPosition = GetNearestEnemyPos();
+
+        if (nearestEnemyPosition == Vector3.zero)
+        {
+            return Vector3.zero;
+        }
+
+        Vector3 currentPosition = transform.position;
+
+        if (nearestEnemyPosition != null)
+        {
+            return (nearestEnemyPosition - currentPosition).normalized;
+        }
+
+        return Vector3.zero;
+    }
+
+    public Vector3 GetNearestEnemyPos()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length == 0) return Vector3.zero;
@@ -66,7 +86,7 @@ public class Target : MonoBehaviour
 
         if (nearestEnemy != null)
         {
-            return (nearestEnemy.transform.position - currentPosition).normalized;
+            return nearestEnemy.transform.position;
         }
 
         return Vector3.zero;

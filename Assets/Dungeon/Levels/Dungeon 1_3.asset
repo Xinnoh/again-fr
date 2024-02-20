@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 480, y: 400}
   Type: 8
+  EnemyCount: 0
 --- !u!114 &-8429030085138322616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,7 +28,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 608, y: 240}
-  Type: 0
+  Type: 2
+  EnemyCount: 0
 --- !u!114 &-7754573636939859653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,6 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 736, y: 240}
   Type: 4
+  EnemyCount: 0
 --- !u!114 &-6849889598833493020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 480, y: 320}
   Type: 6
+  EnemyCount: 0
 --- !u!114 &-6161261106429597705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 352, y: 240}
-  Type: 0
+  Type: 2
+  EnemyCount: 0
 --- !u!114 &-6098475191458696881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 480, y: 160}
   Type: 2
+  EnemyCount: 0
 --- !u!114 &-1433645538397789420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 480, y: 80}
   Type: 1
+  EnemyCount: 0
 --- !u!114 &-1154565193003928243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 480, y: 240}
-  Type: 0
+  Type: 2
+  EnemyCount: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

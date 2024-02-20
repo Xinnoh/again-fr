@@ -20,11 +20,19 @@ namespace Edgar.Unity.Examples.Gungeon
             {
                 roomManager?.OnRoomEnter(otherCollider.gameObject);
 
+
                 // Handle Fog of War
+                //FogOfWarGrid2D.Instance?.RevealRoom(roomInstance);
+
+
+                
                 if (roomInstance.IsCorridor)
                 {
                     FogOfWarGrid2D.Instance?.RevealRoomAndNeighbors(roomInstance);
                 }
+                
+
+
             }
         }
 

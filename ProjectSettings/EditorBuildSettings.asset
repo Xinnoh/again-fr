@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dungeon.unity
     guid: 1b515d7be25d4bd48b7d60d8f2c3bc4a
+  - enabled: 1
+    path: Assets/TitleScreen.unity
+    guid: dd91b3e7aee6fe742a046792d8df1244
   m_configObjects: {}

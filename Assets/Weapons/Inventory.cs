@@ -24,30 +24,38 @@ public class Inventory : MonoBehaviour
     private void AddRandomWeapon(InventorySlot slotType)
     {
         Weapon randomWeapon = WeaponList.GetRandomWeapon(slotType);
-        if (randomWeapon != null)
-        {
-            switch (slotType)
-            {
-                case InventorySlot.Light:
-                    weapons1 = AddWeaponToArray(weapons1, randomWeapon);
-                    heldWeaponLight = randomWeapon;
-                    break;
-                case InventorySlot.Heavy:
-                    weapons2 = AddWeaponToArray(weapons2, randomWeapon);
-                    heldWeaponLight = randomWeapon;
-                    break;
-                case InventorySlot.Ranged:
-                    weapons3 = AddWeaponToArray(weapons3, randomWeapon);
-                    heldWeaponLight = randomWeapon;
-                    break;
-            }
-            Debug.Log($"Added {randomWeapon.name} to inventory.");
-        }
-        else
-        {
-            Debug.LogWarning("Failed to add random weapon: No weapon found.");
-        }
+
+        AddWeaponToInventory(randomWeapon);
     }
+
+    public void AddWeaponToInventory(Weapon weaponToAdd)
+    {
+        Weapon[] targetArray = null;
+
+        // Determine the correct array to update based on the weapon's inventory slot
+        switch (weaponToAdd.inventorySlot)
+        {
+            case InventorySlot.Light:
+                targetArray = AddWeaponToArray(weapons1, weaponToAdd);
+                weapons1 = targetArray;
+                break;
+            case InventorySlot.Heavy:
+                targetArray = AddWeaponToArray(weapons2, weaponToAdd);
+                weapons2 = targetArray;
+                break;
+            case InventorySlot.Ranged:
+                targetArray = AddWeaponToArray(weapons3, weaponToAdd);
+                weapons3 = targetArray;
+                break;
+            default:
+                Debug.LogError("Unknown slot type: " + weaponToAdd.inventorySlot);
+                return;
+        }
+
+        Debug.Log($"Added {weaponToAdd.name} to inventory.");
+    }
+
+
     private Weapon[] AddWeaponToArray(Weapon[] weaponArray, Weapon weaponToAdd)
     {
         int length = weaponArray != null ? weaponArray.Length : 0;
@@ -60,6 +68,7 @@ public class Inventory : MonoBehaviour
         newArray[length] = ScriptableObject.Instantiate(weaponToAdd);
         return newArray;
     }
+
 
 
 
@@ -118,25 +127,11 @@ public class Inventory : MonoBehaviour
         Weapon[] sourceArray = GetSourceArray(slotType);
         if (sourceArray != null && sourceArray.Length > 0)
         {
-            Weapon firstWeaponInstance = Instantiate(sourceArray[0]); 
-
-            switch (slotType)
-            {
-                case InventorySlot.Light:
-                    weapons1 = AddWeaponToArray(weapons1, firstWeaponInstance);
-                    heldWeaponLight = firstWeaponInstance; 
-                    break;
-                case InventorySlot.Heavy:
-                    weapons2 = AddWeaponToArray(weapons2, firstWeaponInstance);
-                    heldWeaponHeavy = firstWeaponInstance;
-                    break;
-                case InventorySlot.Ranged:
-                    weapons3 = AddWeaponToArray(weapons3, firstWeaponInstance);
-                    heldWeaponRanged = firstWeaponInstance; 
-                    break;
-            }
+            Weapon firstWeaponInstance = Instantiate(sourceArray[0]);
+            AddWeaponToInventory(firstWeaponInstance);
         }
     }
+
 
     private Weapon[] GetSourceArray(InventorySlot slotType)
     {

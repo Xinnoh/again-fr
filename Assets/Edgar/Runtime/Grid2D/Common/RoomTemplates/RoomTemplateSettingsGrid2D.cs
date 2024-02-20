@@ -10,9 +10,15 @@ namespace Edgar.Unity
     /// Component that is attached to each room template game objects and contains basic settings.
     /// </summary>
     [AddComponentMenu("Edgar/Grid2D/Room Template Settings (Grid2D)")]
+
+
     public class RoomTemplateSettingsGrid2D : MonoBehaviour
     {
         public RoomTemplateRepeatMode RepeatMode = RoomTemplateRepeatMode.AllowRepeat;
+
+        public bool UseEnemyTable;
+        public GameObject[] enemies;
+
 
         public PolygonGrid2D GetOutline()
         {

@@ -65,11 +65,27 @@ namespace Edgar.Unity.Examples.Gungeon
         /// Room info.
         /// </summary>
         private GungeonRoom room;
-        
+
+        private RoomTemplateSettingsGrid2D roomInfo;
+
+        PlayerManager playerManager;
+
+        private float minimumDistanceFromPlayer = 5.0f; 
+
         public void Start()
         {
+            roomInfo = GetComponent<RoomTemplateSettingsGrid2D>();
             roomInstance = GetComponent<RoomInfoGrid2D>()?.RoomInstance;
             room = roomInstance?.Room as GungeonRoom;
+
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                playerManager = player.GetComponent<PlayerManager>();
+            }
+
+
         }
 
         public void OnRoomEnter(GameObject player)
@@ -105,10 +121,31 @@ namespace Edgar.Unity.Examples.Gungeon
         private void SpawnEnemies()
         {
             EnemiesSpawned = true;
-            
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null)
+            {
+                Debug.LogError("Player object not found in the scene.");
+                return;
+            }
+
+            // Get number of waves cleared
+            // If number is less than 2, give a simpler wave
+
             var enemies = new List<GungeonEnemy>();
             if(Random == null) { return; }
-            var totalEnemiesCount = Random.Next(4, 8);
+
+            var totalEnemiesCount = Random.Next(1, 2);
+
+            if (playerManager.WavesCleared < 2)
+            {
+                totalEnemiesCount = Random.Next(2, 3);
+            }
+            else
+            {
+                totalEnemiesCount = Random.Next(4, 8);
+            }
+
 
             while (enemies.Count < totalEnemiesCount)
             {
@@ -126,6 +163,19 @@ namespace Edgar.Unity.Examples.Gungeon
                 {
                     continue;
                 }
+
+                // Not too close to player
+                if (Vector2.Distance(position, player.transform.position) < minimumDistanceFromPlayer)
+                {
+                    continue;
+                }
+
+
+                if (roomInfo.UseEnemyTable)
+                {
+
+                }
+
 
                 // Pick random enemy prefab
                 var enemyPrefab = EnemyPrefabs[Random.Next(0, EnemyPrefabs.Length)];
@@ -215,10 +265,16 @@ namespace Edgar.Unity.Examples.Gungeon
         /// Check if we should spawn enemies based on the current state of the room and the type of the room.
         /// </summary>
         /// <returns></returns>
+        
         private bool ShouldSpawnEnemies()
         {
-            return Cleared == false && EnemiesSpawned == false && (room.Type == GungeonRoomType.Normal || room.Type == GungeonRoomType.Hub || room.Type == GungeonRoomType.Boss);
+            bool roomTypeIsSuitable = room.Type == GungeonRoomType.Normal ||
+                                       room.Type == GungeonRoomType.Hub ||
+                                       room.Type == GungeonRoomType.Boss;
+
+            return !Cleared && !EnemiesSpawned && roomTypeIsSuitable;
         }
+
 
         /// <summary>
         /// Called by an enemy when it is killed.
@@ -227,12 +283,20 @@ namespace Edgar.Unity.Examples.Gungeon
         /// <param name="enemy"></param>
         public void OnEnemyKilled(GungeonEnemy enemy)
         {
+            Vector2 lastEnemyPos = enemy.transform.position;
+
             Destroy(enemy.gameObject);
             RemainingEnemies.Remove(enemy);
             
             // Open doors if there are no enemies left in the room
             if (RemainingEnemies.Count == 0)
             {
+                playerManager.IncrementWavesCleared();
+
+                // Spawn treasure at lastEnemyPos.
+                playerManager.SpawnTreasure(lastEnemyPos);
+
+
                 OpenDoors();
             }
         }

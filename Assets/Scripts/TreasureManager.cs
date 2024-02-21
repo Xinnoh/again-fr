@@ -9,6 +9,7 @@ public class TreasureManager : MonoBehaviour
     private Weapon[] selectedWeapons = new Weapon[3];
 
     [SerializeField] private float interactionDistance = 1f;
+    [SerializeField] private GameObject highlightField;
 
     public GameObject treasureUI;
     private PlayerManager playerManager;
@@ -36,18 +37,28 @@ public class TreasureManager : MonoBehaviour
         }
         DisplayWeaponNames(weaponNames);
         if (treasureUI != null) treasureUI.SetActive(false);
+        if (highlightField!= null) highlightField.SetActive(false);
 
     }
 
     private void Update()
     {
-
-        if (Vector2.Distance(player.transform.position, transform.position) <= interactionDistance && Input.GetKeyDown(KeyCode.E))
+        if (Vector2.Distance(player.transform.position, transform.position) <= interactionDistance)
         {
-            if (!hasInteracted)
+            if(highlightField != null) highlightField.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                OnTreasureInteracted();
+                if (!hasInteracted)
+                {
+                    OnTreasureInteracted();
+                }
             }
+        }
+        else
+        {
+            if (highlightField != null)
+                highlightField.SetActive(false);
         }
     }
 
@@ -103,13 +114,16 @@ public class TreasureManager : MonoBehaviour
 
     public void ButtonInput(int button)
     {
-        Inventory inventory = FindObjectOfType<Inventory>(); // Find the player's inventory script in the scene
-        if (inventory != null && button >= 1 && button <= 3)
+        if (button >= 1 && button <= 3)
         {
-            inventory.AddWeaponToInventory(selectedWeapons[button - 1]);
-            playerManager.PlayerActive = true;
-            Destroy(gameObject);
-
+            Inventory inventory = FindObjectOfType<Inventory>();
+            if (inventory != null)
+            {
+                inventory.AddWeaponToInventory(selectedWeapons[button - 1]);
+            }
         }
+
+        playerManager.PlayerActive = true;
+        Destroy(gameObject);
     }
 }

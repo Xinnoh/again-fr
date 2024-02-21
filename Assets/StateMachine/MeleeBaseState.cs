@@ -44,6 +44,9 @@ public class MeleeBaseState : State
     // Input buffer Timer
     private float AttackPressedTimer = 0;
 
+    // Allow attack cancel if we hit enemy
+    protected bool hasHit;
+
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
@@ -58,6 +61,7 @@ public class MeleeBaseState : State
         player = GameObject.FindGameObjectWithTag("Player");
 
         targetAcquired = false;
+        hasHit = false;
         playerMovement.SetSpeedModifier(curWeapon.speedMultiplier);
     }
 
@@ -115,6 +119,8 @@ public class MeleeBaseState : State
                     {
                         health.TakeDamage(1);
                     }
+
+                    hasHit = true;
 
                     Debug.Log("Enemy Has Taken:" + attackIndex + "Damage");
                     collidersDamaged.Add(collidersToDamage[i]);

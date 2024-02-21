@@ -33,7 +33,8 @@ public class WeaponManager : MonoBehaviour
 
     private bool hasEnergy, playerNotAttacking, reloading;
 
-    public Weapon currentWeapon;
+    private Weapon currentWeapon;
+    public Weapon attackingWeapon;
 
 
     private StateMachine meleeStateMachine;
@@ -126,6 +127,7 @@ public class WeaponManager : MonoBehaviour
 
     public void FireWeapon(int val)
     {
+        // Find what weaopn to use
         Weapon[] curWeapons = null;
         switch (val)
         {
@@ -133,12 +135,11 @@ public class WeaponManager : MonoBehaviour
             case 2: curWeapons = inventory.weapons2; break;
             case 3: curWeapons = inventory.weapons3; break;
         }
-
         if (curWeapons == null) { return; }
-
         currentWeapon = curWeapons[0];
 
-        
+
+        // Use the weapon if we can
         if (hasEnergy && playerNotAttacking && currentWeapon.exhaust == false && !reloading)
         {
             FireProcess(currentWeapon, curWeapons);
@@ -150,6 +151,7 @@ public class WeaponManager : MonoBehaviour
     private void FireProcess(Weapon weaponToFire, Weapon[] curWeapons)
     {
         canShoot = false;
+        attackingWeapon = currentWeapon;
 
         currentEnergy += weaponToFire.cost;
 
@@ -175,6 +177,7 @@ public class WeaponManager : MonoBehaviour
                 hitboxBehaviour.SetDuration(weaponToFire.duration);
             }
         }
+
 
         meleeStateMachine.SetNextState(new MeleeEntryState());
 

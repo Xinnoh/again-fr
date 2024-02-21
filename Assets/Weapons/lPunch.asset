@@ -10,23 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
-  m_Name: Punch 1
+  m_Name: lPunch
   m_EditorClassIdentifier: 
-  name: PUNCH TWO
+  name: Punch
   description: simple
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
-  weaponState: GroundComboState
-  ID: 0
+  weaponState: GroundFinisherState
+  ID: 1
   inventorySlot: 0
-  cost: 9
+  rarity: 0
+  cost: 8
   damage: 2
-  hitboxSpeed: 6
-  duration: 0.3
   exhaust: 0
+  hitStun: 0
+  isProjectile: 0
   hitbox: {fileID: 6776449329136425971, guid: 0dcac6b54ed622f48b971f8bae20cdef, type: 3}
+  hitboxSpeed: 3
+  duration: 0.3
   spawnDelay: 0.1
+  bulletCount: 1
+  bulletSpread: 0
+  fireInterval: 0
+  distanceOffset: 1
   recoverTime: 0.2
-  speedMultiplier: 0
+  speedMultiplier: 0.186
   momentum: 0
   momentumDelay: 0
-  distanceOffset: 1

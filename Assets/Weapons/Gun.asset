@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Basic gun
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
   weaponState: GroundComboState
-  ID: 0
+  ID: 3
   inventorySlot: 2
   rarity: 0
   cost: 4
@@ -31,8 +31,8 @@ MonoBehaviour:
   bulletCount: 1
   bulletSpread: 0
   fireInterval: 0
+  distanceOffset: 0
   recoverTime: 0.2
   speedMultiplier: 1
   momentum: 0
   momentumDelay: 0
-  distanceOffset: 0

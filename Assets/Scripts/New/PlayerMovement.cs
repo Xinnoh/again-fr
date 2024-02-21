@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAnimate playerAnimate;
     private PlayerManager playerManager;
 
+    private bool moveEnabled = true;
+
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        moveEnabled = true;
         rb = GetComponent<Rigidbody2D>();
         playerAnimate = GetComponent<PlayerAnimate>();
         currentDashes = maxDashes;
@@ -67,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMoveDirection()
     {
-        if (playerManager.PlayerActive)
+        if (playerManager.PlayerActive && moveEnabled)
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
@@ -184,9 +187,9 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         currentDashTime = 0f;
         dashDirectionHoldTime = 0f; // ???
-        dashDirection = moveDirection; 
+        dashDirection = moveDirection;
         currentDashes--; // how many times we can dash
-        lastDashTime = Time.time; 
+        lastDashTime = Time.time;
         dashParticles.Emit(30);
     }
 
@@ -218,6 +221,9 @@ public class PlayerMovement : MonoBehaviour
     {
         speedMultiplier = speed;
     }
+
+    public void DisableMovemet(){ moveEnabled = false; }
+    public void EnableMovement() { moveEnabled = true; }
 
 
     private void UpdateDashUI()

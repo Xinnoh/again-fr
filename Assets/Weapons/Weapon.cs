@@ -70,6 +70,8 @@ public class Weapon : ScriptableObject
     [Tooltip("Time between shots for rapid fire weapons. (eg smg 0.1)")]
     public float fireInterval = 0;
 
+    [Tooltip("How far away the object should be spawned from the player.")]
+    public float distanceOffset;
 
     [Header("Movement Modifier")]
     [Tooltip("How long it takes before the weapon can be used again.")]
@@ -87,6 +89,4 @@ public class Weapon : ScriptableObject
     [Tooltip("Delay before momentum effect takes place.")]
     public float momentumDelay;
 
-    [Tooltip("How far away the object should be spawned from the player.")]
-    public float distanceOffset;
 }

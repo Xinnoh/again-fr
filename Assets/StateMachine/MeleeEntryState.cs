@@ -15,7 +15,7 @@ public class MeleeEntryState : State
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         animator = player.GetComponent<Animator>();
 
-        #region // Bug checks
+        #region Bug checks
         if (player == null)
         {
             Debug.LogError("Player object not found with tag 'Player'.");
@@ -24,15 +24,18 @@ public class MeleeEntryState : State
 
         weaponManager = player.GetComponent<WeaponManager>();
         // Early return for error conditions
-        if (weaponManager.currentWeapon == null)
+        if (weaponManager.attackingWeapon == null)
         {
             Debug.LogError("Current weapon is null.");
             return;
         }
+        #endregion
 
-        curWeapon = weaponManager.currentWeapon;
+        curWeapon = weaponManager.attackingWeapon;
 
+        Type stateType = Type.GetType(curWeapon.weaponState, throwOnError: false, ignoreCase: true);
 
+        #region bug checks
         if (string.IsNullOrEmpty(curWeapon.weaponState))
         {
             Debug.Log("Weapon state is not defined.");
@@ -40,7 +43,6 @@ public class MeleeEntryState : State
             return;
         }
 
-        Type stateType = Type.GetType(curWeapon.weaponState, throwOnError: false, ignoreCase: true);
         if (stateType == null)
         {
             Debug.LogError($"State transition failed. No state class matches the name: {curWeapon.weaponState}");

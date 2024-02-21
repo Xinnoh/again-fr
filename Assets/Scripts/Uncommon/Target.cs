@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Target : MonoBehaviour
 {
@@ -11,42 +12,41 @@ public class Target : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
     }
 
+
+    // Used for rotating objects
     public float GetAimAngle()
     {
-        Vector3 aimDirection = AimAtNearestEnemy();
+        Vector3 aimDirection = GetAimVector();
         
-        if (aimDirection.Equals(Vector3.zero) && playerMovement != null)
-        {
-            Vector2 lastDirection = playerMovement.GetLastMovementDirection();
-            if (lastDirection != Vector2.zero)
-            {
-                aimDirection = new Vector3(lastDirection.x, lastDirection.y, 0);
-            }
-        }
-
         if (aimDirection.Equals(Vector3.zero)) return -1;
 
         return Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
     }
 
+    // Used for movement of objects
     public Vector3 GetAimVector()
     {
-        Vector3 aimVector = AimAtNearestEnemy();
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if (aimVector.Equals(Vector3.zero) && playerMovement != null)
+        if (EnemiesAlive(enemies))
         {
-            Vector2 lastDirection = playerMovement.GetLastMovementDirection();
-            if (lastDirection != Vector2.zero)
-            {
-                aimVector = new Vector3(lastDirection.x, lastDirection.y, 0);
-            }
+            return AimAtEnemy();
         }
+        else
+        {
+            return AimAtFeet();
+        }
+    }
 
-        return aimVector;
+    private Vector3 AimAtFeet()
+    {
+        Vector3 lastDirection = playerMovement.GetLastMovementDirection();
+
+        return lastDirection;
     }
 
 
-    private Vector3 AimAtNearestEnemy()
+    private Vector3 AimAtEnemy()
     {
         Vector3 nearestEnemyPosition = GetNearestEnemyPos();
 
@@ -65,30 +65,39 @@ public class Target : MonoBehaviour
         return Vector3.zero;
     }
 
+
     public Vector3 GetNearestEnemyPos()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length == 0) return Vector3.zero;
 
-        GameObject nearestEnemy = null;
-        float minDistance = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
 
-        foreach (GameObject enemy in enemies)
+        if (EnemiesAlive(enemies))
         {
-            float distance = Vector3.Distance(enemy.transform.position, currentPosition);
-            if (distance < minDistance)
+            GameObject nearestEnemy = null;
+            float minDistance = Mathf.Infinity;
+            Vector3 currentPosition = transform.position;
+
+            foreach (GameObject enemy in enemies)
             {
-                nearestEnemy = enemy;
-                minDistance = distance;
+                float distance = Vector3.Distance(enemy.transform.position, currentPosition);
+                if (distance < minDistance)
+                {
+                    nearestEnemy = enemy;
+                    minDistance = distance;
+                }
             }
-        }
-
-        if (nearestEnemy != null)
-        {
             return nearestEnemy.transform.position;
         }
-
         return Vector3.zero;
+    }
+
+    private bool EnemiesAlive(GameObject[] enemies)
+    {
+        if (enemies.Length == 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

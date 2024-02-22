@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float dashSpeed = 20f;
     public float maxDashTime = 0.8f;
-    public float dashAdjustmentAcceleration = 1f; // Acceleration rate for adjusting dash direction
+    public float dashTurnRate = 1f; // Acceleration rate for adjusting dash direction
     public float dashStopSpeedThreshold = 10f; // Speed threshold below which dashing stops if moving opposite
     public float preDashDelay = 0.2f; // Delay before dash starts, during which the player cannot move
     public float maxDashSpeed = 0.5f;
@@ -58,13 +58,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        UpdateMoveDirection();
-        UpdateDash();
-        UpdateDashUI();
     }
 
     void FixedUpdate()
     {
+        UpdateMoveDirection();
+        UpdateDash();
+        UpdateDashUI();
         UpdateMovement();
     }
 
@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 CalculateAdjustedDashDirection()
     {
         float timeFactor = Mathf.Clamp(dashDirectionHoldTime, 0, maxDashTime);
-        float adjustmentFactor = Mathf.Sqrt(timeFactor) * dashAdjustmentAcceleration;
+        float adjustmentFactor = Mathf.Sqrt(timeFactor) * dashTurnRate;
         adjustmentFactor = Mathf.Min(adjustmentFactor, maxDashSpeed);
         return Vector2.Lerp(dashDirection, moveDirection, adjustmentFactor).normalized;
     }

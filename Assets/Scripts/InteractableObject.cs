@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class InteractableObject : MonoBehaviour
 {
     [SerializeField] private float interactionDistance = 1f; // Distance within which the player can interact
-    [SerializeField] private bool canInteractMultipleTimes = false; // Whether the object can be interacted with multiple times
 
     public bool hasInteracted = false; // Tracks if the object has been interacted with
     private GameObject player; // Reference to the player

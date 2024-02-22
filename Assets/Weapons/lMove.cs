@@ -11,9 +11,7 @@ public class lMove : MeleeBaseState
 
         //Attack
         attackIndex = 4;
-        duration = curWeapon.recoverTime;
         animator.SetTrigger("Attack" + attackIndex);
-        Debug.Log("Player Attack " + attackIndex + " Fired!");
 
     }
 

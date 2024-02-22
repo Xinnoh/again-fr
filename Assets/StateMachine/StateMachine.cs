@@ -75,6 +75,11 @@ public class StateMachine : MonoBehaviour
             {
                 mainStateType = new IdleCombatState();
             }
+
+            if(customName == "Enemy")
+            {
+                mainStateType = new EnemyCombatState();
+            }
         }
     }
 }

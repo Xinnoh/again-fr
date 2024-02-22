@@ -27,6 +27,8 @@ public class BasicAI : MonoBehaviour
     // Detection properties
     public float detectionRange = 5f;
 
+    private StateMachine stateMachine;
+
     //Gizmos
     [SerializeField ]    public GameObject detectionDraw, attackDraw, patrolDraw, spawnDraw;
     public Vector2 spawnPos;
@@ -37,6 +39,8 @@ public class BasicAI : MonoBehaviour
 
     void Start()
     {
+
+        stateMachine = GetComponent<StateMachine>();
 
         patrolAreaCenter = transform.position;
 

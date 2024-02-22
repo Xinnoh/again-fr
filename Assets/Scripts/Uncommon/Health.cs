@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int health = 5; // Total health
+    public float health = 5; // Total health
     bool isEnemy = true;
 
     // This method subtracts damage from the health
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
 

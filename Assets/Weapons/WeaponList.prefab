@@ -46,11 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightList:
   - {fileID: 11400000, guid: fba4d76bcb2fac14b96b7c7166b0c1f3, type: 2}
+  - {fileID: 11400000, guid: 02bc8d83d0ad4db4da4a1ac1261ffdf4, type: 2}
   - {fileID: 11400000, guid: 52f05c817e0679f498507c3bf5b797ce, type: 2}
   heavyList:
   - {fileID: 11400000, guid: 15ee8b04222cab24586002d1a78fc856, type: 2}
   - {fileID: 11400000, guid: c66331bfb6a617e4ca95ed04732822da, type: 2}
   rangedList:
+  - {fileID: 11400000, guid: ae4b860b05a0b7447b04a66e8b5e22eb, type: 2}
   - {fileID: 11400000, guid: b16afe9b6feeb5943b733cd6836a0be9, type: 2}
   - {fileID: 11400000, guid: 2893b423d605ffb41a6b2c6856bf8687, type: 2}
   starterList: []

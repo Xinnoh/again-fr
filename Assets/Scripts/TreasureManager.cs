@@ -38,7 +38,7 @@ public class TreasureManager : MonoBehaviour
         DisplayWeaponNames(weaponNames);
         if (treasureUI != null) treasureUI.SetActive(false);
         if (highlightField!= null) highlightField.SetActive(false);
-
+        hasInteracted = false;
     }
 
     private void Update()
@@ -114,6 +114,7 @@ public class TreasureManager : MonoBehaviour
 
     public void ButtonInput(int button)
     {
+        Debug.Log(button);
         if (button >= 1 && button <= 3)
         {
             Inventory inventory = FindObjectOfType<Inventory>();

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
+  m_Name: gBasic
+  m_EditorClassIdentifier: 
+  name: Gun
+  description: Basic gun
+  artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
+  weaponState: gBasic
+  ID: 3
+  inventorySlot: 2
+  rarity: 0
+  cost: 4
+  damage: 2
+  exhaust: 0
+  hitStun: 0
+  recoverTime: 0.2
+  speedMultiplier: 1
+  isProjectile: 1
+  hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
+  hitboxSpeed: 10
+  duration: 1
+  spawnDelay: 0
+  bulletCount: 1
+  bulletSpread: 0
+  fireInterval: 0
+  distanceOffset: 0
+  momentum: 0
+  momentumDelay: 0

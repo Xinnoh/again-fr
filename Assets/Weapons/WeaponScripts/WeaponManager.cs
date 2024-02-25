@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class WeaponManager : MonoBehaviour
 {

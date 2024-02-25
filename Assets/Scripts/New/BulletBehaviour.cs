@@ -5,7 +5,7 @@ public class BulletBehavior : MonoBehaviour
     private float speed = 10f; // Speed of the bullet
     [SerializeField] private ParticleSystem particles; // Reference to the explosion particle system prefab
     [SerializeField] private int damage = 2; // Damage the bullet deals
-    public float duration;
+    public float duration = 3f;
 
     void FixedUpdate()
     {

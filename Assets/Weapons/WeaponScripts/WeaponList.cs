@@ -8,19 +8,20 @@ public class WeaponList : MonoBehaviour
 
     public Weapon[] lightList, heavyList, rangedList, starterList;
 
+
     void Awake()
     {
         if (Instance == null)
         {
+            // Unity will tell you this isn't needed. Unity is wrong.
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keep alive across scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
     public static Weapon GetRandomWeapon(InventorySlot slotType)
     {
         Weapon[] sourceArray = null;

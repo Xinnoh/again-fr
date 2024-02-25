@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentDashTime;
     private float dashDirectionHoldTime; // Time since a new direction was held during dash
     private float lastDashTime; // Last time the player dashed
-    private int currentDashes; // Current number of available dashes
+    [SerializeField]private int currentDashes; // Current number of available dashes
 
     #endregion
 
@@ -58,12 +58,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        UpdateMoveDirection();
+        UpdateDash();
     }
 
     void FixedUpdate()
     {
-        UpdateMoveDirection();
-        UpdateDash();
         UpdateDashUI();
         UpdateMovement();
     }

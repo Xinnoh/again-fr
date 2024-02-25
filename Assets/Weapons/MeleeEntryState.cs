@@ -12,17 +12,11 @@ public class MeleeEntryState : State
     {
         base.OnEnter(_stateMachine);
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        animator = player.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         #region Bug checks
-        if (player == null)
-        {
-            Debug.LogError("Player object not found with tag 'Player'.");
-            return;
-        }
 
-        weaponManager = player.GetComponent<WeaponManager>();
+        weaponManager = GetComponent<WeaponManager>();
         // Early return for error conditions
         if (weaponManager.attackingWeapon == null)
         {

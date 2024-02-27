@@ -69,41 +69,8 @@ public class PlayerAnimate : MonoBehaviour
             return;
         }
 
-
-        if (enemyAlive)
-        {
-            if (attacking)
-            {
-                return; // attacks are set within their StateMachines
-            }
-
-            if (dashing)
-            {
-                if (speed > 0.02f)
-                {
-                    ChangeAnimationState(Dashing);
-                    return;
-                }
-                ChangeAnimationState(PreDash);
-                return;
-            }
-
-            if (speed > 0.02f)
-            {
-                ChangeAnimationState(PMovement);
-                return;
-            }
-
-            ChangeAnimationState(IdleEnemy);
-            return;
-        }
-
-        // if no enemies
-
         if (attacking)
-        {
             return;
-        }
 
         if (dashing)
         {
@@ -116,14 +83,24 @@ public class PlayerAnimate : MonoBehaviour
             return;
         }
 
+
         if (speed > 0.02f)
         {
+            if (enemyAlive)
+            {
+                ChangeAnimationState(PMovement);
+                return;
+            }
+
             ChangeAnimationState(PMovementSafe);
             return;
         }
 
-        ChangeAnimationState(Idle);
-
+        if (enemyAlive)
+            ChangeAnimationState(IdleEnemy);
+        
+        else
+            ChangeAnimationState(Idle);
     }
 
 

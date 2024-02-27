@@ -9,8 +9,8 @@ public class LaserScript : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleParticles;
     [SerializeField] private ParticleSystem hitParticles;
 
-    public float baseDamage = .1f;
-    public float maxLength;
+    [HideInInspector] public float baseDamage = .1f;
+    [HideInInspector] public float maxLength;
 
     private GameObject player;
     private Target aimScript;

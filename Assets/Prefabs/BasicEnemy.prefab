@@ -285,10 +285,14 @@ MonoBehaviour:
   attackRange: 2
   retreatDistance: 2
   attackCooldown: 3
+  attackTime: 1
   intervalRandomness: 1
+  minStrafeChangeInterval: 0.8
   maxStrafeChangeInterval: 6
   maxIntervalRandom: 1
   strafeDistance: 4
+  minMovementThreshold: 0.04
+  retreatMode: 0
   isStunned: 0
   stunArmor: 0.5
   detectionDraw: {fileID: 4496610295223211811}
@@ -307,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef809919ea66f428054c5dade3d330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 2
   isEnemy: 1
 --- !u!114 &2899598458561150934
 MonoBehaviour:

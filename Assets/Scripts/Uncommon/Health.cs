@@ -6,14 +6,27 @@ public class Health : MonoBehaviour
     public float health = 5; // Total health
     public bool isEnemy = true;
 
-    // This method subtracts damage from the health
+    private void Update()
+    {
+        if(health <= 0)
+        {
+            Debug.Log(health);
+        }
+    }
+
     public void TakeDamage(float damage)
     {
         HitStun(damage);
 
         if (health <= 0)
         {
-            Die();
+            GungeonEnemy enemyScript = GetComponent<GungeonEnemy>();
+            if (enemyScript != null)
+            {
+                enemyScript.returnDead();
+            }
+
+            Destroy(gameObject);
         }
     }
 
@@ -51,23 +64,19 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        if(isEnemy)
+        if (isEnemy)
         {
-            GungeonEnemy enemyScript = GetComponent<GungeonEnemy>();
-            if (enemyScript != null)
-            {
-                enemyScript.returnDead();
-            }
-
-            Destroy(gameObject);
             return;
         }
 
-        PlayerManager playerManager = GetComponent<PlayerManager>();
-        if (playerManager != null)
+        else
         {
-            playerManager.alive = false;
-            return;
+            PlayerManager playerManager = GetComponent<PlayerManager>();
+            if (playerManager != null)
+            {
+                playerManager.alive = false;
+                return;
+            }
         }
         //player
     }

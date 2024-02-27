@@ -87,6 +87,13 @@ public class MeleeBaseState : State
                 stateMachine.SetNextStateToMain();
             }
         }
+
+
+        if (animator.GetFloat("Weapon.Active") > 0f)
+        {
+            Attack();
+        }
+
     }
 
     public override void OnFixedUpdate()
@@ -126,12 +133,12 @@ public class MeleeBaseState : State
                     Health health = collidersToDamage[i].gameObject.GetComponent<Health>();
                     if (health != null)
                     {
-                        health.TakeDamage(1);
+                        health.TakeDamage(curWeapon.damage);
                     }
 
                     hasHit = true;
 
-                    Debug.Log("Enemy Has Taken:" + attackIndex + "Damage");
+                    Debug.Log("Enemy Has Taken:" + curWeapon.damage + "Damage");
                     collidersDamaged.Add(collidersToDamage[i]);
                 }
             }

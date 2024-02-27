@@ -98,7 +98,6 @@ public class BasicAI : MonoBehaviour
         agent.updateUpAxis = false;
         PickNextPatrolPoint();
 
-        spawnDraw.transform.localScale = new Vector3(spawnRange * 2, spawnRange * 2, 1);
         spawnPos = transform.position;
         lastPosition = transform.position;
 

@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 7764789499840772876}
   - component: {fileID: 4667949925431600918}
   - component: {fileID: 7936847589509460086}
+  - component: {fileID: 2623743459926149269}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -509,6 +510,20 @@ MonoBehaviour:
   speed: 8
   maxDistanceFromPlayer: 3
   slowdownStartDistance: 0
+--- !u!114 &2623743459926149269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190477624590814612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ef809919ea66f428054c5dade3d330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  isEnemy: 0
 --- !u!1 &1928939673160094805
 GameObject:
   m_ObjectHideFlags: 0
@@ -11440,7 +11455,7 @@ Transform:
   m_GameObject: {fileID: 8694654869077435615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07995811, y: 0.10587272, z: -9.9777155}
+  m_LocalPosition: {x: 0.0799582, y: 0.10587311, z: -9.9777155}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16582,8 +16597,8 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 302136019
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,11 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private float speedMultiplier = 1f;
     private PlayerAnimate playerAnimate;
     private PlayerManager playerManager;
+    private Rigidbody2D rb;
 
     private bool moveEnabled = true;
-
-
-    private Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector2 dashDirection;
     private bool isDashing;
@@ -34,10 +33,12 @@ public class PlayerMovement : MonoBehaviour
     private float dashDirectionHoldTime; // Time since a new direction was held during dash
     private float lastDashTime; // Last time the player dashed
     [SerializeField]private int currentDashes; // Current number of available dashes
+    public TMP_Text dashText;
+
+    public PlayerInputActions playerControls;
+    private InputAction move, dash;
 
     #endregion
-
-    public TMP_Text dashText; // Reference to the TMP text element
 
 
     /*
@@ -45,6 +46,28 @@ public class PlayerMovement : MonoBehaviour
      * The player can press space to dash, this is on a charge and has a cooldown
      * A predash happens when the player presses dash. It stops the playermovement for a brief second before executing the dash.
      */
+
+
+    private void Awake()
+    {
+        playerControls = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        move = playerControls.Player.Move;
+        move.Enable();
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
+    }
+
+    private void OnDisable()
+    {
+        move.Disable();
+        dash.Disable(); 
+        dash.performed -= Dash;
+    }
 
 
     void Start()
@@ -72,9 +95,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerManager.playerActive && moveEnabled)
         {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveY = Input.GetAxisRaw("Vertical");
-            moveDirection = new Vector2(moveX, moveY).normalized;
+            moveDirection = move.ReadValue<Vector2>();
 
             if (moveDirection.sqrMagnitude > 0)
             {
@@ -88,29 +109,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Dash(InputAction.CallbackContext context)
+    {
+        if (!isDashing && !isPreDashing && currentDashes > 0)
+        {
+            StartCoroutine(PreDash());
+        }
+    }
+
     private void UpdateDash()
     {
         RechargeDashes();
 
-        // If isn't charging a dash, or isn't moving
-        if (!isPreDashing || moveDirection != Vector2.zero)
+        if (!isDashing || isPreDashing)
+            return;
+
+        if(currentDashTime >= maxDashTime || moveDirection == Vector2.zero)
         {
-            if (isDashing && moveDirection == Vector2.zero)
-            {
-                StopDash();
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && !isDashing && !isPreDashing && currentDashes > 0)
-            {
-                StartCoroutine(PreDash());
-                return;
-            }
-
-            if (isDashing && (Input.GetKeyUp(KeyCode.Space) || currentDashTime >= maxDashTime))
-            {
-                StopDash();
-            }
+            StopDash();
         }
     }
 

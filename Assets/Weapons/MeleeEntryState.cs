@@ -18,14 +18,14 @@ public class MeleeEntryState : State
 
         weaponManager = GetComponent<WeaponManager>();
         // Early return for error conditions
-        if (weaponManager.attackingWeapon == null)
+        if (weaponManager.GetAttackingWeapon() == null)
         {
             Debug.LogError("Current weapon is null.");
             return;
         }
         #endregion
 
-        curWeapon = weaponManager.attackingWeapon;
+        curWeapon = weaponManager.GetAttackingWeapon();
 
         Type stateType = Type.GetType(curWeapon.weaponState, throwOnError: false, ignoreCase: true);
 

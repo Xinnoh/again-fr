@@ -15,6 +15,7 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Update");
         if (nextState != null)
         {
             SetState(nextState);
@@ -62,24 +63,21 @@ public class StateMachine : MonoBehaviour
 
     private void Awake()
     {
-        SetNextStateToMain();
-
-    }
-
-
-    private void OnValidate()
-    {
         if (mainStateType == null)
         {
+            Debug.Log("D");
             if (customName == "Combat")
             {
                 mainStateType = new IdleCombatState();
             }
 
-            if(customName == "Enemy")
+            if (customName == "Enemy")
             {
                 mainStateType = new EnemyCombatState();
             }
         }
+
+        SetNextStateToMain();
     }
+
 }

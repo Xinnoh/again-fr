@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using static UnityEngine.Rendering.DebugUI;
 // Used as the base script for all weapons.
 
@@ -42,7 +41,7 @@ public class MeleeBaseState : State
     protected bool targetAcquired;
 
     // Input buffer Timer
-    private float AttackPressedTimer = 0;
+    // private float AttackPressedTimer = 0;
 
     // Allow attack cancel if we hit enemy
     protected bool hasHit;
@@ -55,7 +54,7 @@ public class MeleeBaseState : State
         collidersDamaged = new List<Collider2D>();
         hitCollider = GetComponent<WeaponManager>().hitbox;
         HitEffectPrefab = GetComponent<WeaponManager>().Hiteffect;
-        curWeapon = GetComponent<WeaponManager>().attackingWeapon;
+        curWeapon = GetComponent<WeaponManager>().GetAttackingWeapon();
         aimScript = GetComponent<Target>();
         playerMovement = GetComponent<PlayerMovement>();
 

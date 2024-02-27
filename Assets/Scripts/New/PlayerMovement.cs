@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashRecoveryTime = 2f; // Time to recover a dash
     public ParticleSystem dashParticles;
 
-    private Vector2 lastMovementDirection = Vector2.zero;
+    private Vector2 lastMovementDirection = Vector2.down; // defaults facing this direction on spawn
 
     private float speedMultiplier = 1f;
     private PlayerAnimate playerAnimate;

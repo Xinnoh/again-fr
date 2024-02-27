@@ -12,7 +12,7 @@ public class BasicAI : MonoBehaviour
 
 
     [Header("Spawn Properties")]
-    [SerializeField] private float spawnRange = 3f;
+    // [SerializeField] private float spawnRange = 3f;
     [SerializeField] private float patrolRadius = 10f;
     private Vector2 patrolAreaCenter;
     private Vector2 nextPatrolPoint;
@@ -45,7 +45,7 @@ public class BasicAI : MonoBehaviour
     [Header("Strafe Properties")]
     [SerializeField] private float minStrafeChangeInterval = .8f;
     [SerializeField] private float maxStrafeChangeInterval = 6f;
-    [SerializeField] private float maxIntervalRandom = 1f;
+    // [SerializeField] private float maxIntervalRandom = 1f;
 
     private float timeSinceChangeInterval;
 

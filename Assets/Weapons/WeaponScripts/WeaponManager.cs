@@ -34,10 +34,10 @@ public class WeaponManager : MonoBehaviour
     private bool hasEnergy, playerNotAttacking, reloading;
 
     private Weapon currentWeapon;
-    public Weapon attackingWeapon;
+    private Weapon attackingWeapon;
 
 
-    private StateMachine meleeStateMachine;
+    private StateMachine playerStateMachine;
 
     [SerializeField] public Collider2D hitbox;
     [SerializeField] public GameObject Hiteffect;
@@ -55,8 +55,10 @@ public class WeaponManager : MonoBehaviour
         inventory = GetComponent<Inventory>();
         inventory.ResetWeaponExhaustion();
 
-        meleeStateMachine = GetComponent<StateMachine>();
-        UpdateUI(); 
+        playerStateMachine = GetComponent<StateMachine>();
+        UpdateUI();
+
+
     }
 
     private void Update()
@@ -98,7 +100,8 @@ public class WeaponManager : MonoBehaviour
 
     private void UpdateCanShoot()
     {
-        playerNotAttacking = meleeStateMachine.CurrentState.GetType() == typeof(IdleCombatState);
+
+        playerNotAttacking = playerStateMachine.CurrentState.GetType() == typeof(IdleCombatState);
         hasEnergy = currentEnergy < maxEnergy;
 
         if (playerNotAttacking && hasEnergy && !reloading)
@@ -147,6 +150,11 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    public Weapon GetAttackingWeapon()
+    {
+        return attackingWeapon;
+    }
+
 
     // Confirmed Fire
     private void FireProcess(Weapon weaponToFire, Weapon[] curWeapons)
@@ -180,7 +188,7 @@ public class WeaponManager : MonoBehaviour
         }
 
 
-        meleeStateMachine.SetNextState(new MeleeEntryState());
+        playerStateMachine.SetNextState(new MeleeEntryState());
 
         timeSinceLastAttack = 0;
         weaponToFire.exhaust = true;

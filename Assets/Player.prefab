@@ -11455,7 +11455,7 @@ Transform:
   m_GameObject: {fileID: 8694654869077435615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0799582, y: 0.10587311, z: -9.9777155}
+  m_LocalPosition: {x: 0.07995796, y: 0.10587311, z: -9.9777155}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16678,5 +16678,5 @@ MonoBehaviour:
   muzzlePoint: {fileID: 6121653595528397243}
   muzzleParticles: {fileID: 4206083513907388081}
   hitParticles: {fileID: 2536333165072878336}
-  baseDamage: 0.1
+  baseDamage: 2
   maxLength: 12

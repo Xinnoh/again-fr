@@ -109,7 +109,7 @@ public class TreasureManager : MonoBehaviour
     {
         hasInteracted = true;
         if (treasureUI != null) treasureUI.SetActive(true);
-        playerManager.PlayerActive = false;
+        playerManager.playerActive = false;
     }
 
     public void ButtonInput(int button)
@@ -124,7 +124,7 @@ public class TreasureManager : MonoBehaviour
             }
         }
 
-        playerManager.PlayerActive = true;
+        playerManager.playerActive = true;
         Destroy(gameObject);
     }
 }

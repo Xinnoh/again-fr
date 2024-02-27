@@ -34,5 +34,6 @@ MonoBehaviour:
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 1
+  fireDistance: 10
   momentum: 0
   momentumDelay: 0

@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public Shoot shoot;
     public WeaponManager weaponManager;
     private int wavesCleared;
     private int dungeonDepth;
 
-    public bool PlayerActive = true;
-
-
+    public bool alive = true;
+    public bool playerActive = true;
+    public bool playerStunned, playerInvuln;
+    private float stunTimer, invulnTimer;
+    [SerializeField] private float stunInvulnTime = 1f;
 
     public GameObject treasurePrefab;
     void Start()
     {
-        shoot = GetComponent<Shoot>();
+        alive = true;
         weaponManager = GetComponent<WeaponManager>();
         wavesCleared = 0;
-
     }
 
     void Update()
     {
 
-        if(PlayerActive)
+        if(playerActive)
         {
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -58,6 +58,15 @@ public class PlayerManager : MonoBehaviour
     public void SpawnTreasure(Vector2 treasurePos)
     {
         Instantiate(treasurePrefab, treasurePos, Quaternion.identity);
+    }
+
+
+    public void HitStun()
+    {
+        playerStunned = true;
+        playerInvuln = true;
+        invulnTimer = stunInvulnTime;
+        
     }
 
 }

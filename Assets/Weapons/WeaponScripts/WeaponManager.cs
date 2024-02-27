@@ -24,6 +24,7 @@ public class WeaponManager : MonoBehaviour
     public float reloadCooldown = 2f;
 
     private PlayerMovement playerMovement;
+    private PlayerManager playerManager;
     private Target aimscript;
     private Inventory inventory;
 
@@ -50,6 +51,7 @@ public class WeaponManager : MonoBehaviour
         currentEnergy = 0;
         aimscript = GetComponent<Target>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerManager = GetComponent<PlayerManager>();
         inventory = GetComponent<Inventory>();
         inventory.ResetWeaponExhaustion();
 
@@ -115,7 +117,7 @@ public class WeaponManager : MonoBehaviour
         if (uiEnable)
         {
             energyDisplay.text = $"Energy: {Mathf.Round(currentEnergy)} / {maxEnergy}";
-            canShootDisplay.text = $"Can Shoot: {canShoot}";
+            canShootDisplay.text = $"Reloading: {!canShoot}";
 
             weapon1Display.text = inventory.weapons1.Length > 0 ? $"{inventory.weapons1[0].name}" : "Weapon 1: N/A";
             weapon2Display.text = inventory.weapons2.Length > 0 ? $"{inventory.weapons2[0].name}" : "Weapon 2: N/A";

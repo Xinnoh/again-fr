@@ -10,36 +10,20 @@ public class gLaser : MeleeBaseState
     {
         base.OnEnter(_stateMachine);
 
-        // new code
         laserScript = GameObject.FindGameObjectWithTag("Laser").GetComponent<LaserScript>();
         laserScript.maxLength = curWeapon.fireDistance;
         laserScript.baseDamage = curWeapon.damage;
         laserScript.EnableLaser();
-        //
-
-        attackIndex = 5;
-        animator.SetTrigger("Attack" + attackIndex);
+        
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
 
-        // when attack over
         if (fixedtime >= duration)
         {
-            // new code
             laserScript.DisableLaser();
-            //
-
-            if (shouldCombo)
-            {
-                stateMachine.SetNextState(new MeleeEntryState());
-            }
-            else
-            {
-                stateMachine.SetNextStateToMain();
-            }
         }
     }
 }

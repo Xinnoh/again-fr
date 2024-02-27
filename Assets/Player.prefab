@@ -312,6 +312,7 @@ MonoBehaviour:
   maxDashes: 2
   dashRecoveryTime: 2
   dashParticles: {fileID: 529490166850849598}
+  currentDashes: 0
   dashText: {fileID: 5652612564972227431}
 --- !u!114 &533990487298144389
 MonoBehaviour:
@@ -400,9 +401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e79cd206cc65d64ea1d29de1097d5b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shoot: {fileID: 0}
   weaponManager: {fileID: 9148156652602214409}
-  PlayerActive: 1
+  alive: 1
+  playerActive: 1
+  playerStunned: 0
+  playerInvuln: 0
+  stunInvulnTime: 1
   treasurePrefab: {fileID: 5668383081558085360, guid: 7b64dc9125cdd1949ab78016ae473cba, type: 3}
 --- !u!114 &9148156652602214409
 MonoBehaviour:
@@ -6256,8 +6260,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143, y: -339}
-  m_SizeDelta: {x: 388.9277, y: 48.9523}
+  m_AnchoredPosition: {x: -148.85327, y: -339}
+  m_SizeDelta: {x: 440.2556, y: 48.9523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5525236903520889883
 CanvasRenderer:
@@ -6287,7 +6291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 50
+  m_text: 'Energy: 0 / 50'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d71da4c8a459ac443a60f0ede7acbe26, type: 2}
   m_sharedMaterial: {fileID: 636024562134263840, guid: d71da4c8a459ac443a60f0ede7acbe26, type: 2}
@@ -6509,7 +6513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2/2
+  m_text: 'Dashes: 2/2
 
 '
   m_isRightToLeft: 0

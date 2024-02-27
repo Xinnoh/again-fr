@@ -9,8 +9,6 @@ public class Health : MonoBehaviour
     // This method subtracts damage from the health
     public void TakeDamage(float damage)
     {
-        health -= damage;
-
         HitStun(damage);
 
         if (health <= 0)
@@ -23,17 +21,31 @@ public class Health : MonoBehaviour
     {
         if(isEnemy)
         {
+            health -= damage;
+
             BasicAI basicAI = GetComponent<BasicAI>();
             if(basicAI != null)
             {
                 basicAI.HitStun(damage);
             }
+            return;
         }
 
-        else
+        
+        PlayerManager playerManager = GetComponent<PlayerManager>();
+        if(playerManager != null)
         {
-            //player
+            if (playerManager.playerInvuln)
+            {
+                return;
+            }
+
+            health -= damage;
+            playerManager.HitStun();
+            return;
         }
+
+        Debug.Log("Health Null");
 
     }
 
@@ -48,11 +60,15 @@ public class Health : MonoBehaviour
             }
 
             Destroy(gameObject);
+            return;
         }
 
-        else
+        PlayerManager playerManager = GetComponent<PlayerManager>();
+        if (playerManager != null)
         {
-            // is player
+            playerManager.alive = false;
+            return;
         }
+        //player
     }
 }

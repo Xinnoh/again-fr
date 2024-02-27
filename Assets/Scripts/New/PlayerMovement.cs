@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMoveDirection()
     {
-        if (playerManager.PlayerActive && moveEnabled)
+        if (playerManager.playerActive && moveEnabled)
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");

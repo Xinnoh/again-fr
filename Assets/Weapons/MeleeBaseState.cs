@@ -29,10 +29,10 @@ public class MeleeBaseState : State
     private GameObject HitEffectPrefab;
     //Current weapon
     protected Weapon curWeapon;
-    //Directionality
     protected Target aimScript;
     protected PlayerMovement playerMovement;
     protected GameObject player;
+    protected PlayerAnimate playerAnimate;
 
     // closest enemy direction and distance
     protected Vector2 enemyDirection;
@@ -51,6 +51,7 @@ public class MeleeBaseState : State
     {
         base.OnEnter(_stateMachine);
         animator = GetComponent<Animator>();
+        playerAnimate = GetComponent<PlayerAnimate>();
         collidersDamaged = new List<Collider2D>();
         hitCollider = GetComponent<WeaponManager>().hitbox;
         HitEffectPrefab = GetComponent<WeaponManager>().Hiteffect;
@@ -64,33 +65,39 @@ public class MeleeBaseState : State
         hasHit = false;
         playerMovement.SetSpeedModifier(curWeapon.speedMultiplier);
 
-        duration = curWeapon.recoverTime;
+        int newState = playerAnimate.GetAnimationState(curWeapon.weaponState);
+        playerAnimate.ChangeAnimationState(newState);
+        playerAnimate.SetAttacking(true);
+
+        duration = playerAnimate.GetAnimationLength();
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
-        AttackPressedTimer -= Time.deltaTime;
 
-        if (animator.GetFloat("Weapon.Active") > 0f)
+        if (fixedtime >= duration)
         {
-            Attack();
+            if (shouldCombo)
+            {
+                stateMachine.SetNextState(new MeleeEntryState());
+            }
+            else
+            {
+                stateMachine.SetNextStateToMain();
+            }
         }
+    }
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            AttackPressedTimer = .3f;
-        }
-
-        if (animator.GetFloat("AttackWindow.Open") > 0f && AttackPressedTimer > 0)
-        {
-            shouldCombo = true;
-        }
+    public override void OnFixedUpdate()
+    {
+        base.OnFixedUpdate();
+        MoveToTarget();
     }
 
     public override void OnExit()
     {
+        playerAnimate.SetAttacking(false);
         playerMovement.ResetSpeedMultiplier();
         base.OnExit();
     }
@@ -131,12 +138,31 @@ public class MeleeBaseState : State
         }
     }
 
+    
+
+
+
+    protected void MoveToTarget()
+    {
+        if (curWeapon.momentum != 0)  // If we are using weapon with momentum
+        {
+            if (fixedtime >= curWeapon.momentumDelay)   // how long to delay before attacking
+            {
+                if (!targetAcquired) // ensures we only target one enemy throughout attack
+                {
+                    FindEnemy();
+                }
+
+                Vector2 moveDirection = enemyDirection.normalized;
+                Vector2 movementStep = moveDirection * curWeapon.momentum * Time.deltaTime;
+                playerMovement.transform.position += new Vector3(movementStep.x, movementStep.y, 0);
+            }
+        }
+    }
     protected void FindEnemy()
     {
         enemyDirection = aimScript.GetAimVector();
 
         targetAcquired = true;
     }
-
-
 }

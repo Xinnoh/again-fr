@@ -827,6 +827,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &403845399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1190477624590814612, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
+  m_PrefabInstance: {fileID: 2093933569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &403845400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403845399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ef809919ea66f428054c5dade3d330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  isEnemy: 0
 --- !u!1 &561467194
 GameObject:
   m_ObjectHideFlags: 0
@@ -6379,6 +6398,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.10587311
       objectReference: {fileID: 0}
+    - target: {fileID: 3949646845907018809, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
+      propertyPath: stunInvulnTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6121653595528397243, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.47
@@ -6426,7 +6449,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1190477624590814612, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 403845400}
   m_SourcePrefab: {fileID: 100100000, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
 --- !u!1001 &4967527064879887341
 PrefabInstance:

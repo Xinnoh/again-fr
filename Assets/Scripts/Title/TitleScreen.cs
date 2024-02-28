@@ -11,10 +11,12 @@ public class TitleScreen : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         titleCover.color = new Color (titleCover.color.r, titleCover.color.g, titleCover.color.b, 0f);
+
     }
 
     public void StartPressed()
     {
+        SceneManager.LoadScene("Dungeon");
         StartCoroutine(FadeOutAudioSource(audioSource, audioSource.volume / 2, 2f));
         StartCoroutine(FadeSpriteRenderer(titleCover, 2f)); 
         StartCoroutine(LoadSceneAfterDelay("Dungeon", 2f)); 
@@ -30,6 +32,8 @@ public class TitleScreen : MonoBehaviour
     {
         StartCoroutine(FadeOutAudioSource(audioSource, 0f, 0.5f)); 
     }
+
+
 
     private IEnumerator FadeOutAudioSource(AudioSource source, float targetVolume, float duration)
     {

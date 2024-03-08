@@ -5,6 +5,17 @@ public class Health : MonoBehaviour
 {
     public float health = 5; // Total health
     public bool isEnemy = true;
+    private float maxHealth;
+
+
+    private HealthBarEnemy healthBar;
+
+    private void Start()
+    {
+        healthBar = GetComponentInChildren<HealthBarEnemy>();
+        maxHealth = health;
+    }
+
 
     private void Update()
     {
@@ -17,6 +28,9 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         HitStun(damage);
+
+
+        healthBar.UpdateHealth(health, maxHealth);
 
         if (health <= 0)
         {

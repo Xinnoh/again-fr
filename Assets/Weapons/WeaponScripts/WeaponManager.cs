@@ -16,9 +16,9 @@ public class WeaponManager : MonoBehaviour
     public TMP_Text canShootDisplay;
 
 
-    public float currentEnergy;
-    public int maxEnergy = 51;
-    public int startingEnergy = 51;
+    [HideInInspector] public float currentEnergy;
+    public int maxEnergy = 40;
+    public int startingEnergy = 40;
 
     public float reloadRate = 1f;
     public float reloadCooldown = 2f;
@@ -48,7 +48,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Start()
     {
-        currentEnergy = 0;
+        currentEnergy = maxEnergy;
         aimscript = GetComponent<Target>();
         playerMovement = GetComponent<PlayerMovement>();
         playerManager = GetComponent<PlayerManager>();
@@ -72,7 +72,7 @@ public class WeaponManager : MonoBehaviour
     {
         // timeSinceFire is set to 0 whenever we attack
 
-        if (currentEnergy > 0)
+        if (currentEnergy < maxEnergy)
         {
             timeSinceLastAttack += Time.deltaTime;
 
@@ -82,14 +82,14 @@ public class WeaponManager : MonoBehaviour
                 canShoot = false;
                 reloading = true;
                 // Decrease currentEnergy over time
-                currentEnergy -= reloadRate * Time.deltaTime;
+                currentEnergy += reloadRate * Time.deltaTime;
                 // Clamp currentEnergy to ensure it does not go below 0
-                currentEnergy = Mathf.Max(currentEnergy, 0);
+                currentEnergy = Mathf.Min(currentEnergy, maxEnergy);
             }
             return;
         }
 
-        if (timeSinceLastAttack != 0 && currentEnergy <= 0)
+        if (timeSinceLastAttack != 0 && currentEnergy >= maxEnergy)
         {
             reloading = false;
             canShoot = true;
@@ -102,7 +102,7 @@ public class WeaponManager : MonoBehaviour
     {
 
         playerNotAttacking = playerStateMachine.CurrentState.GetType() == typeof(IdleCombatState);
-        hasEnergy = currentEnergy < maxEnergy;
+        hasEnergy = currentEnergy > 0;
 
         if (playerNotAttacking && hasEnergy && !reloading)
         {
@@ -162,8 +162,9 @@ public class WeaponManager : MonoBehaviour
         canShoot = false;
         attackingWeapon = currentWeapon;
 
-        currentEnergy += weaponToFire.cost;
-
+        currentEnergy -= weaponToFire.cost;
+        if (currentEnergy < 0) currentEnergy = 0;
+        
         if (weaponToFire.isProjectile)
         {
             GameObject hitbox = Instantiate(weaponToFire.hitbox, transform.position, Quaternion.identity);

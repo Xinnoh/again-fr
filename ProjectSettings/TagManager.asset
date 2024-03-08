@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - BulletPlayer
   - Laser
+  - GameManager
   layers:
   - Default
   - TransparentFX

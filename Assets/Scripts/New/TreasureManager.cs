@@ -13,39 +13,33 @@ public class TreasureManager : MonoBehaviour
 
     public GameObject treasureUI;
     private PlayerManager playerManager;
-    private GameObject player; // Reference to the player
+    private GameObject player;
     public bool hasInteracted = false; // Tracks if the object has been interacted with
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); // Find and assign the player object
+
+        player = GameObject.FindGameObjectWithTag("Player"); 
         playerManager = player.GetComponent<PlayerManager>();
 
-        List<string> weaponNames = new List<string>(); // Temporary list to hold weapon names
+        AddWeapons(); // Put random weapons in the chest
 
-        Weapon newWeapon = GetRandomWeaponFromAnyCategory();
-
-        for (int i = 0; i < 3; i++)
-        {
-            while (IsDuplicate(newWeapon))
-            {
-                newWeapon = GetRandomWeaponFromAnyCategory();
-            }
-
-            selectedWeapons[i] = newWeapon;
-            weaponNames.Add(newWeapon.name); // Add the weapon's name to the list
-        }
-        DisplayWeaponNames(weaponNames);
         if (treasureUI != null) treasureUI.SetActive(false);
         if (highlightField!= null) highlightField.SetActive(false);
         hasInteracted = false;
     }
 
+
     private void Update()
+    {
+        CheckDistancePlayer();
+    }
+
+    private void CheckDistancePlayer()
     {
         if (Vector2.Distance(player.transform.position, transform.position) <= interactionDistance)
         {
-            if(highlightField != null) highlightField.SetActive(true);
+            if (highlightField != null) highlightField.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -62,6 +56,31 @@ public class TreasureManager : MonoBehaviour
         }
     }
 
+    public void OnTreasureInteracted()
+    {
+        hasInteracted = true;
+        if (treasureUI != null) treasureUI.SetActive(true);
+        playerManager.playerActive = false;
+    }
+
+    private void AddWeapons()
+    {
+        List<string> weaponNames = new List<string>();
+
+        Weapon newWeapon = GetRandomWeaponFromAnyCategory();
+
+        for (int i = 0; i < 3; i++)
+        {
+            while (IsDuplicate(newWeapon))
+            {
+                newWeapon = GetRandomWeaponFromAnyCategory();
+            }
+
+            selectedWeapons[i] = newWeapon;
+            weaponNames.Add(newWeapon.name); // Add the weapon's name to the list
+        }
+        DisplayWeaponNames(weaponNames);
+    }
 
     private Weapon GetRandomWeaponFromAnyCategory()
     {
@@ -105,13 +124,7 @@ public class TreasureManager : MonoBehaviour
     }
 
 
-    public void OnTreasureInteracted()
-    {
-        hasInteracted = true;
-        if (treasureUI != null) treasureUI.SetActive(true);
-        playerManager.playerActive = false;
-    }
-
+    // Called when the player selects an item
     public void ButtonInput(int button)
     {
         Debug.Log(button);

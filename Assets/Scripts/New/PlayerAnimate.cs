@@ -59,16 +59,18 @@ public class PlayerAnimate : MonoBehaviour
         UpdateAimDirection();
         UpdateState();
     }
+    
 
-
-    private void UpdateState()
+private void UpdateState()
     {
+
         if (!playerManager.alive)
         {
             ChangeAnimationState(Dead);
             return;
         }
 
+        // don't interrupt the attack animation
         if (attacking)
             return;
 
@@ -83,10 +85,11 @@ public class PlayerAnimate : MonoBehaviour
             return;
         }
 
-
+        // if moving
         if (speed > 0.02f)
         {
-            if (enemyAlive)
+        // The player has different animations depending on if there are enemies
+        if (enemyAlive)
             {
                 ChangeAnimationState(PMovement);
                 return;
@@ -107,7 +110,6 @@ public class PlayerAnimate : MonoBehaviour
     public void ChangeAnimationState(int newState)
     {
         if(currentState == newState) return;
-
 
         animator.Play(newState);
         currentState = newState;

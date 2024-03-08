@@ -37,6 +37,7 @@ public class MeleeBaseState : State
     protected Vector2 enemyDirection;
     protected float enemyDistance;
 
+
     // have we picked a target (used for attacks that attack over time, prevents switchign)
     protected bool targetAcquired;
 
@@ -46,19 +47,17 @@ public class MeleeBaseState : State
     // Allow attack cancel if we hit enemy
     protected bool hasHit;
 
+    public void Start()
+    {
+        Debug.Log("?");
+
+    }
+
+
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
-        animator = GetComponent<Animator>();
-        playerAnimate = GetComponent<PlayerAnimate>();
-        collidersDamaged = new List<Collider2D>();
-        hitCollider = GetComponent<WeaponManager>().hitbox;
-        HitEffectPrefab = GetComponent<WeaponManager>().Hiteffect;
-        curWeapon = GetComponent<WeaponManager>().GetAttackingWeapon();
-        aimScript = GetComponent<Target>();
-        playerMovement = GetComponent<PlayerMovement>();
-
-        player = GameObject.FindGameObjectWithTag("Player");
+        Initialise();
 
         targetAcquired = false;
         hasHit = false;
@@ -69,6 +68,20 @@ public class MeleeBaseState : State
         playerAnimate.SetAttacking(true);
 
         duration = playerAnimate.GetAnimationLength();
+    }
+
+    protected void Initialise()
+    {
+        Debug.Log("initialise");
+        animator = GetComponent<Animator>();
+        playerAnimate = GetComponent<PlayerAnimate>();
+        collidersDamaged = new List<Collider2D>();
+        hitCollider = GetComponent<WeaponManager>().hitbox;
+        HitEffectPrefab = GetComponent<WeaponManager>().Hiteffect;
+        curWeapon = GetComponent<WeaponManager>().GetAttackingWeapon();
+        aimScript = GetComponent<Target>();
+        playerMovement = GetComponent<PlayerMovement>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public override void OnUpdate()

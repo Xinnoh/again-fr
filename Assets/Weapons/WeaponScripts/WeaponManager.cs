@@ -153,7 +153,7 @@ public class WeaponManager : MonoBehaviour
         
         if (weaponToFire.isProjectile)
         {
-            GameObject hitbox = Instantiate(weaponToFire.hitbox, transform.position, Quaternion.identity);
+            GameObject hitbox = Instantiate(weaponToFire.hitbox, MoveHitboxStart(), Quaternion.identity);
             BulletBehavior hitboxBehaviour = hitbox.GetComponent<BulletBehavior>();
 
             float angle = aimscript.GetAimAngle();
@@ -184,4 +184,14 @@ public class WeaponManager : MonoBehaviour
         uiManager.UpdateWeapons(weaponToFire.inventorySlot);
 
     }
+
+    private Vector3 MoveHitboxStart()
+    {
+        // This needs to be set dependent on the direction the player is facing
+
+        Vector3 raisedPosition = transform.position;
+        raisedPosition.y += .575f;
+        return raisedPosition;
+    }
+
 }

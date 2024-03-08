@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
+  m_Name: gElectroball
+  m_EditorClassIdentifier: 
+  name: Electroball
+  description: Fires an AoE burst
+  artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
+  weaponState: gElectroball
+  ID: 6
+  inventorySlot: 2
+  rarity: 0
+  cost: 3
+  damage: 2
+  exhaust: 0
+  hitStun: 1
+  recoverTime: 2
+  speedMultiplier: 0.33
+  isProjectile: 1
+  hitbox: {fileID: 5480747347970126038, guid: c9654b32e3f834c47b8e6079f0750d57, type: 3}
+  hitboxSpeed: 0
+  duration: 0
+  spawnDelay: 0.5
+  bulletCount: 1
+  bulletSpread: 0
+  fireInterval: 0
+  distanceOffset: 0
+  fireDistance: 10
+  momentum: 0
+  momentumDelay: 0

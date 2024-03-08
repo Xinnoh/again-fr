@@ -34,9 +34,6 @@ public class Inventory : MonoBehaviour
 
     public void AddWeaponToInventory(Weapon weaponToAdd)
     {
-        Weapon[] targetArray = null;
-
-        // Determine the correct array to update based on the weapon's inventory slot
         switch (weaponToAdd.inventorySlot)
         {
             case InventorySlot.Light:

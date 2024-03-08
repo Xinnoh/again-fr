@@ -1317,63 +1317,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98e041e89031b034381ead3eef61fdef, type: 3}
---- !u!1001 &81262178
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.8339458
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.14857
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.09092544
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3797244937846920133, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6466562473881754280, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: m_Name
-      value: WeaponList
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
 --- !u!1001 &90263372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6334,6 +6277,18 @@ PrefabInstance:
       value: BasicEnemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: isRangedEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
       propertyPath: retreatDistance
       value: 1.5
       objectReference: {fileID: 0}
@@ -8362,6 +8317,18 @@ PrefabInstance:
     - target: {fileID: 1272947890764447594, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
       propertyPath: m_Name
       value: BasicEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: isRangedEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1417975127852518334, guid: f5f54c396f37c8a48bc4cffa5bfc47c7, type: 3}
       propertyPath: retreatDistance
@@ -29166,6 +29133,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
+      propertyPath: rangedList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: bffa99d697d29984dbf711ec48f6edbe, type: 2}
+    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
+      propertyPath: rangedList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b16afe9b6feeb5943b733cd6836a0be9, type: 2}
+    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
+      propertyPath: rangedList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: ae4b860b05a0b7447b04a66e8b5e22eb, type: 2}
+    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
+      propertyPath: rangedList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2893b423d605ffb41a6b2c6856bf8687, type: 2}
     - target: {fileID: 6466562473881754280, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
       propertyPath: m_Name
       value: WeaponList
@@ -34707,6 +34690,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2262117408490943129, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.10587311
+      objectReference: {fileID: 0}
     - target: {fileID: 6121653595528397243, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.16
@@ -35427,7 +35414,6 @@ SceneRoots:
   - {fileID: 4967527064879887341}
   - {fileID: 1803802508}
   - {fileID: 1253075946}
-  - {fileID: 81262178}
   - {fileID: 4986467535426733875}
   - {fileID: 557419290}
   - {fileID: 415994186}

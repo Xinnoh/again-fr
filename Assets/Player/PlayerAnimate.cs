@@ -33,6 +33,7 @@ public class PlayerAnimate : MonoBehaviour
 
     private static readonly int gBasic = Animator.StringToHash("gBasic");
     private static readonly int gLaser = Animator.StringToHash("gLaser");
+    private static readonly int gElectroball = Animator.StringToHash("gElectroball");
 
     private static readonly int Stunned = Animator.StringToHash("Stunned");
     private static readonly int Dead = Animator.StringToHash("Dead");
@@ -64,7 +65,7 @@ public class PlayerAnimate : MonoBehaviour
 private void UpdateState()
     {
 
-        if (!playerManager.alive)
+        if (playerManager.gameOver)
         {
             ChangeAnimationState(Dead);
             return;

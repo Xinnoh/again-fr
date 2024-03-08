@@ -167,9 +167,8 @@ public class BasicAI : MonoBehaviour
             }
             return;
         }
-
-        target = player.transform;
-        float distanceToTarget = Vector2.Distance(target.position, transform.position);
+        
+        float distanceToTarget = Vector2.Distance(GetPlayerPosition(), transform.position);
 
         // if too close
         if (distanceToTarget <= retreatDistance)
@@ -232,7 +231,7 @@ public class BasicAI : MonoBehaviour
 
     private void AttackTarget()
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        Vector2 direction = (GetPlayerPosition() - transform.position).normalized;
 
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -262,7 +261,7 @@ public class BasicAI : MonoBehaviour
 
     public Vector2 GetPlayerDirection()
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        Vector2 direction = (GetPlayerPosition() - transform.position).normalized;
         return direction;
     }
 
@@ -350,8 +349,8 @@ public class BasicAI : MonoBehaviour
     private void ChaseTarget()
     {
         // Create a buffer of 1f around the player so we don't push them
-        Vector3 toTarget = target.position - transform.position;
-        Vector3 targetPosition = target.position - (toTarget.normalized * playerBuffer);
+        Vector3 toTarget = GetPlayerPosition() - transform.position;
+        Vector3 targetPosition = GetPlayerPosition() - (toTarget.normalized * playerBuffer);
         agent.SetDestination(targetPosition);
     }
 
@@ -392,6 +391,20 @@ public class BasicAI : MonoBehaviour
                 agent.isStopped = true;
             }
         }
+    }
+
+    private Vector3 GetPlayerPosition()
+    {
+        if (player == null)
+        {
+            Debug.LogError("Player object is not assigned or found.");
+            return Vector3.zero; 
+        }
+
+        // The player hitbox is offset by this amount
+        Vector3 loweredPosition = player.transform.position;
+        loweredPosition.y -= 1.075f;
+        return loweredPosition;
     }
 
 

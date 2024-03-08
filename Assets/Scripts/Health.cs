@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     public bool isEnemy = true;
     [HideInInspector] public float maxHealth;
 
-
+    private PlayerManager playerManager;
     private HealthBarEnemy healthBar;
     private UiManager playerUI;
 
@@ -15,16 +15,12 @@ public class Health : MonoBehaviour
     {
         maxHealth = health;
         healthBar = GetComponentInChildren<HealthBarEnemy>();
+        playerUI = GetComponent<UiManager>();
+
+        playerManager = GetComponent<PlayerManager>();
     }
 
 
-    private void Update()
-    {
-        if(health <= 0)
-        {
-            Debug.Log(health);
-        }
-    }
 
     public void TakeDamage(float damage)
     {
@@ -46,8 +42,15 @@ public class Health : MonoBehaviour
             {
                 enemyScript.returnDead();
             }
+            if (isEnemy)
+            {
+                Destroy(gameObject);
+            }
 
-            Destroy(gameObject);
+            else
+            {
+                playerManager.gameOver = true;
+            }
         }
     }
 
@@ -66,7 +69,6 @@ public class Health : MonoBehaviour
         }
 
         
-        PlayerManager playerManager = GetComponent<PlayerManager>();
         if(playerManager != null)
         {
             if (playerManager.playerInvuln)
@@ -92,12 +94,7 @@ public class Health : MonoBehaviour
 
         else
         {
-            PlayerManager playerManager = GetComponent<PlayerManager>();
-            if (playerManager != null)
-            {
-                playerManager.alive = false;
-                return;
-            }
+
         }
         //player
     }

@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     private int wavesCleared;
     private int dungeonDepth;
 
-    public bool alive = true;
+    public bool gameOver;
     public bool playerActive = true;
     public bool playerStunned, playerInvuln;
     private float stunTimer, invulnTimer;
@@ -76,15 +76,15 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        alive = true;
+        gameOver = false;
         weaponManager = GetComponent<WeaponManager>();
         wavesCleared = 0;
     }
-
     void Update()
     {
-
+        UpdateInvulnStunTimer();
     }
+
 
 
     public int WavesCleared
@@ -109,7 +109,29 @@ public class PlayerManager : MonoBehaviour
         playerStunned = true;
         playerInvuln = true;
         invulnTimer = stunInvulnTime;
-        
+    }
+
+    private void UpdateInvulnStunTimer()
+    {
+        if (playerInvuln)
+        {
+            invulnTimer -= Time.deltaTime;
+            if (invulnTimer <= 0)
+            {
+                playerInvuln = false;
+                invulnTimer = 0; // Reset timer for safety
+            }
+        }
+
+        if (playerStunned)
+        {
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0)
+            {
+                playerStunned = false;
+                stunTimer = 0; // Reset timer for safety
+            }
+        }
     }
 
 }

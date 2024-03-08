@@ -9,11 +9,15 @@ using TMPro;
 public class WeaponManager : MonoBehaviour
 {
     #region Variables
+
+    private PlayerMovement playerMovement;
+    private PlayerManager playerManager;
+    private Target aimscript;
+    private Inventory inventory;
+    private UiManager uiManager;
+
     public Canvas canvas;
 
-    public TMP_Text energyDisplay;
-    public TMP_Text weapon1Display, weapon2Display, weapon3Display;
-    public TMP_Text canShootDisplay;
 
 
     [HideInInspector] public float currentEnergy;
@@ -23,15 +27,12 @@ public class WeaponManager : MonoBehaviour
     public float reloadRate = 1f;
     public float reloadCooldown = 2f;
 
-    private PlayerMovement playerMovement;
-    private PlayerManager playerManager;
-    private Target aimscript;
-    private Inventory inventory;
 
     private float timeSinceLastAttack = 0f;   // How long since shot, calculate reload time
     private bool canShoot = true;
 
-    private bool hasEnergy, playerNotAttacking, reloading;
+    [HideInInspector] public bool reloading;
+    private bool hasEnergy, playerNotAttacking;
 
     private Weapon currentWeapon;
     private Weapon attackingWeapon;
@@ -53,19 +54,17 @@ public class WeaponManager : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerManager = GetComponent<PlayerManager>();
         inventory = GetComponent<Inventory>();
+        uiManager = GetComponent<UiManager>();
+
         inventory.ResetWeaponExhaustion();
 
         playerStateMachine = GetComponent<StateMachine>();
-        UpdateUI();
-
-
     }
 
     private void Update()
     {
         UpdateEnergy();
         UpdateCanShoot();
-        UpdateUI(); 
     }
 
     private void UpdateEnergy()
@@ -114,19 +113,6 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-
-    private void UpdateUI()
-    {
-        if (uiEnable)
-        {
-            energyDisplay.text = $"Energy: {Mathf.Round(currentEnergy)} / {maxEnergy}";
-            canShootDisplay.text = $"Reloading: {!canShoot}";
-
-            weapon1Display.text = inventory.weapons1.Length > 0 ? $"{inventory.weapons1[0].name}" : "Weapon 1: N/A";
-            weapon2Display.text = inventory.weapons2.Length > 0 ? $"{inventory.weapons2[0].name}" : "Weapon 2: N/A";
-            weapon3Display.text = inventory.weapons3.Length > 0 ? $"{inventory.weapons3[0].name}" : "Weapon 3: N/A";
-        }
-    }
 
 
     public void FireWeapon(int val)
@@ -194,5 +180,8 @@ public class WeaponManager : MonoBehaviour
         timeSinceLastAttack = 0;
         weaponToFire.exhaust = true;
         inventory.RotateWeapons(curWeapons); // moves to next weapon
+
+        uiManager.UpdateWeapons(weaponToFire.inventorySlot);
+
     }
 }

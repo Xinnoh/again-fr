@@ -5,15 +5,19 @@ public class Inventory : MonoBehaviour
     // manages what items we have in our inventory
 
     public WeaponList weaponListPrefab; 
-
     public Weapon[] weapons1, weapons2, weapons3;
-
     public Weapon heldWeaponLight, heldWeaponHeavy, heldWeaponRanged;
+    private UiManager uiManager;
+
     private void Start()
     {
+        uiManager = GetComponent<UiManager>();
         AddFirstWeapon(InventorySlot.Light);
         AddFirstWeapon(InventorySlot.Heavy);
         AddFirstWeapon(InventorySlot.Ranged);
+        uiManager.UpdateWeapons(InventorySlot.Light);
+        uiManager.UpdateWeapons(InventorySlot.Heavy);
+        uiManager.UpdateWeapons(InventorySlot.Ranged);
     }
 
     private void Update()
@@ -36,21 +40,20 @@ public class Inventory : MonoBehaviour
         switch (weaponToAdd.inventorySlot)
         {
             case InventorySlot.Light:
-                targetArray = AddWeaponToArray(weapons1, weaponToAdd);
-                weapons1 = targetArray;
+                weapons1 = AddWeaponToArray(weapons1, weaponToAdd);
                 break;
             case InventorySlot.Heavy:
-                targetArray = AddWeaponToArray(weapons2, weaponToAdd);
-                weapons2 = targetArray;
+                weapons2 = AddWeaponToArray(weapons2, weaponToAdd);
                 break;
             case InventorySlot.Ranged:
-                targetArray = AddWeaponToArray(weapons3, weaponToAdd);
-                weapons3 = targetArray;
+                weapons3 = AddWeaponToArray(weapons3, weaponToAdd);
                 break;
             default:
                 Debug.LogError("Unknown slot type: " + weaponToAdd.inventorySlot);
                 return;
         }
+
+        uiManager.UpdateWeapons(weaponToAdd.inventorySlot);
 
         Debug.Log($"Added {weaponToAdd.name} to inventory.");
     }
@@ -69,11 +72,43 @@ public class Inventory : MonoBehaviour
         return newArray;
     }
 
+    // Help with the code for this method
+    public string GetWeaponNames(InventorySlot slotType)
+    {
+        Weapon[] weapons = null;
+
+        switch (slotType)
+        {
+            case InventorySlot.Light:
+                weapons = weapons1;
+                break;
+            case InventorySlot.Heavy:
+                weapons = weapons2;
+                break;
+            case InventorySlot.Ranged:
+                weapons = weapons3;
+                break;
+        }
+
+        if (weapons == null || weapons.Length <= 1)
+        {
+            return ""; 
+        }
+
+        // Start building the string from the 2nd weapon to the 4th
+        string weaponNames = "";
+        for (int i = 1; i < weapons.Length && i < 4; i++) 
+        {
+            weaponNames += weapons[i].name + "\n";
+        }
+
+        return weaponNames.TrimEnd('\n');
+    }
 
 
 
-    // Cycles player inventory to next weapon
-    public void RotateWeapons(Weapon[] weapons)
+        // Cycles player inventory to next weapon
+        public void RotateWeapons(Weapon[] weapons)
     {
         if (weapons.Length > 1)
         {

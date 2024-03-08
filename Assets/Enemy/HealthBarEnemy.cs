@@ -11,7 +11,7 @@ public class HealthBarEnemy : MonoBehaviour
 
     public void UpdateHealth( float currentValue, float maxValue)
     {
-        slider.value  = currentValue / maxValue;
+        slider.value = currentValue / maxValue;
     }
 
 

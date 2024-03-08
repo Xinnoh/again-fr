@@ -72,7 +72,6 @@ public class MeleeBaseState : State
 
     protected void Initialise()
     {
-        Debug.Log("initialise");
         animator = GetComponent<Animator>();
         playerAnimate = GetComponent<PlayerAnimate>();
         collidersDamaged = new List<Collider2D>();

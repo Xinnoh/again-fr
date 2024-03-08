@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 1698225412558091118}
   - component: {fileID: 8379363706215111024}
   m_Layer: 5
-  m_Name: Health
+  m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,8 +195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: -0.179, y: 0}
+  m_SizeDelta: {x: 148.059, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698225412558091118
 MonoBehaviour:
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.51524854, b: 0.51524854, a: 1}
+  m_Color: {r: 0.98039216, g: 0.5137255, b: 0.6395953, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

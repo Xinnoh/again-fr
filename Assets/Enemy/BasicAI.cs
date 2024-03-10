@@ -66,6 +66,7 @@ public class BasicAI : MonoBehaviour
     private Vector2 lastPosition;
     [HideInInspector] public bool retreating;
     private bool attacking;
+    private float timeSinceLastAttack;
 
     [Header("Hitstun")]
     [HideInInspector] public bool isStunned;
@@ -86,6 +87,7 @@ public class BasicAI : MonoBehaviour
     private StateMachine stateMachine;
     private GameObject player;
     private Coroutine retreatCoroutine;
+    private EnemyAnimate enemyAnimate;
 
     #endregion
 
@@ -96,7 +98,7 @@ public class BasicAI : MonoBehaviour
         stateMachine = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
-
+        enemyAnimate= GetComponentInChildren<EnemyAnimate>();
 
         agent.enabled = true;
         agent.updateRotation = false;
@@ -109,13 +111,13 @@ public class BasicAI : MonoBehaviour
         originalStrafeDistance = strafeDistance;
         originalBufferDistance = playerBuffer;
 
-        lastAttackTime = Time.time + Random.Range(0, intervalRandomness);
+        lastAttackTime = Time.time - attackCooldown;
     }
     
 
     void FixedUpdate()
     {
-        StrafeChangeDirection();
+        // StrafeChangeDirection();
 
         if (isStunned)
         {
@@ -150,10 +152,16 @@ public class BasicAI : MonoBehaviour
 
     private void InteractPlayer()
     {
-        if(interruptEnemy || attacking)
+        if(interruptEnemy)
         {
             return;
         }
+
+        if (attacking)
+        {
+            return;
+        }
+
 
         if (player == null)
         {
@@ -175,12 +183,12 @@ public class BasicAI : MonoBehaviour
         }
 
         // ideal distance
-        float timeSinceLastAttack = Time.time - lastAttackTime - attackTime;
+        timeSinceLastAttack = Time.time - lastAttackTime - attackTime;
         if (distanceToTarget <= strafeDistance)
         {
             if(timeSinceLastAttack >= attackCooldown)
             {
-                AttackTarget();  Debug.Log("Attack");
+                AttackTarget();
                 return;
             }
 
@@ -232,9 +240,9 @@ public class BasicAI : MonoBehaviour
 
         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        interruptEnemy = true;
 
         lastAttackTime = Time.time + Random.Range(0, intervalRandomness);
+
 
         if (isRangedEnemy)
         {
@@ -246,14 +254,16 @@ public class BasicAI : MonoBehaviour
                 bulletScript.SetDirection(angle, bulletSpeed);
             }
 
-            StartCoroutine(InterruptMove(attackTime));
         }
 
-        else
-        {
-            // temporary
-            StartCoroutine(Interrupt(attackTime));
-        }
+        agent.SetDestination(transform.position);
+        attacking = true;
+        enemyAnimate.AttackAnimation(direction);
+    }
+
+    public void StopAttack()
+    {
+        attacking = false;
     }
 
     public Vector2 GetPlayerDirection()
@@ -280,7 +290,6 @@ public class BasicAI : MonoBehaviour
 
     private void StrafeChangeDirection()
     {
-        // After X time, randomly change direction
         if (Time.time > lastStrafeChangeTime + maxStrafeChangeInterval)
         {
             if (Random.value <= 0.9f) // chance to retreat

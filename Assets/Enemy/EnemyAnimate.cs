@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,6 +18,8 @@ public class EnemyAnimate : MonoBehaviour
     private float speed;
     private bool dying, attacking, retreating;
 
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Movement = Animator.StringToHash("Movement");
 
     private static readonly Dictionary<string, int> animationStates = new Dictionary<string, int>();
     private int currentState;
@@ -36,6 +39,7 @@ public class EnemyAnimate : MonoBehaviour
         AimPlayer();
         StateMachine();
         AdjustAnimationSpeed();
+        CheckAttackAnimationCompletion();
     }
 
 
@@ -45,7 +49,28 @@ public class EnemyAnimate : MonoBehaviour
 
         animator.SetFloat("AimX", playerDirection.x);
         animator.SetFloat("AimY", playerDirection.y);
+    }
 
+    private void CheckAttackAnimationCompletion()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.shortNameHash == Attack)
+        {
+            if (stateInfo.normalizedTime >= 1.0f)
+            {
+                OnAttackAnimationComplete();
+                return;
+            }
+
+            animator.speed = 1f;
+        }
+
+    }
+
+    private void OnAttackAnimationComplete()
+    {
+        ChangeAnimationState(Movement);
+        enemyAI.StopAttack();
     }
 
 
@@ -80,6 +105,17 @@ public class EnemyAnimate : MonoBehaviour
 
 
         // Idle
+
+
+    }
+
+
+    public void AttackAnimation(Vector2 direction)
+    {
+        animator.SetFloat("AttackX", direction.x);
+        animator.SetFloat("AttackY", direction.y);
+        ChangeAnimationState(Attack);
+        animator.speed = 1f;
 
 
     }
@@ -120,11 +156,16 @@ public class EnemyAnimate : MonoBehaviour
         animator.Play(newState);
         currentState = newState;
     }
+    
 
     private void AdjustAnimationSpeed()
     {
-        float speed = agent.velocity.magnitude; 
-        float animationSpeed = Mathf.Clamp(speed, 0.1f, 1f); 
-        animator.speed = animationSpeed; 
+        Debug.Log(currentState);
+        if(currentState == Movement)
+        {
+            float speed = agent.velocity.magnitude;
+            float animationSpeed = Mathf.Clamp(speed, 0.1f, 1f);
+            animator.speed = animationSpeed;
+        }
     }
 }

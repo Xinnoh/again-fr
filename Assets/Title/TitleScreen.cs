@@ -1,26 +1,30 @@
+using Edgar.Unity.Examples.Gungeon;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleScreen : MonoBehaviour
 {
     private AudioSource audioSource;
     public SpriteRenderer titleCover;
 
+    private float fadeDuration = 2f;
+
+    [SerializeField] private Image cover;
+    [SerializeField] private bool tutorialMode;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        titleCover.color = new Color (titleCover.color.r, titleCover.color.g, titleCover.color.b, 0f);
-
+        cover.color = new Color (cover.color.r, cover.color.g, cover.color.b, 0f); 
     }
 
     public void StartPressed()
     {
-        SceneManager.LoadScene("Dungeon");
-        StartCoroutine(FadeOutAudioSource(audioSource, audioSource.volume / 2, 2f));
-        StartCoroutine(FadeSpriteRenderer(titleCover, 2f)); 
-        StartCoroutine(LoadSceneAfterDelay("Dungeon", 2f)); 
-
+        StartCoroutine(LoadAsyncScene());
+        StartCoroutine(FadeOutAudioSource(audioSource, audioSource.volume / 2, fadeDuration));
+        StartCoroutine(FadeSpriteRenderer(titleCover, fadeDuration)); 
     }
 
     public void OptionsPressed()
@@ -54,7 +58,7 @@ public class TitleScreen : MonoBehaviour
     {
         float time = 0f;
         Color startColor = spriteRenderer.color;
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f); // Ensure alpha is 1 for full opacity
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1f); 
 
         while (time < duration)
         {
@@ -68,5 +72,47 @@ public class TitleScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneName);
+    }
+
+
+    IEnumerator LoadAsyncScene()
+    {
+        Debug.Log("1");
+        yield return StartCoroutine(FadeToBlack());
+
+        Debug.Log("1");
+
+        if (tutorialMode)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Tutorial");
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+        }
+        else
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Dungeon");
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+        }
+    }
+
+    private IEnumerator FadeToBlack()
+    {
+        float currentTime = 0f;
+        Color color = cover.color;
+        while (currentTime < fadeDuration)
+        {
+            currentTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, currentTime / fadeDuration);
+            cover.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
     }
 }

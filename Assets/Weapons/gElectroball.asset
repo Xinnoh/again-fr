@@ -27,8 +27,8 @@ MonoBehaviour:
   speedMultiplier: 0.33
   isProjectile: 1
   hitbox: {fileID: 5480747347970126038, guid: c9654b32e3f834c47b8e6079f0750d57, type: 3}
-  hitboxSpeed: 0
-  duration: 0
+  hitboxSpeed: 9
+  duration: 2
   spawnDelay: 0.5
   bulletCount: 1
   bulletSpread: 0

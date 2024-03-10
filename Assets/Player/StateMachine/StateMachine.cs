@@ -64,7 +64,6 @@ public class StateMachine : MonoBehaviour
     {
         if (mainStateType == null)
         {
-            Debug.Log("D");
             if (customName == "Combat")
             {
                 mainStateType = new IdleCombatState();

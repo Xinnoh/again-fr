@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAnimate : MonoBehaviour
 {
     private BasicAI enemyAI;
     private Vector2 playerDirection;
     private Animator animator;
+    private NavMeshAgent agent;
+
 
     private Vector2 movement;
     private float speed;
@@ -21,8 +24,10 @@ public class EnemyAnimate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyAI = GetComponent<BasicAI>();
+        enemyAI = GetComponentInParent<BasicAI>();
         animator = GetComponent<Animator>();
+        agent = GetComponentInParent<NavMeshAgent>(); // Access the NavMeshAgent from the parent
+
     }
 
     // Update is called once per frame
@@ -30,6 +35,7 @@ public class EnemyAnimate : MonoBehaviour
     {
         AimPlayer();
         StateMachine();
+        AdjustAnimationSpeed();
     }
 
 
@@ -115,13 +121,10 @@ public class EnemyAnimate : MonoBehaviour
         currentState = newState;
     }
 
-
-    private void UpdateMovement()
+    private void AdjustAnimationSpeed()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        speed = movement.sqrMagnitude;
-
-        animator.SetFloat("Speed", speed);
+        float speed = agent.velocity.magnitude; 
+        float animationSpeed = Mathf.Clamp(speed, 0.1f, 1f); 
+        animator.speed = animationSpeed; 
     }
 }

@@ -26,6 +26,8 @@ public class PlayerAnimate : MonoBehaviour
     private static readonly int Dashing = Animator.StringToHash("Dashing");
     private static readonly int PreDash = Animator.StringToHash("PreDash");
 
+
+
     private static readonly int lMove = Animator.StringToHash("lMove");
     private static readonly int lBasic = Animator.StringToHash("lBasic");
 

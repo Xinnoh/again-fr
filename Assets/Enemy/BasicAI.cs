@@ -86,8 +86,6 @@ public class BasicAI : MonoBehaviour
     private StateMachine stateMachine;
     private GameObject player;
     private Coroutine retreatCoroutine;
-    private EnemyAnimator animator;
-
 
     #endregion
 
@@ -95,7 +93,6 @@ public class BasicAI : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<EnemyAnimator>();
         stateMachine = GetComponent<StateMachine>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");

@@ -30,7 +30,7 @@ namespace Michsky.UI.Reach
         public UnityEvent onDestroy;
 
         // Helpers
-        bool isOn;
+        public bool isOn;
         LocalizedObject localizedObject;
 
         public enum DefaultState { Minimized, Expanded }

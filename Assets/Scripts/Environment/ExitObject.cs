@@ -2,6 +2,8 @@ using Edgar.Unity.Examples.Gungeon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ExitObject : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class ExitObject : MonoBehaviour
     private MyRoomManager myRoomManager;
     private GungeonGameManager gungeonGameManager;
 
+    [SerializeField] private Image fadeImage;
+
+    [SerializeField] private bool tutorialMode;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -57,8 +62,43 @@ public class ExitObject : MonoBehaviour
     }
 
     private void ExitInteraction()
+    { 
+        StartCoroutine(LoadAsyncScene());
+    }
+
+
+    IEnumerator LoadAsyncScene()
     {
-        myRoomManager.wavesCleared += 1;
-        gungeonGameManager.LoadNextLevel();
+        yield return StartCoroutine(FadeToBlack());
+
+        if(tutorialMode)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Dungeon");
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+        }
+
+        else
+        {
+            myRoomManager.wavesCleared += 1;
+            gungeonGameManager.LoadNextLevel();
+        }
+    }
+
+    private IEnumerator FadeToBlack()
+    {
+        float duration = .7f;
+        float currentTime = 0f;
+        Color color = fadeImage.color;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, currentTime / duration);
+            fadeImage.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
     }
 }

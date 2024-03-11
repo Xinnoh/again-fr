@@ -9,7 +9,7 @@ public class TitleScreen : MonoBehaviour
     private AudioSource audioSource;
     public SpriteRenderer titleCover;
 
-    private float fadeDuration = 2f;
+    [SerializeField] private float fadeDuration = 1f;
 
     [SerializeField] private Image cover;
     [SerializeField] private bool tutorialMode;

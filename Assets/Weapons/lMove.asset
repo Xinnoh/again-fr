@@ -23,16 +23,17 @@ MonoBehaviour:
   damage: 1
   exhaust: 0
   hitStun: 0.3
-  isProjectile: 0
-  hitbox: {fileID: 0}
-  hitboxSpeed: 0
-  duration: 0
+  recoverTime: 1.5
+  speedMultiplier: 0
+  isProjectile: 1
+  hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
+  hitboxSpeed: 4
+  duration: 2
   spawnDelay: 0
   bulletCount: 1
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 0
-  recoverTime: 1.5
-  speedMultiplier: 0
+  fireDistance: 10
   momentum: 10
   momentumDelay: 0.15

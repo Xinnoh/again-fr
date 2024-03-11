@@ -33,7 +33,31 @@ public class TreasureManager : MonoBehaviour
     private void Update()
     {
         CheckDistancePlayer();
+
+        if (hasInteracted)
+        {
+            KeyboardInput();
+        }
+
     }
+
+
+    private void KeyboardInput()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ButtonInput(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            ButtonInput(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            ButtonInput(3);
+        }
+    }
+
 
     private void CheckDistancePlayer()
     {

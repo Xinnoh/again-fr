@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ef809919ea66f428054c5dade3d330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: 3
   isEnemy: 1
   maxHealth: 0
 --- !u!114 &2899598458561150934
@@ -585,7 +585,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 302136019
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6701175294598723666

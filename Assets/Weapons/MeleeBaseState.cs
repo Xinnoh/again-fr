@@ -129,30 +129,30 @@ public class MeleeBaseState : State
 
         for (int i = 0; i < colliderCount; i++)
         {
-
             if (!collidersDamaged.Contains(collidersToDamage[i]))
             {
-                TeamComponent hitTeamComponent = collidersToDamage[i].GetComponentInChildren<TeamComponent>();
-
-                // Only check colliders with a valid Team Componnent attached
-                if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
-                {
-                    GameObject.Instantiate(HitEffectPrefab, collidersToDamage[i].transform);
-
-                    // Deal damage to enemy
-
-                    Health health = collidersToDamage[i].gameObject.GetComponent<Health>();
-                    if (health != null)
-                    {
-                        health.TakeDamage(curWeapon.damage);
-                    }
-
-                    hasHit = true;
-
-                    Debug.Log("Enemy Has Taken:" + curWeapon.damage + "Damage");
-                    collidersDamaged.Add(collidersToDamage[i]);
-                }
+                DamageEnemy(collidersToDamage[i]);
             }
+        }
+    }
+
+    private void DamageEnemy(Collider2D collider)
+    {
+        TeamComponent hitTeamComponent = collider.GetComponentInChildren<TeamComponent>();
+
+        if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
+        {
+            GameObject.Instantiate(HitEffectPrefab, collider.transform);
+
+            Health health = collider.gameObject.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(curWeapon.damage);
+            }
+
+            hasHit = true;
+
+            collidersDamaged.Add(collider);
         }
     }
 
@@ -162,25 +162,32 @@ public class MeleeBaseState : State
 
     protected void MoveToTarget()
     {
-        if (curWeapon.momentum != 0)  // If we are using weapon with momentum
+        if (curWeapon.momentum == 0)
+            return;
+        
+        if (fixedtime < curWeapon.momentumDelay)
+            return;
+        
+        if (!targetAcquired)
         {
-            if (fixedtime >= curWeapon.momentumDelay)   // how long to delay before attacking
-            {
-                if (!targetAcquired) // ensures we only target one enemy throughout attack
-                {
-                    FindEnemy();
-                }
-
-                Vector2 moveDirection = enemyDirection.normalized;
-                Vector2 movementStep = moveDirection * curWeapon.momentum * Time.deltaTime;
-                playerMovement.transform.position += new Vector3(movementStep.x, movementStep.y, 0);
-            }
+            FindEnemy();
         }
+
+        WeaponMovePlayer();
     }
+
     protected void FindEnemy()
     {
         enemyDirection = aimScript.GetAimVector();
-
         targetAcquired = true;
+    }
+
+
+    // Need to change this to RB move to avoid wall phasing
+    protected void WeaponMovePlayer()
+    {
+        Vector2 moveDirection = enemyDirection.normalized;
+        Vector2 movementStep = moveDirection * curWeapon.momentum * Time.deltaTime;
+        playerMovement.transform.position += new Vector3(movementStep.x, movementStep.y, 0);
     }
 }

@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db3deff57bcd2d4bacb91056ad7f14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: {x: 576, y: 592}
+  Position: {x: 336, y: 464}
   Type: 8
   EnemyCount: 0
 --- !u!114 &-6485762588635962157
@@ -321,8 +321,8 @@ MonoBehaviour:
   - {fileID: 5172326945806125487}
   - {fileID: 5478210744573059948}
   EditorData:
-    PanOffset: {x: -111.30164, y: -28.07929}
-    Zoom: 1.0356282
+    PanOffset: {x: -110.41382, y: 3.6756823}
+    Zoom: 1.0150192
   RoomType: Edgar.Unity.Examples.Gungeon.GungeonRoom
   ConnectionType: Edgar.Unity.Examples.Gungeon.GungeonConnection
   IsDirected: 0
@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db3deff57bcd2d4bacb91056ad7f14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: {x: 576, y: 528}
+  Position: {x: 464, y: 464}
   Type: 6
   EnemyCount: 0
 --- !u!114 &8404478733925341897

@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db3deff57bcd2d4bacb91056ad7f14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: {x: 896, y: 336}
+  Position: {x: 784, y: 400}
   Type: 8
   EnemyCount: 0
 --- !u!114 &6037807497221387904

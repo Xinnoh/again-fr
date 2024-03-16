@@ -9,12 +9,17 @@ public class Inventory : MonoBehaviour
     public Weapon heldWeaponLight, heldWeaponHeavy, heldWeaponRanged;
     private UiManager uiManager;
 
+    private bool startersEquipped;
+
+    private GameObject WeaponListObject;
+    private WeaponList weaponList;
+
     private void Start()
     {
         uiManager = GetComponent<UiManager>();
-        AddFirstWeapon(InventorySlot.Light);
-        AddFirstWeapon(InventorySlot.Heavy);
-        AddFirstWeapon(InventorySlot.Ranged);
+
+        GetSavedWeapons();
+
         uiManager.UpdateWeapons(InventorySlot.Light);
         uiManager.UpdateWeapons(InventorySlot.Heavy);
         uiManager.UpdateWeapons(InventorySlot.Ranged);
@@ -23,6 +28,22 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         KeyboardInput();
+    }
+
+
+    private void GetSavedWeapons()
+    {
+        WeaponListObject = GameObject.FindGameObjectWithTag("WeaponList");
+        weaponList = WeaponListObject.GetComponent<WeaponList>();
+
+        if (weaponList.weaponsSaved) // if saved weapons exist
+        {
+            weaponList.LoadWeapons();
+        }
+        else
+        {
+            AddStarterWeapons();
+        }
     }
 
     private void AddRandomWeapon(InventorySlot slotType)
@@ -51,8 +72,12 @@ public class Inventory : MonoBehaviour
         }
 
         uiManager.UpdateWeapons(weaponToAdd.inventorySlot);
+        SaveInventory();
+    }
 
-        Debug.Log($"Added {weaponToAdd.name} to inventory.");
+    public void SaveInventory()
+    {
+        weaponList.SaveWeapons(weapons1, weapons2, weapons3);
     }
 
 
@@ -105,7 +130,7 @@ public class Inventory : MonoBehaviour
 
 
         // Cycles player inventory to next weapon
-        public void RotateWeapons(Weapon[] weapons)
+    public void RotateWeapons(Weapon[] weapons)
     {
         if (weapons.Length > 1)
         {
@@ -153,12 +178,24 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) { AddRandomWeapon(InventorySlot.Ranged); }
     }
 
-    // adds the first weapon in each weaponlist to the player inventory as starter weapons
+    private void AddStarterWeapons()
+    {
+        if (!startersEquipped)
+        {
+            AddFirstWeapon(InventorySlot.Light);
+            AddFirstWeapon(InventorySlot.Heavy);
+            AddFirstWeapon(InventorySlot.Ranged);
+            startersEquipped = true;
+        }
+    }
+
+
     private void AddFirstWeapon(InventorySlot slotType)
     {
         Weapon[] sourceArray = GetSourceArray(slotType);
         if (sourceArray != null && sourceArray.Length > 0)
         {
+
             Weapon firstWeaponInstance = Instantiate(sourceArray[0]);
             AddWeaponToInventory(firstWeaponInstance);
         }
@@ -175,5 +212,4 @@ public class Inventory : MonoBehaviour
             default: return null;
         }
     }
-
 }

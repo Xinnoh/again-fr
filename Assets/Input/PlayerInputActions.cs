@@ -71,6 +71,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""620ddb1d-cf24-4963-a932-00f1bafb18a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -302,6 +311,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Button3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97299658-67df-43be-be1f-627a2f626e15"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b3e1fd8-29ed-4596-8ece-5bfa0f793cac"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -894,6 +925,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Button1 = m_Player.FindAction("Button1", throwIfNotFound: true);
         m_Player_Button2 = m_Player.FindAction("Button2", throwIfNotFound: true);
         m_Player_Button3 = m_Player.FindAction("Button3", throwIfNotFound: true);
+        m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -972,6 +1004,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Button1;
     private readonly InputAction m_Player_Button2;
     private readonly InputAction m_Player_Button3;
+    private readonly InputAction m_Player_Map;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -981,6 +1014,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Button1 => m_Wrapper.m_Player_Button1;
         public InputAction @Button2 => m_Wrapper.m_Player_Button2;
         public InputAction @Button3 => m_Wrapper.m_Player_Button3;
+        public InputAction @Map => m_Wrapper.m_Player_Map;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1005,6 +1039,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Button3.started += instance.OnButton3;
             @Button3.performed += instance.OnButton3;
             @Button3.canceled += instance.OnButton3;
+            @Map.started += instance.OnMap;
+            @Map.performed += instance.OnMap;
+            @Map.canceled += instance.OnMap;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1024,6 +1061,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Button3.started -= instance.OnButton3;
             @Button3.performed -= instance.OnButton3;
             @Button3.canceled -= instance.OnButton3;
+            @Map.started -= instance.OnMap;
+            @Map.performed -= instance.OnMap;
+            @Map.canceled -= instance.OnMap;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1211,6 +1251,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnButton1(InputAction.CallbackContext context);
         void OnButton2(InputAction.CallbackContext context);
         void OnButton3(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

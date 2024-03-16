@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660dc0ffd74b34f4c93002b5aab6a66f, type: 3}
   m_Name: MinimapExampleSetup
   m_EditorClassIdentifier: 
-  MinimapPostProcess: {fileID: 11400000, guid: 3199556a0bd0a6247a51bb9ad6fa852f, type: 2}
+  MinimapPostProcess: {fileID: 11400000, guid: f48e8d42826030540989e989cbeaa8b7, type: 2}

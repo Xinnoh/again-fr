@@ -13,7 +13,8 @@ public class PlayerManager : MonoBehaviour
     public bool playerActive = true;
     public bool playerStunned, playerInvuln;
     private float stunTimer, invulnTimer;
-    [SerializeField] private float stunInvulnTime = 1f;
+    [SerializeField] private float stunTime = .5f;
+    [SerializeField] private float invulnTime = 1f;
 
     public GameObject treasurePrefab;
 
@@ -108,7 +109,8 @@ public class PlayerManager : MonoBehaviour
     {
         playerStunned = true;
         playerInvuln = true;
-        invulnTimer = stunInvulnTime;
+        invulnTimer = invulnTime;
+        stunTimer = stunTime;
     }
 
     private void UpdateInvulnStunTimer()

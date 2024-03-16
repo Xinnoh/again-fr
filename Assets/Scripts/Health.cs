@@ -1,4 +1,5 @@
 using Edgar.Unity.Examples.Gungeon;
+using System.Collections;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -10,6 +11,8 @@ public class Health : MonoBehaviour
     private PlayerManager playerManager;
     private HealthBarEnemy healthBar;
     private UiManager playerUI;
+
+    [SerializeField] private float playerIFrames;
 
     private void Start()
     {
@@ -76,13 +79,21 @@ public class Health : MonoBehaviour
                 return;
             }
 
+            Debug.Log(damage + "taken");
+
             health -= damage;
             playerManager.HitStun();
             return;
         }
 
-        Debug.Log("Health Null");
 
+    }
+
+    IEnumerator InvulnerabilityPeriod()
+    {
+        playerManager.playerInvuln = true;
+        yield return new WaitForSeconds(playerIFrames);
+        playerManager.playerInvuln = false;
     }
 
     void Die()

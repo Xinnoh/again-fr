@@ -17,11 +17,18 @@ public class EnemyAnimate : MonoBehaviour
     private float speed;
     private bool dying, attacking, retreating;
 
+
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Movement = Animator.StringToHash("Movement");
 
     private static readonly Dictionary<string, int> animationStates = new Dictionary<string, int>();
     private int currentState;
+
+    [SerializeField] private GameObject hitboxContainer, hitbox;
+    private BoxCollider2D hitboxCollider;
+    private bool attackActive;
+    private GameObject player;
+    private CircleCollider2D playerCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +36,9 @@ public class EnemyAnimate : MonoBehaviour
         enemyAI = GetComponentInParent<BasicAI>();
         animator = GetComponent<Animator>();
         agent = GetComponentInParent<NavMeshAgent>(); // Access the NavMeshAgent from the parent
+        hitboxCollider = hitbox.GetComponent<BoxCollider2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerCollider = player.GetComponent<CircleCollider2D>();
 
     }
 
@@ -45,9 +55,21 @@ public class EnemyAnimate : MonoBehaviour
     private void AimPlayer()
     {
         playerDirection = enemyAI.GetPlayerDirection();
+        float aimDirX = 0;
+        float aimDirY = 0;
+        if (enemyAI.isRangedEnemy)
+        {
+            aimDirX = playerDirection.x;
+            aimDirY = playerDirection.y - .2f;
+        }
+        else
+        {
+            aimDirX = Mathf.Round(playerDirection.x);
+            aimDirY = Mathf.Round(playerDirection.y);
+        }
 
-        animator.SetFloat("AimX", playerDirection.x);
-        animator.SetFloat("AimY", playerDirection.y);
+        animator.SetFloat("AimX", aimDirX);
+        animator.SetFloat("AimY", aimDirY);
     }
 
     private void CheckAttackAnimationCompletion()
@@ -70,6 +92,7 @@ public class EnemyAnimate : MonoBehaviour
     {
         ChangeAnimationState(Movement);
         enemyAI.StopAttack();
+        hitbox.SetActive(false);
     }
 
 
@@ -82,10 +105,14 @@ public class EnemyAnimate : MonoBehaviour
             return;
         }
 
-        if(attacking)
-        {
-            //attack
 
+        if (animator.GetFloat("AttackActive") > 0f)
+        {
+            AttackPlayer();
+        }
+
+        if (attacking)
+        {
             return;
         }
 
@@ -105,18 +132,61 @@ public class EnemyAnimate : MonoBehaviour
 
         // Idle
 
+    }
 
+    private void AttackPlayer()
+    {
+        Collider2D[] collidersToDamage = new Collider2D[10];
+
+        ContactFilter2D filter = new ContactFilter2D().NoFilter();
+        filter.useTriggers = true;
+        int colliderCount = Physics2D.OverlapCollider(hitboxCollider, filter, collidersToDamage);
+
+        // Iterate through the detected colliders
+        for (int i = 0; i < colliderCount; i++)
+        {
+            // Check if the detected collider is the player and hasn't been damaged yet
+            if (collidersToDamage[i].gameObject.tag == "Player")
+            {
+                Health playerHealth = player.GetComponent<Health>();
+                playerHealth.TakeDamage(enemyAI.attackDamage);
+                return;
+            }
+        }
     }
 
 
     public void AttackAnimation(Vector2 direction)
     {
-        animator.SetFloat("AttackX", direction.x);
-        animator.SetFloat("AttackY", direction.y);
+        float aimDirX = 0;
+        float aimDirY = 0;
+        if (enemyAI.isRangedEnemy)
+        {
+            aimDirX = playerDirection.x;
+            aimDirY = playerDirection.y - .2f;
+        }
+        else
+        {
+            aimDirX = Mathf.Round(playerDirection.x);
+            aimDirY = Mathf.Round(playerDirection.y);
+        }
+
+        animator.SetFloat("AttackX", aimDirX);
+        animator.SetFloat("AttackY", aimDirY);
         ChangeAnimationState(Attack);
         animator.speed = 1f;
 
+        /*
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+        angle = (angle + 360) % 360;
+
+        float roundedAngle = Mathf.Round(angle / 45) * 45;
+
+        Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle - 90); 
+        hitboxContainer.transform.rotation = targetRotation;
+        */
+        hitbox.SetActive(true);
     }
 
 
@@ -159,12 +229,15 @@ public class EnemyAnimate : MonoBehaviour
 
     private void AdjustAnimationSpeed()
     {
-        Debug.Log(currentState);
         if(currentState == Movement)
         {
             float speed = agent.velocity.magnitude;
             float animationSpeed = Mathf.Clamp(speed, 0.1f, 1f);
             animator.speed = animationSpeed;
+        }
+        else
+        {
+            animator.speed = 1f;
         }
     }
 }

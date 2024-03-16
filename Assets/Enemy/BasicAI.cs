@@ -39,8 +39,10 @@ public class BasicAI : MonoBehaviour
     [Tooltip("Randomise the time between attacks.")]
     [SerializeField] private float intervalRandomness = 1f;
 
+    public float attackDamage = 1f;
+
     [Header("Ranged Enemy")]
-    [SerializeField] private bool isRangedEnemy;
+    public bool isRangedEnemy;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float bulletSpeed = 10f;
 
@@ -409,7 +411,7 @@ public class BasicAI : MonoBehaviour
 
         // The player hitbox is offset by this amount
         Vector3 loweredPosition = player.transform.position;
-        loweredPosition.y -= 1.075f;
+        loweredPosition.y -= .7f;
         return loweredPosition;
     }
 

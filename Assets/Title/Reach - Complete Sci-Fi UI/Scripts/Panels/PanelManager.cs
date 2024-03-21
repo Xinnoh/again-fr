@@ -381,6 +381,7 @@ namespace Michsky.UI.Reach
             if (updateMode == UpdateMode.UnscaledTime) { yield return new WaitForSecondsRealtime(cachedStateLength * animationSpeed); }
             else { yield return new WaitForSeconds(cachedStateLength * animationSpeed); }
 
+
             for (int i = 0; i < panels.Count; i++)
             {
                 if (i == currentPanelIndex)

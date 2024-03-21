@@ -2,19 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class TreasureManager : MonoBehaviour
 {
     public TMP_Text reward1, reward2, reward3;
+    public TMP_Text desc1, desc2, desc3;
     private Weapon[] selectedWeapons = new Weapon[3];
 
     [SerializeField] private float interactionDistance = 1f;
     [SerializeField] private GameObject highlightField;
 
+
+    private PlayerInputActions playerControls;
+    private InputAction button1, button2, button3;
+
     public GameObject treasureUI;
     private PlayerManager playerManager;
     private GameObject player;
-    public bool hasInteracted = false; // Tracks if the object has been interacted with
+    public bool hasInteracted = false;
+    private CanvasGroup canvasGroup;
+    private CanvasScaler canvasScaler;
+    public AnimationCurve animationCurve;
+
+    [SerializeField] private float fadeInTime = .4f, fadeOutTime = .4f, initialScale = 3f;
+
+    private bool isFadingOut = false;
+
+
+    private void OnEnable()
+    {
+        playerControls = new PlayerInputActions();
+        button1 = playerControls.Player.Button1;
+        button1.Enable();
+        button1.performed += Button1;
+    }
+
+
+    private void Button1(InputAction.CallbackContext context)
+    {
+        if (hasInteracted)
+        {
+            ButtonInput(1);
+        }
+
+        else if (PlayerNearby() && !hasInteracted)
+        {
+            OnTreasureInteracted();
+        }
+
+    }
+    private void Button2(InputAction.CallbackContext context)
+    {
+        ButtonInput(2);
+    }
+    private void Button3(InputAction.CallbackContext context)
+    {
+        ButtonInput(3);
+    }
+
 
     void Start()
     {
@@ -24,7 +71,15 @@ public class TreasureManager : MonoBehaviour
 
         AddWeapons(); // Put random weapons in the chest
 
-        if (treasureUI != null) treasureUI.SetActive(false);
+
+        if (treasureUI != null)
+        {
+            canvasGroup = treasureUI.GetComponent<CanvasGroup>();
+            canvasScaler = treasureUI.transform.GetComponent<CanvasScaler>();
+            canvasGroup.alpha = 0f;
+            canvasScaler.scaleFactor = initialScale;
+            treasureUI.SetActive(false);
+        }
         if (highlightField!= null) highlightField.SetActive(false);
         hasInteracted = false;
     }
@@ -33,46 +88,26 @@ public class TreasureManager : MonoBehaviour
     private void Update()
     {
         CheckDistancePlayer();
-
-        if (hasInteracted)
-        {
-            KeyboardInput();
-        }
-
     }
 
 
-    private void KeyboardInput()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            ButtonInput(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            ButtonInput(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            ButtonInput(3);
-        }
-    }
 
 
     private void CheckDistancePlayer()
     {
-        if (Vector2.Distance(player.transform.position, transform.position) <= interactionDistance)
+        if (PlayerNearby())
         {
-            if (highlightField != null) highlightField.SetActive(true);
-
-            if (Input.GetKeyDown(KeyCode.E))
+            if (!hasInteracted)
             {
-                if (!hasInteracted)
+                if (highlightField != null) highlightField.SetActive(true);
+
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     OnTreasureInteracted();
                 }
             }
         }
+
         else
         {
             if (highlightField != null)
@@ -80,30 +115,73 @@ public class TreasureManager : MonoBehaviour
         }
     }
 
+    private bool PlayerNearby()
+    {
+        return Vector2.Distance(player.transform.position, transform.position) <= interactionDistance;
+    }
+
     public void OnTreasureInteracted()
     {
         hasInteracted = true;
         if (treasureUI != null) treasureUI.SetActive(true);
+        if (highlightField != null) highlightField.SetActive(false);
         playerManager.playerActive = false;
+        StartCoroutine(AnimateCanvasOpen());
+
+
+        button2 = playerControls.Player.Button2;
+        button2.Enable();
+        button2.performed += Button2;
+        button3 = playerControls.Player.Button3;
+        button3.Enable();
+        button3.performed += Button3;
     }
+
+
+
+    private IEnumerator AnimateCanvasOpen()
+    {
+        float elapsedTime = 0f;
+
+
+        while (elapsedTime < fadeInTime)
+        {
+
+            float curveFraction = animationCurve.Evaluate(elapsedTime / fadeInTime);
+
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, curveFraction);
+
+            canvasScaler.scaleFactor = Mathf.Lerp(initialScale, 1f, curveFraction);
+
+            elapsedTime += Time.deltaTime;
+            yield return null; 
+        }
+
+        canvasGroup.alpha = 1f;
+        treasureUI.transform.localScale = Vector3.one;
+    }
+
 
     private void AddWeapons()
     {
         List<string> weaponNames = new List<string>();
+        List<string> weaponDescs = new List<string>();
 
         Weapon newWeapon = GetRandomWeaponFromAnyCategory();
 
         for (int i = 0; i < 3; i++)
         {
+            newWeapon = GetRandomWeaponFromAnyCategory();
             while (IsDuplicate(newWeapon))
             {
                 newWeapon = GetRandomWeaponFromAnyCategory();
             }
 
             selectedWeapons[i] = newWeapon;
-            weaponNames.Add(newWeapon.name); // Add the weapon's name to the list
+            weaponNames.Add(newWeapon.name);
+            weaponDescs.Add(newWeapon.description);
         }
-        DisplayWeaponNames(weaponNames);
+        DisplayWeaponNames(weaponNames, weaponDescs);
     }
 
     private Weapon GetRandomWeaponFromAnyCategory()
@@ -132,7 +210,7 @@ public class TreasureManager : MonoBehaviour
         return false;
     }
 
-    private void DisplayWeaponNames(List<string> names)
+    private void DisplayWeaponNames(List<string> names, List<string> descs)
     {
         if (reward1 == null || reward2 == null || reward3 == null)
         {
@@ -144,6 +222,11 @@ public class TreasureManager : MonoBehaviour
             reward1.text = names[0] ?? "Name Missing";
             reward2.text = names[1] ?? "Name Missing";
             reward3.text = names[2] ?? "Name Missing";
+
+            desc1.text = descs[0] ?? "Description Missing";
+            desc2.text = descs[1] ?? "Description Missing";
+            desc3.text = descs[2] ?? "Description Missing";
+
         }
     }
 
@@ -151,7 +234,9 @@ public class TreasureManager : MonoBehaviour
     // Called when the player selects an item
     public void ButtonInput(int button)
     {
-        Debug.Log(button);
+        if (isFadingOut) return;
+        isFadingOut = true;
+
         if (button >= 1 && button <= 3)
         {
             Inventory inventory = FindObjectOfType<Inventory>();
@@ -162,6 +247,42 @@ public class TreasureManager : MonoBehaviour
         }
 
         playerManager.playerActive = true;
+
+        button1.Disable();
+        button1.performed -= Button1;
+        button2.Disable();
+        button2.performed -= Button2;
+        button3.Disable();
+        button3.performed -= Button3;
+
+        StartCoroutine(AnimateCanvasClose());
+    }
+
+
+
+    private IEnumerator AnimateCanvasClose()
+    {
+        float elapsedTime = 0f;
+
+        // Optional: Make the GameObject's SpriteRenderer disappear instantly
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null) spriteRenderer.enabled = false;
+
+        while (elapsedTime < fadeOutTime)
+        {
+            float curveFraction = animationCurve.Evaluate(elapsedTime / fadeOutTime);
+
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, curveFraction);
+            canvasScaler.scaleFactor = Mathf.Lerp(1f, initialScale, curveFraction);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         Destroy(gameObject);
     }
+
+
+
+
 }

@@ -14,15 +14,22 @@ public class GridManager : MonoBehaviour
 
     public float horizontalModifier, verticalModifier, gridOffset;
 
-    public Vector2 gridStartPosition = new Vector2(0, 0); // New variable for grid starting position
+    public Vector2 gridStartPosition = new Vector2(0, 0); 
 
     public float hexagonWidth = 1.0f;
 
     public bool regenerateGrid;
 
+    public int startingPulseChance = 200;
+
+    [SerializeField] private bool gridEnabled = true;
+
     void Start()
     {
-        GenerateGrid();
+        if (gridEnabled)
+        {
+            GenerateGrid();
+        }
     }
 
     private void Update()
@@ -56,8 +63,7 @@ public class GridManager : MonoBehaviour
                 hexObj.transform.localScale *= spriteSizeModifier;
 
 
-                // Optionally set a random chance for a hexagon to be pulsing on instantiation
-                if (Random.Range(0, 500) < 1) // 0.01% chance
+                if (Random.Range(0, startingPulseChance) < 1) 
                 {
                     bool pulseDirection = Random.Range(0, 2) == 0;
                     hexScript.isPulsing = true;
@@ -108,11 +114,9 @@ public class GridManager : MonoBehaviour
 
     Vector2 CalculateHexagonPosition(int x, int y)
     {
-        // Adjust these values based on the actual size of your hexagons
         float horizontalSpacing = hexagonWidth * horizontalModifier;
         float verticalSpacing = hexagonWidth * verticalModifier;
 
-        // Offset every second row by half the width of the sprite
         float xOffset = x * horizontalSpacing + (y % 2 == 0 ? 0 : gridOffset * hexagonWidth);
         float yOffset = y * verticalSpacing;
 

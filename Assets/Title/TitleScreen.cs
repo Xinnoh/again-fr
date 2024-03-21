@@ -12,7 +12,7 @@ public class TitleScreen : MonoBehaviour
     [SerializeField] private float fadeDuration = 1f;
 
     [SerializeField] private Image cover;
-    [SerializeField] private bool tutorialMode;
+    private bool tutorialMode = true;
 
     void Start()
     {
@@ -22,9 +22,21 @@ public class TitleScreen : MonoBehaviour
 
     public void StartPressed()
     {
+        tutorialMode = true;
+        StartCoroutines();
+    }
+
+    public void TutorialSkipped()
+    {
+        tutorialMode = false;
+        StartCoroutines();
+    }
+
+    private void StartCoroutines()
+    {
         StartCoroutine(LoadAsyncScene());
         StartCoroutine(FadeOutAudioSource(audioSource, audioSource.volume / 2, fadeDuration));
-        StartCoroutine(FadeSpriteRenderer(titleCover, fadeDuration)); 
+        StartCoroutine(FadeSpriteRenderer(titleCover, fadeDuration));
     }
 
     public void OptionsPressed()
@@ -77,10 +89,8 @@ public class TitleScreen : MonoBehaviour
 
     IEnumerator LoadAsyncScene()
     {
-        Debug.Log("1");
         yield return StartCoroutine(FadeToBlack());
 
-        Debug.Log("1");
 
         if (tutorialMode)
         {

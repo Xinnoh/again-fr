@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject treasurePrefab;
 
-
+    private Animator animator;
     public PlayerInputActions playerControls;
     private InputAction button1, button2, button3;
 
@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        animator = GetComponent<Animator>();
     }
 
 

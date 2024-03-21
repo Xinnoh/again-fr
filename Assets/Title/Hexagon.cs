@@ -7,13 +7,10 @@ public class Hexagon : MonoBehaviour
     public Hexagon leftNeighbor, rightNeighbor;
     private SpriteRenderer sprite;
 
-    // Flags to control pulse direction
-    public bool pulseLeft, pulseRight;
+    [HideInInspector] public bool pulseLeft, pulseRight;
 
-
-    // Cooldown mechanism
-    private float lastPulseTime = -2.0f; // Initialize to allow immediate pulsing
-    private float pulseCooldown = 2.0f; // 2 seconds cooldown
+    private float lastPulseTime = -2.0f; 
+    private float pulseCooldown = 2.0f;
 
     public bool SignalLeft, SignalRight;
 
@@ -24,12 +21,18 @@ public class Hexagon : MonoBehaviour
     [SerializeField] private float fadeOutRate = .02f;
     [SerializeField] private float fadeInRate = 1f;
 
-    [SerializeField] private float transferDelay = .5f;
+    [SerializeField] private float pulseLength = .5f;
+    [SerializeField] private float transferDelay = .05f;
+
+    private bool canPulse;
+    public int sidePulseChance = 70;
 
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, minOpacity);
+
+        StartCoroutine(CreatePulseDelay());
     }
 
     private void Update()
@@ -50,11 +53,53 @@ public class Hexagon : MonoBehaviour
             float newOpacity = Mathf.Max(sprite.color.a - fadeOutRate * Time.deltaTime, minOpacity);
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, newOpacity);
         }
+
+        if(leftNeighbor == null || rightNeighbor == null)
+        {
+            RandomPulseChance();
+        }
+
     }
+
+
+    private void RandomPulseChance()
+    {
+        if (!canPulse)
+        {
+            return;
+        }
+
+        if(Random.Range(0, sidePulseChance) < 2)
+        {
+            if(leftNeighbor == null)
+            {
+                SignalRight = true;
+                SignalLeft= true;
+            }
+            else
+            {
+                SignalRight = true;
+                SignalLeft = true;
+            }
+
+        }
+
+        StartCoroutine(CreatePulseDelay());
+        
+    }
+
+    IEnumerator CreatePulseDelay()
+    {
+        canPulse = false;
+
+        yield return new WaitForSeconds(Random.Range(.1f, 6f));
+
+        canPulse = true;
+    }
+
 
     public void TriggerPulse(bool fromLeft)
     {
-        // Check if enough time has passed since the last pulse
         if (Time.time - lastPulseTime >= pulseCooldown)
         {
             if (fromLeft && !pulseRight)
@@ -72,9 +117,9 @@ public class Hexagon : MonoBehaviour
     {
 
         StartCoroutine(FadeToMaxOpacity());
-        yield return new WaitForSeconds(0.2f); 
+        yield return new WaitForSeconds(transferDelay); 
         StartPulse();
-        lastPulseTime = Time.time; // Update the time of the last pulse
+        lastPulseTime = Time.time; 
 
         if (pulseDirectionRight)
         {
@@ -87,7 +132,7 @@ public class Hexagon : MonoBehaviour
             if (leftNeighbor != null) leftNeighbor.TriggerPulse(false);
         }
 
-        yield return new WaitForSeconds(transferDelay); // Duration of the pulse
+        yield return new WaitForSeconds(pulseLength); 
         StopPulse();
     }
 

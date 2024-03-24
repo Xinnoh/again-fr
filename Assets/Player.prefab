@@ -723,7 +723,7 @@ SpriteRenderer:
   m_SortingLayerID: 302136019
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c3fce592490ac3c4f884e77330272489, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1489d4739fd103e46a86f43bfe18337e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -850,7 +850,8 @@ MonoBehaviour:
   playerActive: 1
   playerStunned: 0
   playerInvuln: 0
-  stunInvulnTime: 1
+  stunTime: 0.5
+  invulnTime: 1
   treasurePrefab: {fileID: 5668383081558085360, guid: 7b64dc9125cdd1949ab78016ae473cba, type: 3}
 --- !u!114 &9148156652602214409
 MonoBehaviour:
@@ -964,6 +965,7 @@ MonoBehaviour:
   health: 5
   isEnemy: 0
   maxHealth: 0
+  playerIFrames: 0
 --- !u!114 &7382053697582900091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1c812d855a79e45a7f5675607d03a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMoveSpeed: 30
+  cameraMoveSpeed: 50
   gameCover: {fileID: 7636260602944833594}
   mapSprite: {fileID: 2596389286986423081}
   mapCamera: {fileID: 7507000886463040378}

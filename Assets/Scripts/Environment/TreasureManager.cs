@@ -131,6 +131,8 @@ public class TreasureManager : MonoBehaviour
         if (treasureUI != null) treasureUI.SetActive(true);
         if (highlightField != null) highlightField.SetActive(false);
         playerManager.playerActive = false;
+
+        weaponManager.nearTreasure = false;
         StartCoroutine(AnimateCanvasOpen());
 
 

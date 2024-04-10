@@ -40383,7 +40383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notification: {fileID: 870624065}
-  tutorialMessage: Press E while standing over an exit to move forward.
+  tutorialMessage: Press J to exit.
 --- !u!114 &955267644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41538,7 +41538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notification: {fileID: 870624065}
-  tutorialMessage: 
+  tutorialMessage: Defeat all enemies to move forward.
 --- !u!1 &997083200
 GameObject:
   m_ObjectHideFlags: 0
@@ -42585,7 +42585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notification: {fileID: 870624065}
-  tutorialMessage: Press or hold Space to dash
+  tutorialMessage: Press and hold Space to dash
 --- !u!114 &1040755173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49189,7 +49189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notification: {fileID: 870624065}
-  tutorialMessage: Press I O P to attack.
+  tutorialMessage: Press JKL to attack
 --- !u!114 &1420401645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53284,22 +53284,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: rangedList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: bffa99d697d29984dbf711ec48f6edbe, type: 2}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: rangedList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: b16afe9b6feeb5943b733cd6836a0be9, type: 2}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: rangedList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: ae4b860b05a0b7447b04a66e8b5e22eb, type: 2}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: rangedList.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2893b423d605ffb41a6b2c6856bf8687, type: 2}
     - target: {fileID: 6466562473881754280, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
       propertyPath: m_Name
       value: WeaponList
@@ -57631,7 +57615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notification: {fileID: 870624065}
-  tutorialMessage: Press E next to treasure to open it.
+  tutorialMessage: Press J next to treasure to open it.
 --- !u!114 &2030488498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58903,14 +58887,6 @@ PrefabInstance:
     - target: {fileID: 1972086174387670179, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262117408490943129, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.079957604
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262117408490943129, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.10587311
       objectReference: {fileID: 0}
     - target: {fileID: 2330170671739074865, guid: 7ce6acceb15fbe94fb5a1bc9c6c93d55, type: 3}
       propertyPath: m_AnchorMax.y

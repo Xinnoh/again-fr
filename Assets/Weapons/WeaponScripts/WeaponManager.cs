@@ -131,11 +131,10 @@ public class WeaponManager : MonoBehaviour
 
 
         // Use the weapon if we can
-        if (hasEnergy && playerNotAttacking && currentWeapon.exhaust == false && !reloading)
+        if (hasEnergy && playerNotAttacking && currentWeapon.exhaust == false)
         {
             if(nearTreasure == false)
             {
-
                 FireProcess(currentWeapon, curWeapons);
             }
         }
@@ -150,6 +149,7 @@ public class WeaponManager : MonoBehaviour
     // Confirmed Fire
     private void FireProcess(Weapon weaponToFire, Weapon[] curWeapons)
     {
+        reloading = false;
         canShoot = false;
         attackingWeapon = currentWeapon;
 

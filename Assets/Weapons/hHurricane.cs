@@ -42,8 +42,6 @@ public class hHurricane : MeleeBaseState
 
         hitbox.size = originalSize;
 
-        // change the scale of the hitcollider back
-
     }
 
 }

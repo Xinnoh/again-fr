@@ -70,7 +70,7 @@ public class LaserScript : MonoBehaviour
         int combinedLayerMask = wallLayer | enemyLayer;
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(startPosition, aimDirection, maxLength, combinedLayerMask);
-        Vector2 furthestPoint = startPosition + (aimDirection * maxLength); // Default furthest point
+        Vector2 furthestPoint = startPosition + (aimDirection * maxLength) + new Vector2(0f, -.3f); // Default furthest point
 
         bool wallHitDetected = false;
 

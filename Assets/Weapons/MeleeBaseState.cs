@@ -36,6 +36,9 @@ public class MeleeBaseState : State
     // closest enemy direction and distance
     protected Vector2 enemyDirection;
     protected float enemyDistance;
+    protected bool directionPicked;
+
+    protected float saveX, saveY;
 
 
     // have we picked a target (used for attacks that attack over time, prevents switchign)
@@ -58,6 +61,10 @@ public class MeleeBaseState : State
     {
         base.OnEnter(_stateMachine);
         Initialise();
+        if (curWeapon.effectSound != null)
+        {
+            AudioSource.PlayClipAtPoint(curWeapon.effectSound, player.transform.position, 1f);
+        }
 
         targetAcquired = false;
         hasHit = false;
@@ -68,6 +75,9 @@ public class MeleeBaseState : State
         playerAnimate.SetAttacking(true);
 
         duration = playerAnimate.GetAnimationLength();
+        AimTarget();
+
+
     }
 
     protected void Initialise()
@@ -132,6 +142,7 @@ public class MeleeBaseState : State
             if (!collidersDamaged.Contains(collidersToDamage[i]))
             {
                 DamageEnemy(collidersToDamage[i]);
+
             }
         }
     }
@@ -140,14 +151,23 @@ public class MeleeBaseState : State
     {
         TeamComponent hitTeamComponent = collider.GetComponentInChildren<TeamComponent>();
 
+        
+
         if (hitTeamComponent && hitTeamComponent.teamIndex == TeamIndex.Enemy)
         {
+
+
             GameObject.Instantiate(HitEffectPrefab, collider.transform);
 
             Health health = collider.gameObject.GetComponent<Health>();
             if (health != null)
             {
                 health.TakeDamage(curWeapon.damage);
+
+                if (curWeapon.hitSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(curWeapon.hitSound, collider.transform.position, 1f);
+                }
             }
 
             hasHit = true;
@@ -156,7 +176,14 @@ public class MeleeBaseState : State
         }
     }
 
-    
+    protected void AimTarget()
+    {
+        saveX = animator.GetFloat("AimX");
+        saveY = animator.GetFloat("AimY");
+
+        animator.SetFloat("SaveX", saveX);
+        animator.SetFloat("SaveY", saveY);
+    }
 
 
 
@@ -183,7 +210,6 @@ public class MeleeBaseState : State
     }
 
 
-    // Need to change this to RB move to avoid wall phasing
     protected void WeaponMovePlayer()
     {
         Vector2 moveDirection = enemyDirection.normalized;

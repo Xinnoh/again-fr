@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class TitleScreen : MonoBehaviour
 {
     private AudioSource audioSource;
-    public SpriteRenderer titleCover;
 
     [SerializeField] private float fadeDuration = 1f;
 
@@ -36,7 +35,6 @@ public class TitleScreen : MonoBehaviour
     {
         StartCoroutine(LoadAsyncScene());
         StartCoroutine(FadeOutAudioSource(audioSource, audioSource.volume / 2, fadeDuration));
-        StartCoroutine(FadeSpriteRenderer(titleCover, fadeDuration));
     }
 
     public void OptionsPressed()

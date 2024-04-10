@@ -344,6 +344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RepeatMode: 0
+  UseEnemyTable: 0
+  enemies: []
 --- !u!1 &7121412410374177785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,10 +2389,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1280995707556765906}
     m_Modifications:
-    - target: {fileID: 6971467118305346248, guid: 68c4675110e404b47b1805488bf70676, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6971467118305346248, guid: 68c4675110e404b47b1805488bf70676, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1

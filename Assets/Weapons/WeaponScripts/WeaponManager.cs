@@ -37,6 +37,7 @@ public class WeaponManager : MonoBehaviour
     private Weapon currentWeapon;
     private Weapon attackingWeapon;
 
+    public bool nearTreasure = false;
 
     private StateMachine playerStateMachine;
 
@@ -132,7 +133,11 @@ public class WeaponManager : MonoBehaviour
         // Use the weapon if we can
         if (hasEnergy && playerNotAttacking && currentWeapon.exhaust == false && !reloading)
         {
-            FireProcess(currentWeapon, curWeapons);
+            if(nearTreasure == false)
+            {
+
+                FireProcess(currentWeapon, curWeapons);
+            }
         }
     }
 

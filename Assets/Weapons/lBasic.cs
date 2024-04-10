@@ -8,6 +8,7 @@ public class lBasic : MeleeBaseState
     {
         base.OnEnter(_stateMachine);
 
+        duration = .583f;
     }
 
 }

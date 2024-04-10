@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -16,9 +17,17 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float stunTime = .5f;
     [SerializeField] private float invulnTime = 1f;
 
+    private Health health;
+
+    public Canvas gameoverCanvas;
+
+    public CanvasGroup gameoverCanvasGroup;
+
+
     public GameObject treasurePrefab;
 
     private Animator animator;
+    private Inventory inventory;
     public PlayerInputActions playerControls;
     private InputAction button1, button2, button3;
 
@@ -55,6 +64,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Button1(InputAction.CallbackContext context)
     {
+        if (gameOver)
+        {
+            UIContinue();
+            return;
+        }
+
         if (playerActive)
         {
             weaponManager.FireWeapon(1);
@@ -62,6 +77,12 @@ public class PlayerManager : MonoBehaviour
     }
     private void Button2(InputAction.CallbackContext context)
     {
+        if(gameOver)
+        {
+            UIRestart();
+            return;
+        }
+
         if (playerActive)
         {
             weaponManager.FireWeapon(2);
@@ -69,6 +90,12 @@ public class PlayerManager : MonoBehaviour
     }
     private void Button3(InputAction.CallbackContext context)
     {
+        if (gameOver)
+        {
+            UITitleScreen();
+            return;
+        }
+
         if (playerActive)
         {
             weaponManager.FireWeapon(3);
@@ -79,12 +106,81 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         gameOver = false;
+        gameoverCanvasGroup.alpha = 0f;
+
         weaponManager = GetComponent<WeaponManager>();
         wavesCleared = 0;
+        health = GetComponent<Health>();
+        health.health = health.maxHealth;
+        inventory = GetComponent<Inventory>();
     }
     void Update()
     {
         UpdateInvulnStunTimer();
+        UpdateGameover();
+        DebugSuicide();
+    }
+
+    private void DebugSuicide()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            health.TakeDamage(3f);
+        }
+    }
+
+
+
+    private void UpdateGameover()
+    {
+        if (!gameOver)
+            return;
+
+        playerStunned = true;
+        SpawnGameoverUI();
+
+    }
+
+    private void SpawnGameoverUI()
+    {
+        playerActive = false;
+        gameoverCanvasGroup.alpha = 1f;
+
+    }
+
+
+    private void SharedReset()
+    {
+        health.Revive();
+        gameoverCanvasGroup.alpha = 0f;
+        gameOver = false;
+        playerActive = true;
+    }
+
+    public void UIContinue()
+    {
+        SharedReset();
+    }
+
+    public void UIRestart()
+    {
+        inventory.ResetInventory();
+        SharedReset();
+    }
+
+
+    public void UITitleScreen()
+    {
+        inventory.ResetInventory();
+        SharedReset();
+
+        // adding delay for safety
+        StartCoroutine(LoadTitleScreen());
+    }
+    IEnumerator LoadTitleScreen()
+    {
+        yield return new WaitForSeconds(.3f);
+        SceneManager.LoadScene("TitleScreen");
     }
 
 

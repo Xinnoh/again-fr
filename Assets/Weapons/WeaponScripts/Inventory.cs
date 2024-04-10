@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -189,13 +190,23 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void ResetInventory()
+
+    { 
+        weaponList.ClearSavedWeapons();
+        weapons1 = new Weapon[0];
+        weapons2 = new Weapon[0];
+        weapons3 = new Weapon[0];
+        startersEquipped = false;
+        AddStarterWeapons();
+    }
+
 
     private void AddFirstWeapon(InventorySlot slotType)
     {
         Weapon[] sourceArray = GetSourceArray(slotType);
         if (sourceArray != null && sourceArray.Length > 0)
         {
-
             Weapon firstWeaponInstance = Instantiate(sourceArray[0]);
             AddWeaponToInventory(firstWeaponInstance);
         }

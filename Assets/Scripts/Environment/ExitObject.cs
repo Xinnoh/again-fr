@@ -49,7 +49,7 @@ public class ExitObject : MonoBehaviour
         {
             if (highlightField != null) highlightField.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.L))
             {
                 ExitInteraction();
             }

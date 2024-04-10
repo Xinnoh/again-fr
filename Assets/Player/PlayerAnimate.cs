@@ -58,15 +58,17 @@ public class PlayerAnimate : MonoBehaviour
 
     void Update()
     {
-        UpdateMovement();
-        UpdateAimDirection();
-        UpdateState();
+        if(playerManager.playerActive)
+        {
+            UpdateMovement();
+            UpdateAimDirection();
+            UpdateState();
+        }
     }
     
 
 private void UpdateState()
     {
-
         if (playerManager.gameOver)
         {
             ChangeAnimationState(Dead);

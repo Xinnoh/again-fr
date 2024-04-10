@@ -70,7 +70,7 @@ namespace Edgar.Unity.Examples.Gungeon
 
         PlayerManager playerManager;
 
-        private float minimumDistanceFromPlayer = 5.0f; 
+        private float minimumDistanceFromPlayer = 7.0f; 
 
         public void Start()
         {
@@ -135,16 +135,33 @@ namespace Edgar.Unity.Examples.Gungeon
             var enemies = new List<GungeonEnemy>();
             if(Random == null) { return; }
 
-            var totalEnemiesCount = Random.Next(1, 2);
+            var totalEnemiesCount = Random.Next(1,1);
 
-            if (playerManager.WavesCleared < 2)
+            if (playerManager.WavesCleared <= 1)
             {
-                totalEnemiesCount = Random.Next(2, 3);
+                totalEnemiesCount = Random.Next(2, 2);
+            }
+
+            else if (playerManager.WavesCleared <= 3)
+            {
+                totalEnemiesCount = Random.Next(3, 3);
+            }
+
+            else if (playerManager.WavesCleared <= 4)
+            {
+                totalEnemiesCount = Random.Next(4, 4);
+            }
+
+            else if (playerManager.WavesCleared <= 5)
+            {
+                totalEnemiesCount = Random.Next(5, 5);
             }
             else
             {
-                totalEnemiesCount = Random.Next(4, 8);
+                totalEnemiesCount = Random.Next(5, 8);
+
             }
+
 
 
             while (enemies.Count < totalEnemiesCount)
@@ -171,14 +188,14 @@ namespace Edgar.Unity.Examples.Gungeon
                 }
 
 
-                if (roomInfo.UseEnemyTable)
-                {
-
-                }
-
-
                 // Pick random enemy prefab
                 var enemyPrefab = EnemyPrefabs[Random.Next(0, EnemyPrefabs.Length)];
+
+                if (roomInfo.UseEnemyTable)
+                {
+                    enemyPrefab = roomInfo.enemies[0];
+                    totalEnemiesCount = 1;
+                }
 
                 // Create an instance of the enemy and set position and parent
                 var enemy = Instantiate(enemyPrefab, roomInstance.RoomTemplateInstance.transform, true);

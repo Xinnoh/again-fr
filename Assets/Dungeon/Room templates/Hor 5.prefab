@@ -2467,6 +2467,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2741842811693107469, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5373529766854804978, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5997988452506104669, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1234031832, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
+    - target: {fileID: 8110086309861232590, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1234031832, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
     - target: {fileID: 8342323426700339885, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
       propertyPath: m_Name
       value: Door

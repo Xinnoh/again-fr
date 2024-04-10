@@ -62,7 +62,7 @@ public class LaserScript : MonoBehaviour
             aimDirection = aimScript.GetAimVector();
         }
 
-        Vector2 startPosition = muzzlePoint.position;
+        Vector2 startPosition = muzzlePoint.position + new Vector3(0f, .7f, 0f);
 
         // Combine layer masks for enemies and walls
         int wallLayer = LayerMask.GetMask("Wall");
@@ -116,12 +116,17 @@ public class LaserScript : MonoBehaviour
                 Health enemyHealth = hit.collider.GetComponent<Health>();
                 if (enemyHealth != null)
                 {
-                    if(enemyHealth.health <= baseDamage)
+                    if(enemyHealth.health <= 0f)
                     {
                         stopAiming = true;
                     }
                     float damageAmount = baseDamage * Time.fixedDeltaTime; // baseDamage is your desired damage per second
                     enemyHealth.TakeDamage(damageAmount);
+                }
+
+                else
+                { 
+                    stopAiming = true;
                 }
             }
         }

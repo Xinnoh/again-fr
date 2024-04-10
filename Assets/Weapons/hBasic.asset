@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
   m_Name: hBasic
   m_EditorClassIdentifier: 
-  name: Heavy
-  description: Slow weapon
+  name: Hammer
+  description: Slow and powerful
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
   weaponState: hBasic
   ID: 2
   inventorySlot: 1
   rarity: 0
   cost: 6
-  damage: 5
+  damage: 3
   exhaust: 0
   hitStun: 0
-  recoverTime: 0.8
-  speedMultiplier: 0.37
+  recoverTime: 1.3
+  speedMultiplier: 0.22
   isProjectile: 0
   hitbox: {fileID: 6776449329136425971, guid: 8d0eafbb3f0bc7742adac0ea7a3efbf3, type: 3}
   hitboxSpeed: 2
@@ -34,5 +34,9 @@ MonoBehaviour:
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 1
+  fireDistance: 10
   momentum: 0
   momentumDelay: 0
+  effectSound: {fileID: 8300000, guid: 96fd3afa11041a44586f6e40a003cb0a, type: 3}
+  effectDelay: 0
+  hitSound: {fileID: 8300000, guid: 2d4f8be90fb2a414f90b884111f55687, type: 3}

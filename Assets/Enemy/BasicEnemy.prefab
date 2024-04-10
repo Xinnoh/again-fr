@@ -361,7 +361,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3.26
+  m_Radius: 3.71
 --- !u!50 &1132946772398305628
 Rigidbody2D:
   serializedVersion: 4
@@ -401,6 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ef46f04452cab45ae3d115fa5bf3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
+  hasSpawned: 1
   debugMode: 0
   playerBuffer: 2
   retreatDistance: 1
@@ -6004,8 +6006,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209b0e8f5de72e8499951e93683b6160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   hitboxContainer: {fileID: 7130038908469643390}
   hitbox: {fileID: 4490873576791490829}
+  bossAttackSpeed: 0.9
+  hasSpawned: 0
 --- !u!1 &8917180680224629235
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class BasicAI : MonoBehaviour
 
     #region variables
 
+    public bool isBoss;
+    public bool notSpawned = true;
 
     [Header("Spawn Properties")]
     private Vector2 spawnPos;
@@ -91,6 +93,9 @@ public class BasicAI : MonoBehaviour
     private Coroutine retreatCoroutine;
     private EnemyAnimate enemyAnimate;
 
+    private PlayerManager playerManager;
+
+
     #endregion
 
 
@@ -114,12 +119,18 @@ public class BasicAI : MonoBehaviour
         originalBufferDistance = playerBuffer;
 
         lastAttackTime = Time.time - attackCooldown;
+        playerManager = player.GetComponent<PlayerManager>();
     }
     
 
     void FixedUpdate()
     {
-        // StrafeChangeDirection();
+
+
+        if(isRangedEnemy)
+        {
+            StrafeChangeDirection();
+        }
 
         if (isStunned)
         {
@@ -128,7 +139,10 @@ public class BasicAI : MonoBehaviour
 
         else
         {
-            InteractPlayer();
+            if(playerManager.gameOver == false)
+            {
+                InteractPlayer();
+            }
         }
 
         #region debug mode
@@ -139,6 +153,10 @@ public class BasicAI : MonoBehaviour
         #endregion
 
     }
+
+
+
+
 
     private void UpdateStunTimer()
     {
@@ -258,9 +276,14 @@ public class BasicAI : MonoBehaviour
 
         }
 
-        agent.SetDestination(transform.position);
-        attacking = true;
-        enemyAnimate.AttackAnimation(direction);
+        else
+        {
+            agent.SetDestination(transform.position);
+            attacking = true;
+            enemyAnimate.AttackAnimation(direction);
+
+        }
+
     }
 
     public void StopAttack()

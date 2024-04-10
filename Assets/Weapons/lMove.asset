@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
   m_Name: lMove
   m_EditorClassIdentifier: 
-  name: Shoulder Charge
+  name: Hurricane Kick
   description: Rushes towards the enemy
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
   weaponState: lMove
@@ -20,20 +20,23 @@ MonoBehaviour:
   inventorySlot: 0
   rarity: 0
   cost: 7
-  damage: 1
-  exhaust: 0
+  damage: 2
+  exhaust: 1
   hitStun: 0.3
   recoverTime: 1.5
   speedMultiplier: 0
-  isProjectile: 1
+  isProjectile: 0
   hitbox: {fileID: 6776449329136425971, guid: a9c15742617fce64a844fb2a83b81487, type: 3}
   hitboxSpeed: 4
-  duration: 2
+  duration: 1.5
   spawnDelay: 0
   bulletCount: 1
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 0
   fireDistance: 10
-  momentum: 10
-  momentumDelay: 0.15
+  momentum: 14
+  momentumDelay: 0.1
+  effectSound: {fileID: 0}
+  effectDelay: 0
+  hitSound: {fileID: 0}

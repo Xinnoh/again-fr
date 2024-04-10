@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: lBasic
   m_EditorClassIdentifier: 
   name: Punch
-  description: simple
+  description: Fast and simple
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
   weaponState: lBasic
   ID: 1
   inventorySlot: 0
   rarity: 0
   cost: 8
-  damage: 2
+  damage: 1.5
   exhaust: 0
   hitStun: 0
-  recoverTime: 0.2
-  speedMultiplier: 0.186
+  recoverTime: 0.15
+  speedMultiplier: 0.89
   isProjectile: 0
   hitbox: {fileID: 6776449329136425971, guid: 0dcac6b54ed622f48b971f8bae20cdef, type: 3}
   hitboxSpeed: 3
-  duration: 0.3
+  duration: 0.5
   spawnDelay: 0.1
   bulletCount: 1
   bulletSpread: 0
@@ -37,3 +37,6 @@ MonoBehaviour:
   fireDistance: 10
   momentum: 0
   momentumDelay: 0
+  effectSound: {fileID: 0}
+  effectDelay: 0
+  hitSound: {fileID: 8300000, guid: 721e93e5b651d72428c21643ac9eca72, type: 3}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154663b7611d48f41b1d03cd33aa5e19, type: 3}
   m_Name: gBasic
   m_EditorClassIdentifier: 
-  name: Gun
-  description: Basic gun
+  name: Recoil Gun
+  description: Short range, high knockback
   artwork: {fileID: 21300000, guid: 8fdb701d1ce29424aa41ae3758f23a0a, type: 3}
   weaponState: gBasic
   ID: 3
@@ -34,5 +34,9 @@ MonoBehaviour:
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 0
-  momentum: 0
+  fireDistance: 6
+  momentum: -6
   momentumDelay: 0
+  effectSound: {fileID: 8300000, guid: a07c86179dcb7634caee7281f5b26914, type: 3}
+  effectDelay: 0
+  hitSound: {fileID: 0}

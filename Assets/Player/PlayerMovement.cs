@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxDashSpeed = 0.5f;
     public int maxDashes = 2;
     public ParticleSystem dashParticles;
+    public AudioClip dashSound;
 
     [Header("Recharge")]
     [SerializeField] private float dashRecoveryTime = 1.5f; // Delay before recharge
@@ -96,18 +97,24 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        UpdateMoveDirection();
-        UpdateDash();
+        if (playerManager.playerActive)
+        {
+            UpdateMoveDirection();
+            UpdateDash();
+        }
     }
 
     void FixedUpdate()
     {
-        UpdateMovement();
+        if(playerManager.playerActive)
+        {
+            UpdateMovement();
+        }
     }
 
     private void UpdateMoveDirection()
     {
-        if (playerManager.playerActive && moveEnabled)
+        if (moveEnabled)
         {
             moveDirection = move.ReadValue<Vector2>();
 
@@ -125,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context)
     {
-        if (!isDashing && !isPreDashing && currentDashes > 0)
+        if (!isDashing && !isPreDashing && currentDashes > maxDashes / 3f)
         {
             StartCoroutine(PreDash());
         }
@@ -232,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartDash()
     {
+        AudioSource.PlayClipAtPoint(dashSound, transform.position, 1f);
         isDashing = true;
         currentDashTime = 0f;
         dashDirectionHoldTime = 0f; // ???

@@ -79,7 +79,6 @@ public class Health : MonoBehaviour
                 return;
             }
 
-            Debug.Log(damage + "taken");
 
             health -= damage;
             playerManager.HitStun();
@@ -89,10 +88,18 @@ public class Health : MonoBehaviour
 
     }
 
-    IEnumerator InvulnerabilityPeriod()
+    // For player revive
+    public void Revive()
+    {
+        health = maxHealth;
+        playerUI.UpdateHealth();
+        StartCoroutine(InvulnerabilityPeriod(2f));
+    }
+
+    IEnumerator InvulnerabilityPeriod(float iFrames)
     {
         playerManager.playerInvuln = true;
-        yield return new WaitForSeconds(playerIFrames);
+        yield return new WaitForSeconds(iFrames);
         playerManager.playerInvuln = false;
     }
 

@@ -20,6 +20,7 @@ public class TreasureManager : MonoBehaviour
 
     public GameObject treasureUI;
     private PlayerManager playerManager;
+    private WeaponManager weaponManager;
     private GameObject player;
     public bool hasInteracted = false;
     private CanvasGroup canvasGroup;
@@ -68,6 +69,7 @@ public class TreasureManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player"); 
         playerManager = player.GetComponent<PlayerManager>();
+        weaponManager = player.GetComponent<WeaponManager>();
 
         AddWeapons(); // Put random weapons in the chest
 
@@ -99,19 +101,22 @@ public class TreasureManager : MonoBehaviour
         {
             if (!hasInteracted)
             {
-                if (highlightField != null) highlightField.SetActive(true);
-
-                if (Input.GetKeyDown(KeyCode.E))
+                if (highlightField != null)
                 {
-                    OnTreasureInteracted();
+                    weaponManager.nearTreasure = true;
+                    highlightField.SetActive(true);
                 }
+
             }
         }
 
         else
         {
             if (highlightField != null)
+            {
+                weaponManager.nearTreasure = false;
                 highlightField.SetActive(false);
+            }
         }
     }
 
@@ -234,6 +239,14 @@ public class TreasureManager : MonoBehaviour
     // Called when the player selects an item
     public void ButtonInput(int button)
     {
+
+        if(hasInteracted == false)
+        {
+            OnTreasureInteracted();
+            return;
+        }
+
+
         if (isFadingOut) return;
         isFadingOut = true;
 

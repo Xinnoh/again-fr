@@ -2427,7 +2427,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 12
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2507,7 +2507,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 11
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2526,8 +2526,8 @@ Tilemap:
     m_Data: {fileID: 1158928569, guid: 4465844f470cf0342a51e5453272aaa9, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -250857291, guid: 4465844f470cf0342a51e5453272aaa9, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
@@ -2541,9 +2541,9 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
+    m_Data: {fileID: -250857291, guid: 4465844f470cf0342a51e5453272aaa9, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: -1452967010, guid: 4465844f470cf0342a51e5453272aaa9, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 8
     m_Data: {fileID: -1107098305, guid: 43d48762373f59543a5b1a42568f680c, type: 3}
   - m_RefCount: 1
@@ -2834,7 +2834,9 @@ PrefabInstance:
       value: Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4723417006547049379, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
+    - {fileID: 649957184561069302, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 228f0a28c0906cc429d33df3e49e68c9, type: 3}

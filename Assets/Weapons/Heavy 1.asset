@@ -23,7 +23,7 @@ MonoBehaviour:
   damage: 5
   exhaust: 0
   hitStun: 0
-  recoverTime: 1
+  recoverTime: 1.4
   speedMultiplier: 0.713
   isProjectile: 0
   hitbox: {fileID: 6776449329136425971, guid: 8d0eafbb3f0bc7742adac0ea7a3efbf3, type: 3}
@@ -34,5 +34,6 @@ MonoBehaviour:
   bulletSpread: 0
   fireInterval: 0
   distanceOffset: 1
+  fireDistance: 10
   momentum: 0
   momentumDelay: 0

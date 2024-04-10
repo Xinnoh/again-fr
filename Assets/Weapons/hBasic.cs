@@ -7,6 +7,7 @@ public class hBasic : MeleeBaseState
     public override void OnEnter(StateMachine _stateMachine)
     {
         base.OnEnter(_stateMachine);
+        duration = 1.4f;
     }
 
 }

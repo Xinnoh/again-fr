@@ -12,6 +12,7 @@ public class EnemyAnimate : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
 
+    public bool isBoss;
 
     private Vector2 movement;
     private float speed;
@@ -29,6 +30,7 @@ public class EnemyAnimate : MonoBehaviour
     private bool attackActive;
     private GameObject player;
     private CircleCollider2D playerCollider;
+    public float bossAttackSpeed = .9f;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +86,10 @@ public class EnemyAnimate : MonoBehaviour
             }
 
             animator.speed = 1f;
+            if (isBoss)
+            {
+                animator.speed = bossAttackSpeed;
+            }
         }
 
     }
@@ -175,6 +181,10 @@ public class EnemyAnimate : MonoBehaviour
         animator.SetFloat("AttackY", aimDirY);
         ChangeAnimationState(Attack);
         animator.speed = 1f;
+        if (isBoss)
+        {
+            animator.speed = bossAttackSpeed;
+        }
 
         /*
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -186,6 +196,7 @@ public class EnemyAnimate : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, roundedAngle - 90); 
         hitboxContainer.transform.rotation = targetRotation;
         */
+
         hitbox.SetActive(true);
     }
 
@@ -233,11 +244,19 @@ public class EnemyAnimate : MonoBehaviour
         {
             float speed = agent.velocity.magnitude;
             float animationSpeed = Mathf.Clamp(speed, 0.1f, 1f);
+            if (isBoss)
+            {
+                animationSpeed = Mathf.Clamp(speed, 0.1f, .5f);
+            }
             animator.speed = animationSpeed;
         }
         else
         {
             animator.speed = 1f;
+            if (isBoss)
+            {
+                animator.speed = .7f;
+            }
         }
     }
 }

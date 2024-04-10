@@ -91,4 +91,17 @@ public class Weapon : ScriptableObject
     [Tooltip("Delay before momentum effect takes place.")]
     public float momentumDelay;
 
+
+    [Header("Extras")]
+
+    [Tooltip("Plays when you attack")]
+    public AudioClip effectSound;
+
+    [Tooltip("Delay before playing sound")]
+    public float effectDelay;
+
+
+    [Tooltip("What you hear when your attack connects")]
+    public AudioClip hitSound;
+
 }

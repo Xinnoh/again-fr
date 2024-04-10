@@ -35,7 +35,7 @@ MonoBehaviour:
   fireInterval: 0
   distanceOffset: 0
   fireDistance: 10
-  momentum: 14
+  momentum: 20
   momentumDelay: 0.1
   effectSound: {fileID: 0}
   effectDelay: 0

@@ -40,6 +40,8 @@ public class PlayerAnimate : MonoBehaviour
     private static readonly int Stunned = Animator.StringToHash("Stunned");
     private static readonly int Dead = Animator.StringToHash("Dead");
 
+    private static readonly int hHurricane = Animator.StringToHash("hHurricane");
+
     private static readonly Dictionary<string, int> animationStates = new Dictionary<string, int>();
 
     private int currentState;

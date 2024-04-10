@@ -4914,14 +4914,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: lightList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: fba4d76bcb2fac14b96b7c7166b0c1f3, type: 2}
-    - target: {fileID: 5389915514333369073, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
-      propertyPath: lightList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 02bc8d83d0ad4db4da4a1ac1261ffdf4, type: 2}
     - target: {fileID: 6466562473881754280, guid: a2174cafd57114d4b937e02fbaa24346, type: 3}
       propertyPath: m_Name
       value: WeaponList

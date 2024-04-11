@@ -66,7 +66,7 @@ public class HitboxRotate : MonoBehaviour
         }
         else
         {
-            hitboxVisual.color = new Color(hitboxVisual.color.r, hitboxVisual.color.g, hitboxVisual.color.b, 0.1f);
+            hitboxVisual.color = new Color(hitboxVisual.color.r, hitboxVisual.color.g, hitboxVisual.color.b, 0f);
         }
     }
 

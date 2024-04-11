@@ -156,10 +156,18 @@ namespace Edgar.Unity.Examples.Gungeon
             {
                 totalEnemiesCount = Random.Next(5, 5);
             }
-            else
-            {
-                totalEnemiesCount = Random.Next(5, 8);
 
+            else if (playerManager.WavesCleared <= 8)
+            {
+                totalEnemiesCount = Random.Next(5, 7);
+            }
+            else if (playerManager.WavesCleared <= 14)
+            {
+                totalEnemiesCount = Random.Next(6, 8);
+            }
+            else 
+            {
+                totalEnemiesCount = Random.Next(10, playerManager.WavesCleared);
             }
 
 

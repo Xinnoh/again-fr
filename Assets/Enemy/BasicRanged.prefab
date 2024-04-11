@@ -401,21 +401,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ef46f04452cab45ae3d115fa5bf3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
+  notSpawned: 1
   debugMode: 0
   playerBuffer: 8
   retreatDistance: 4
-  attackRange: 14
-  attackCooldown: 2
-  attackTime: 0.7
-  intervalRandomness: 1
+  attackRange: 12
+  attackCooldown: 1.2
+  attackTime: 0
+  intervalRandomness: 0.5
   attackDamage: 1
   isRangedEnemy: 1
   projectilePrefab: {fileID: 6776449329136425971, guid: ac67644b21d68804da96d87abd649164, type: 3}
-  bulletSpeed: 5
-  strafeChance: 0.8
+  bulletSpeed: 6
+  strafeChance: 0.7
   minStrafeChangeInterval: 0.8
   maxStrafeChangeInterval: 2
-  strafeDistance: 10
+  strafeDistance: 8
   minMovementThreshold: 0.1
   retreating: 0
   isStunned: 0
@@ -6004,8 +6006,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209b0e8f5de72e8499951e93683b6160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   hitboxContainer: {fileID: 7130038908469643390}
   hitbox: {fileID: 4490873576791490829}
+  bossAttackSpeed: 0.9
 --- !u!1 &8917180680224629235
 GameObject:
   m_ObjectHideFlags: 0

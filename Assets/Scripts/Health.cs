@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     private PlayerManager playerManager;
     private HealthBarEnemy healthBar;
     private UiManager playerUI;
+    public AudioClip damageSound;
 
     [SerializeField] private float playerIFrames;
 
@@ -79,6 +80,10 @@ public class Health : MonoBehaviour
                 return;
             }
 
+            if(damageSound != null)
+            {
+                AudioSource.PlayClipAtPoint(damageSound, transform.position, 1f);
+            }
 
             health -= damage;
             playerManager.HitStun();
